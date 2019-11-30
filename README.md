@@ -1,6 +1,6 @@
 # JW Platform API Client
 
-The JWPlatform PHP library provides convenient access to the
+The JWPlatform library provides convenient access to the
 [JW Platform](https://www.jwplayer.com/products/jwplatform/)
 Management API from applications written in the Java language.
 
@@ -35,16 +35,27 @@ public class JWPlatformClientExample {
         String apiSecret = "secret";
 
         String videosCreatePath = "videos/create";
-        Map<String, String> params = new HashMap<String, Object>();
-        params.put("sourcetype", "url");
-        params.put("sourceformat", "mp4");
-        params.put("sourceurl", "http://www.some-url.com/some-video.mp4");
-        params.put("title", "Some Video Title");
+        Map<String, String> videosCreateParams = new HashMap<String, Object>();
+        videosCreateParams.put("sourcetype", "url");
+        videosCreateParams.put("sourceformat", "mp4");
+        videosCreateParams.put("sourceurl", "http://www.some-url.com/some-video.mp4");
+        videosCreateParams.put("title", "Some Video Title");
 
-        try {
+        String videosShowPath = "/videos/show";
+        
+        try {            
             JWPlatformClient client = JWPlatformClient.create(apiKey, apiSecret);
-            JSONObject response = client.request(videosCreatePath, params);
-            System.out.println(response);
+            
+            // Create a video asset
+            JSONObject videosCreateResponse = client.request(videosCreatePath, videosCreateParams);
+            System.out.println(videosCreateResponse);
+            
+            // Show the properties of the created video
+            String videoKey = response.getJSONObject("video").get("Key");
+            Map<String, String> videosShowParams = new HashMap<String, Object>();
+            videosShowParams.put("video_key", videoKey);
+            JSONObject videosShowResponse = client.request(videosShowPath, videosShowParams);
+            System.out.println(videosShowResponse);
         } catch (JWPlatformException e) {
             e.printStackTrace();
         }
@@ -59,4 +70,4 @@ See the [Change Log](CHANGELOG.md) for recent changes.
 ## License
 
 JW Platform API library is distributed under the
-[MIT license](LICENSE).
+[Apache 2 license](LICENSE).
