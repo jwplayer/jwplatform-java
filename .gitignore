@@ -1,0 +1,9 @@
+*.swp
+.classpath
+.project
+.settings
+tags
+target
+.idea
+*.iml
+.DS_Store
