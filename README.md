@@ -30,12 +30,12 @@ import com.jwplayer.jwplatform.exception.JWPlatformException;
 
 public class JWPlatformClientExample {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         String apiKey = "key";
         String apiSecret = "secret";
 
         String videosCreatePath = "videos/create";
-        Map<String, String> videosCreateParams = new HashMap<String, Object>();
+        Map<String, String> videosCreateParams = new HashMap<>();
         videosCreateParams.put("sourcetype", "url");
         videosCreateParams.put("sourceformat", "mp4");
         videosCreateParams.put("sourceurl", "http://www.some-url.com/some-video.mp4");
@@ -51,8 +51,8 @@ public class JWPlatformClientExample {
             System.out.println(videosCreateResponse);
             
             // Show the properties of the created video
-            String videoKey = response.getJSONObject("video").get("Key");
-            Map<String, String> videosShowParams = new HashMap<String, Object>();
+            String videoKey = videosCreateResponse.getJSONObject("video").get("Key").toString();
+            Map<String, String> videosShowParams = new HashMap<>();
             videosShowParams.put("video_key", videoKey);
             JSONObject videosShowResponse = client.request(videosShowPath, videosShowParams);
             System.out.println(videosShowResponse);

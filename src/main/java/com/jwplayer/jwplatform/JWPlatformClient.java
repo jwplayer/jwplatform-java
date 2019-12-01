@@ -32,7 +32,7 @@ import com.mashape.unirest.request.GetRequest;
  */
 public class JWPlatformClient {
 
-  private final String host = "api.jwplatform.com/v1";
+  private final String host = "https://api.jwplatform.com/v1";
 
   private final String apiSecret;
   private final String apiKey;
