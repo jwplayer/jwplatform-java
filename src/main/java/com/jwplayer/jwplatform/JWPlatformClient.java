@@ -32,7 +32,7 @@ import com.mashape.unirest.request.GetRequest;
  */
 public class JWPlatformClient {
 
-  private final String host = "https://api.jwplatform.com/v1";
+  private final String host = "https://api.jwplatform.com/v1/";
 
   private final String apiSecret;
   private final String apiKey;
@@ -153,7 +153,7 @@ public class JWPlatformClient {
     encodedParams.append(this.apiSecret);
     final String hexDigest = DigestUtils.sha1Hex(encodedParams.toString());
 
-    return host + '/' + path + "?" + paramsNoSignature + "&api_signature=" + hexDigest;
+    return host + path + "?" + paramsNoSignature + "&api_signature=" + hexDigest;
   }
 
   /**

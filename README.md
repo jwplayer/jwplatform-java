@@ -41,7 +41,7 @@ public class JWPlatformClientExample {
         videosCreateParams.put("sourceurl", "http://www.some-url.com/some-video.mp4");
         videosCreateParams.put("title", "Some Video Title");
 
-        String videosShowPath = "/videos/show";
+        String videosShowPath = "videos/show";
         
         try {            
             JWPlatformClient client = JWPlatformClient.create(apiKey, apiSecret);
@@ -51,7 +51,7 @@ public class JWPlatformClientExample {
             System.out.println(videosCreateResponse);
             
             // Show the properties of the created video
-            String videoKey = videosCreateResponse.getJSONObject("video").get("Key").toString();
+            String videoKey = videosCreateResponse.getJSONObject("video").get("key").toString();
             Map<String, String> videosShowParams = new HashMap<>();
             videosShowParams.put("video_key", videoKey);
             JSONObject videosShowResponse = client.request(videosShowPath, videosShowParams);
