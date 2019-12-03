@@ -68,7 +68,7 @@ public class MediaAPIExceptionFactory {
         throw new JWPlatformTimestampInvalidException(message);
       case "NonceInvalid":
         throw new JWPlatformNonceInvalidException(message);
-      case "SignatureMissingEr":
+      case "SignatureMissing":
         throw new JWPlatformSignatureMissingErException(message);
       case "SignatureInvalid":
         throw new JWPlatformSignatureInvalidException(message);
