@@ -90,6 +90,7 @@ public class TestJWPlatformClient {
     mediaAPIClient.request(path);
   }
 
+
   @Test(expected = MediaAPIExceptionFactory.JWPlatformUnknownException.class)
   public void testRequestUnirestException() throws Exception {
     final JWPlatformClient mediaAPIClient = JWPlatformClient.create(apiKey, apiSecret);

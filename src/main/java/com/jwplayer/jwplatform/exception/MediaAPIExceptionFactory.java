@@ -444,14 +444,14 @@ public class MediaAPIExceptionFactory {
   }
 
   /** Class for a signature missing exception. */
-  public static class JWPlatformSignatureMissingErException extends JWPlatformException {
+  public static class JWPlatformSignatureMissingException extends JWPlatformException {
 
     /**
      * Instance of a signature missing exception.
      *
      * @param message - exception message
      */
-    public JWPlatformSignatureMissingErException(final String message) {
+    public JWPlatformSignatureMissingException(final String message) {
       super(message);
     }
   }

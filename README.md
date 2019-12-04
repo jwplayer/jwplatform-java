@@ -64,6 +64,12 @@ public class JWPlatformClientExample {
 
 ```
 
+=======
+## Supported operations
+
+All API methods documentated on the API are available in this client. 
+Please refer to our [api documentation](https://developer.jwplayer.com/jwplayer/reference).
+
 ## ChangeLog 
 See the [Change Log](CHANGELOG.md) for recent changes.
 

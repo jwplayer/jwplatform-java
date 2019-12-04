@@ -95,7 +95,7 @@ public class JWPlatformClient {
    *
    * @param request - a {@code GetRequest} object
    * @return - {@code HTTPResponse} if request was successful
-   * @throws JWPlatformException -
+   * @throws JWPlatformException - API returned an exception
    */
   private HttpResponse<JsonNode> buildResponse(final GetRequest request)
       throws JWPlatformException {
