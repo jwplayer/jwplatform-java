@@ -64,6 +64,7 @@ public class JWPlatformClientExample {
 
 ```
 
+=======
 ## Supported operations
 
 All API methods documentated on the API are available in this client. 

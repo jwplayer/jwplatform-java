@@ -90,22 +90,6 @@ public class TestJWPlatformClient {
     mediaAPIClient.request(path);
   }
 
-  @Test(expected = MediaAPIExceptionFactory.JWPlatformNotFoundException.class)
-  public void testRequestNon200ResponseJWException() throws Exception {
-    final JWPlatformClient mediaAPIClient = JWPlatformClient.create(apiKey, apiSecret);
-    final HttpResponse httpResponse = PowerMockito.mock(HttpResponse.class);
-    final GetRequest getRequest = PowerMockito.mock(GetRequest.class);
-    final JsonNode non200ResponseBody = new JsonNode("{\"code\":\"NotFoundError\"}");
-    mockStatic(Unirest.class);
-
-    when(Unirest.get(anyString())).thenReturn(getRequest);
-    when(getRequest.headers(anyMap())).thenReturn(getRequest);
-    when(getRequest.asJson()).thenReturn(httpResponse);
-    when(httpResponse.getStatus()).thenReturn(418);
-    when(httpResponse.getBody()).thenReturn(non200ResponseBody);
-
-    mediaAPIClient.request(path);
-  }
 
   @Test(expected = MediaAPIExceptionFactory.JWPlatformUnknownException.class)
   public void testRequestUnirestException() throws Exception {
