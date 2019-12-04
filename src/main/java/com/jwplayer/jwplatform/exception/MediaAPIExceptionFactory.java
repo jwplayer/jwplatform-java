@@ -69,7 +69,7 @@ public class MediaAPIExceptionFactory {
       case "NonceInvalid":
         throw new JWPlatformNonceInvalidException(message);
       case "SignatureMissing":
-        throw new JWPlatformSignatureMissingErException(message);
+        throw new JWPlatformSignatureMissingException(message);
       case "SignatureInvalid":
         throw new JWPlatformSignatureInvalidException(message);
       case "RateLimitExceeded":

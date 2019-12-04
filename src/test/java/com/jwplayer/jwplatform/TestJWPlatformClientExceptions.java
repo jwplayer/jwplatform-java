@@ -65,7 +65,7 @@ public class TestJWPlatformClientExceptions {
                         {"TimestampMissing", MediaAPIExceptionFactory.JWPlatformTimestampMissingException.class},
                         {"TimestampInvalid", MediaAPIExceptionFactory.JWPlatformTimestampInvalidException.class},
                         {"NonceInvalid", MediaAPIExceptionFactory.JWPlatformNonceInvalidException.class},
-                        {"SignatureMissing", MediaAPIExceptionFactory.JWPlatformSignatureMissingErException.class},
+                        {"SignatureMissing", MediaAPIExceptionFactory.JWPlatformSignatureMissingException.class},
                         {"SignatureInvalid", MediaAPIExceptionFactory.JWPlatformSignatureInvalidException.class},
                         {"RateLimitExceeded", MediaAPIExceptionFactory.JWPlatformRateLimitExceededException.class}
                 });

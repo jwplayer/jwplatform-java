@@ -8,21 +8,19 @@ import static org.mockito.Mockito.contains;
 import static org.mockito.Mockito.when;
 import static org.powermock.api.mockito.PowerMockito.mockStatic;
 
-import java.util.HashMap;
-
-import org.json.JSONObject;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.powermock.api.mockito.PowerMockito;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
-
 import com.jwplayer.jwplatform.exception.MediaAPIExceptionFactory;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import com.mashape.unirest.request.GetRequest;
+import java.util.HashMap;
+import org.json.JSONObject;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({Unirest.class, HttpResponse.class})
@@ -89,7 +87,6 @@ public class TestJWPlatformClient {
 
     mediaAPIClient.request(path);
   }
-
 
   @Test(expected = MediaAPIExceptionFactory.JWPlatformUnknownException.class)
   public void testRequestUnirestException() throws Exception {
