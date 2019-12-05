@@ -56,7 +56,7 @@ public class MediaAPIExceptionFactory {
     throw exception;
   }
 
-  /** Class for an not found exception. */
+  /** Class for an unknown exception. */
   public static class JWPlatformUnknownException extends JWPlatformException {
 
     public JWPlatformUnknownException(){
