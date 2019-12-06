@@ -77,15 +77,20 @@ public class JWPlatformClient {
    *
    * @param stringToEncode - the {@code String} to be URL Encoded.
    * @return - JW Platform API compliant encoded {@code String}
-   * @throws UnsupportedEncodingException - an exception occurred trying to encode the requested
+   * @throws JWPlatformException - an exception occurred trying to encode the requested
    *     {@code String}
    */
   private String encodeStringForJWPlatformAPI(final String stringToEncode)
-      throws UnsupportedEncodingException {
-    final String encodedValue = URLEncoder.encode(stringToEncode, "utf-8");
+          throws JWPlatformException {
+    try {
+      final String encodedValue = URLEncoder.encode(stringToEncode, "utf-8");
 
-    // string replacements to align with the API
-    return encodedValue.replace("%7E", "~").replace("*", "%2A").replace("+", "%20");
+      // string replacements to align with the API
+      return encodedValue.replace("%7E", "~").replace("*", "%2A").replace("+", "%20");
+    } catch (final UnsupportedEncodingException e) {
+      throw new MediaAPIExceptionFactory.JWPlatformUnknownException(
+              String.format("Exception thrown encoding URL parameter %s", e.toString()));
+    }
   }
 
   /**
@@ -95,14 +100,13 @@ public class JWPlatformClient {
    * @return - {@code HTTPResponse} if request was successful
    * @throws JWPlatformException - API returned an exception
    */
-  private HttpResponse<JsonNode> buildResponse(final GetRequest request)
-      throws JWPlatformException {
-    final HttpResponse<JsonNode> response;
+  private HttpResponse<JsonNode> buildResponse(final GetRequest request) throws JWPlatformException {
+    HttpResponse<JsonNode> response;
     try {
       response = request.asJson();
     } catch (final UnirestException e) {
       throw new MediaAPIExceptionFactory.JWPlatformUnknownException(
-          "Non-JSON response from server: " + e.toString());
+              String.format("Non-JSON response from server: %s", e.toString()));
     }
     if (response.getStatus() != 200) {
       try {
@@ -110,9 +114,9 @@ public class JWPlatformClient {
         final String message = response.getBody().getObject().toString(2);
         MediaAPIExceptionFactory.throwJWPlatformException(
             StringUtils.stripEnd(errorType, "Error"), message);
-      } catch (JSONException e) {
+      } catch (final JSONException e) {
         throw new MediaAPIExceptionFactory.JWPlatformUnknownException(
-            "Unknown JSONException thrown: " + e.toString());
+                String.format("Unknown JSONException thrown: %s", e.toString()));
       }
     }
 
@@ -125,11 +129,11 @@ public class JWPlatformClient {
    * @param path - endpoint to be used in API request
    * @param params - Parameters to be included in the request
    * @return - Fully formed request URL for an API request with api signature
-   * @throws UnsupportedEncodingException - an exception occurred during encoding
+   * @throws JWPlatformException - an exception occurred during encoding
    */
   private String buildRequestUrl(
       final String host, final String path, final Map<String, String> params)
-      throws UnsupportedEncodingException {
+      throws JWPlatformException {
     final TreeMap<String, String> orderedParams = new TreeMap<>(params);
     orderedParams.put("api_key", this.apiKey);
     orderedParams.put("api_format", "json");
@@ -162,11 +166,9 @@ public class JWPlatformClient {
    *
    * @param path - endpoint to be used in API request
    * @return - JSON response from JW Platform API
-   * @throws UnsupportedEncodingException - exception during encoding
-   * @throws JWPlatformException - API returned an exception
+   * @throws JWPlatformException - JWPlatform API returned an exception
    */
-  public JSONObject request(final String path)
-      throws JWPlatformException, UnsupportedEncodingException {
+  public JSONObject request(final String path) throws JWPlatformException {
     return this.request(path, new HashMap<>());
   }
 
@@ -179,11 +181,9 @@ public class JWPlatformClient {
    * @param path - endpoint to be used in API request
    * @param params - Parameters to be included in the request
    * @return - JSON response from JW Platform API
-   * @throws UnsupportedEncodingException - exception during encoding
-   * @throws JWPlatformException - API returned an exception
+   * @throws JWPlatformException - JWPlatform API returned an exception
    */
-  public JSONObject request(final String path, final Map<String, String> params)
-      throws JWPlatformException, UnsupportedEncodingException {
+  public JSONObject request(final String path, final Map<String, String> params) throws JWPlatformException {
     final String requestUrl = this.buildRequestUrl(host, path, params);
     final GetRequest request = Unirest.get(requestUrl);
 
