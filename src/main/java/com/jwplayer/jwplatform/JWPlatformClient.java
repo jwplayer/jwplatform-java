@@ -26,7 +26,8 @@ import org.json.JSONObject;
  * <p>An API client for the JW Platform. For the API documentation see:
  * https://developer.jwplayer.com/jw-platform/reference/v1/index.html
  *
- * <p>Example: >>> JWPlatformClient client = JWPlatformClient.create(apiKey, apiSecret);
+ * <p>Example:
+ *    JWPlatformClient client = JWPlatformClient.create(apiKey, apiSecret);
  */
 public class JWPlatformClient {
 
