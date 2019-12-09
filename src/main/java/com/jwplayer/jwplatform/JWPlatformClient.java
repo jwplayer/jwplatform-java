@@ -166,7 +166,15 @@ public class JWPlatformClient {
    *
    * @param path - endpoint to be used in API request
    * @return - JSON response from JW Platform API
-   * @throws JWPlatformException - JWPlatform API returned an exception
+   * @throws JWPlatformException - JWPlatform API returned an exception. Because we dynamically
+   *     build our exceptions, if you wish to retrieve the error message, you must call it
+   *     from the cause, not the exception directly. The exception's message will be {@code null}.
+   *
+   *     Example: this will be {@code null}
+   *         {@code e.getMessage()}
+   *
+   *     Example: this will contain error message
+   *         {@code e.getCause().getMessage()}
    */
   public JSONObject request(final String path) throws JWPlatformException {
     return this.request(path, new HashMap<>());
@@ -181,7 +189,15 @@ public class JWPlatformClient {
    * @param path - endpoint to be used in API request
    * @param params - Parameters to be included in the request
    * @return - JSON response from JW Platform API
-   * @throws JWPlatformException - JWPlatform API returned an exception
+   * @throws JWPlatformException - JWPlatform API returned an exception. Because we dynamically
+   *     build our exceptions, if you wish to retrieve the error message, you must call it
+   *     from the cause, not the exception directly. The exception's message will be {@code null}.
+   *
+   *     Example: this will be {@code null}
+   *         {@code e.getMessage()}
+   *
+   *     Example: this will contain error message
+   *         {@code e.getCause().getMessage()}
    */
   public JSONObject request(final String path, final Map<String, String> params) throws JWPlatformException {
     final String requestUrl = this.buildRequestUrl(host, path, params);
