@@ -51,7 +51,7 @@ public class MediaAPIExceptionFactory {
   public static void throwJWPlatformException(final String errorType, final String message) throws JWPlatformException {
     final JWPlatformException exception =
             exceptions.containsKey(errorType) ? exceptions.get(errorType) : exceptions.get("Unknown");
-    exception.initCause(new Exception(message));
+    exception.initCause(new JWPlatformException(message));
 
     throw exception;
   }
