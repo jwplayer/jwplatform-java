@@ -19,7 +19,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>com.jwplayer</groupId>
   <artifactId>jwplatform</artifactId>
-  <version>0.0.0</version>
+  <version>0.1.0</version>
 </dependency>
 ```
 
