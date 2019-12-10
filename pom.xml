@@ -7,7 +7,7 @@
     <groupId>com.jwplayer</groupId>
     <artifactId>jwplatform</artifactId>
     <version>0.0.0</version>
-    <packaging>pom</packaging>
+    <packaging>jar</packaging>
 
     <name>JWPlatform-Java</name>
     <description>A client for accessing the JWPlatform API</description>
@@ -208,7 +208,7 @@
                 <configuration>
                     <serverId>ossrh</serverId>
                     <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-                    <autoReleaseAfterClose>false</autoReleaseAfterClose>
+                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
                 </configuration>
             </plugin>
             <plugin>

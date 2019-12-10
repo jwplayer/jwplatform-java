@@ -16,7 +16,11 @@ Java 8 and later.
 Add this dependency to your project's POM:
 
 ```xml
-    TODO
+<dependency>
+  <groupId>com.jwplayer</groupId>
+  <artifactId>jwplatform</artifactId>
+  <version>0.0.0</version>
+</dependency>
 ```
 
 ## Usage
