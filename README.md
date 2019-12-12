@@ -19,22 +19,25 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>com.jwplayer</groupId>
   <artifactId>jwplatform</artifactId>
-  <version>0.1.0</version>
+  <version>0.2.0</version>
 </dependency>
 ```
 
 ## Usage
 
-The following is an example of how to use the client.
+The following is an example of how to use the client for a video of sourcetype `url`:
 
 ```java
 
 import com.jwplayer.jwplatform.JWPlatformClient;
 import com.jwplayer.jwplatform.exception.JWPlatformException;
+import java.util.HashMap;
+import java.util.Map;
+import org.json.JSONObject;
 
 public class JWPlatformClientExample {
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         String apiKey = "key";
         String apiSecret = "secret";
 
@@ -55,7 +58,7 @@ public class JWPlatformClientExample {
             System.out.println(videosCreateResponse);
             
             // Show the properties of the created video
-            String videoKey = videosCreateResponse.getJSONObject("video").get("key").toString();
+            String videoKey = videosCreateResponse.getJSONObject("video").getString("key");
             Map<String, String> videosShowParams = new HashMap<>();
             videosShowParams.put("video_key", videoKey);
             JSONObject videosShowResponse = client.request(videosShowPath, videosShowParams);
@@ -66,6 +69,45 @@ public class JWPlatformClientExample {
     }
 }
 
+```
+
+The following is an example of how to use the client for a video of sourcetype `file`:
+
+```java
+
+import com.jwplayer.jwplatform.JWPlatformClient;
+import com.jwplayer.jwplatform.exception.JWPlatformException;
+import java.util.HashMap;
+import java.util.Map;
+import org.json.JSONObject;
+
+public class JWPlatformClientExample {
+
+    public static void main(String[] args) {
+    String apiKey = "key";
+    String apiSecret = "secret";
+
+    String videosCreatePath = "videos/create";
+    Map<String, String> videosCreateParams = new HashMap<>();
+    videosCreateParams.put("sourcetype", "file");
+    videosCreateParams.put("title", "Some Video Title");
+
+    String localFilePath = "/some/path//test_video.mp4";
+
+    try {
+        JWPlatformClient client = JWPlatformClient.create(apiKey, apiSecret);
+
+        // Create a video asset
+        JSONObject videosCreateResponse = client.request(videosCreatePath, videosCreateParams);
+        System.out.println(videosCreateResponse);
+
+        // Upload the video from local file system
+        JSONObject videoUploadResponse = client.upload(videosCreateResponse, localFilePath);
+        System.out.println(videoUploadResponse);
+    } catch (JWPlatformException e) {
+        e.printStackTrace();
+    }
+}
 ```
 
 ## Supported operations

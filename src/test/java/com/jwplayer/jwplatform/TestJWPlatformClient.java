@@ -8,7 +8,7 @@ import static org.mockito.Mockito.contains;
 import static org.mockito.Mockito.when;
 import static org.powermock.api.mockito.PowerMockito.mockStatic;
 
-import com.jwplayer.jwplatform.exception.MediaAPIExceptionFactory;
+import com.jwplayer.jwplatform.exception.JWPlatformUnknownException;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
@@ -69,7 +69,7 @@ public class TestJWPlatformClient {
     }
   }
 
-  @Test(expected = MediaAPIExceptionFactory.JWPlatformUnknownException.class)
+  @Test(expected = JWPlatformUnknownException.class)
   public void testRequestNon200ResponseUnknownException() throws Exception {
     final JSONObject expectedResponse = new JSONObject();
     final JWPlatformClient mediaAPIClient = JWPlatformClient.create(apiKey, apiSecret);
@@ -88,7 +88,7 @@ public class TestJWPlatformClient {
     mediaAPIClient.request(path);
   }
 
-  @Test(expected = MediaAPIExceptionFactory.JWPlatformUnknownException.class)
+  @Test(expected = JWPlatformUnknownException.class)
   public void testRequestUnirestException() throws Exception {
     final JWPlatformClient mediaAPIClient = JWPlatformClient.create(apiKey, apiSecret);
     final GetRequest getRequest = PowerMockito.mock(GetRequest.class);

@@ -5,7 +5,36 @@ import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.when;
 import static org.powermock.api.mockito.PowerMockito.mockStatic;
 
-import com.jwplayer.jwplatform.exception.MediaAPIExceptionFactory;
+import com.jwplayer.jwplatform.exception.JWPlatformApiKeyInvalidException;
+import com.jwplayer.jwplatform.exception.JWPlatformApiKeyMissingException;
+import com.jwplayer.jwplatform.exception.JWPlatformCallFailedException;
+import com.jwplayer.jwplatform.exception.JWPlatformCallInvalidException;
+import com.jwplayer.jwplatform.exception.JWPlatformCallUnavailableException;
+import com.jwplayer.jwplatform.exception.JWPlatformDatabaseException;
+import com.jwplayer.jwplatform.exception.JWPlatformDigestInvalidException;
+import com.jwplayer.jwplatform.exception.JWPlatformDigestMissingException;
+import com.jwplayer.jwplatform.exception.JWPlatformFileSizeInvalidException;
+import com.jwplayer.jwplatform.exception.JWPlatformFileSizeMissingException;
+import com.jwplayer.jwplatform.exception.JWPlatformFileUploadFailedException;
+import com.jwplayer.jwplatform.exception.JWPlatformIntegrityException;
+import com.jwplayer.jwplatform.exception.JWPlatformInternalException;
+import com.jwplayer.jwplatform.exception.JWPlatformItemAlreadyExistsException;
+import com.jwplayer.jwplatform.exception.JWPlatformNoMethodException;
+import com.jwplayer.jwplatform.exception.JWPlatformNonceInvalidException;
+import com.jwplayer.jwplatform.exception.JWPlatformNotFoundException;
+import com.jwplayer.jwplatform.exception.JWPlatformNotImplementedException;
+import com.jwplayer.jwplatform.exception.JWPlatformNotSupportedException;
+import com.jwplayer.jwplatform.exception.JWPlatformParameterEmptyException;
+import com.jwplayer.jwplatform.exception.JWPlatformParameterEncodingException;
+import com.jwplayer.jwplatform.exception.JWPlatformParameterInvalidException;
+import com.jwplayer.jwplatform.exception.JWPlatformParameterMissingException;
+import com.jwplayer.jwplatform.exception.JWPlatformPermissionDeniedException;
+import com.jwplayer.jwplatform.exception.JWPlatformPreconditionFailedException;
+import com.jwplayer.jwplatform.exception.JWPlatformRateLimitExceededException;
+import com.jwplayer.jwplatform.exception.JWPlatformSignatureInvalidException;
+import com.jwplayer.jwplatform.exception.JWPlatformSignatureMissingException;
+import com.jwplayer.jwplatform.exception.JWPlatformTimestampInvalidException;
+import com.jwplayer.jwplatform.exception.JWPlatformTimestampMissingException;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
@@ -38,36 +67,36 @@ public class TestJWPlatformClientExceptions {
     public static Iterable<Object[]> data() {
         return Arrays.asList(
                 new Object[][] {
-                        {"NotFoundError", MediaAPIExceptionFactory.JWPlatformNotFoundException.class},
-                        {"NoMethod", MediaAPIExceptionFactory.JWPlatformNoMethodException.class},
-                        {"NotImplemented", MediaAPIExceptionFactory.JWPlatformNotImplementedException.class},
-                        {"NotSupported", MediaAPIExceptionFactory.JWPlatformNotSupportedException.class},
-                        {"CallFailed", MediaAPIExceptionFactory.JWPlatformCallFailedException.class},
-                        {"CallUnavailable", MediaAPIExceptionFactory.JWPlatformCallUnavailableException.class},
-                        {"CallInvalid", MediaAPIExceptionFactory.JWPlatformCallInvalidException.class},
-                        {"ParameterMissing", MediaAPIExceptionFactory.JWPlatformParameterMissingException.class},
-                        {"ParameterEmpty", MediaAPIExceptionFactory.JWPlatformParameterEmptyException.class},
-                        {"ParameterEncoding", MediaAPIExceptionFactory.JWPlatformParameterEncodingException.class},
-                        {"ParameterInvalid", MediaAPIExceptionFactory.JWPlatformParameterInvalidException.class},
-                        {"PreconditionFailed", MediaAPIExceptionFactory.JWPlatformPreconditionFailedException.class},
-                        {"ItemAlreadyExists", MediaAPIExceptionFactory.JWPlatformItemAlreadyExistsException.class},
-                        {"PermissionDenied", MediaAPIExceptionFactory.JWPlatformPermissionDeniedException.class},
-                        {"Database", MediaAPIExceptionFactory.JWPlatformDatabaseException.class},
-                        {"Integrity", MediaAPIExceptionFactory.JWPlatformIntegrityException.class},
-                        {"DigestMissing", MediaAPIExceptionFactory.JWPlatformDigestMissingException.class},
-                        {"DigestInvalid", MediaAPIExceptionFactory.JWPlatformDigestInvalidException.class},
-                        {"FileUploadFailed", MediaAPIExceptionFactory.JWPlatformFileUploadFailedException.class},
-                        {"FileSizeMissing", MediaAPIExceptionFactory.JWPlatformFileSizeMissingException.class},
-                        {"FileSizeInvalid", MediaAPIExceptionFactory.JWPlatformFileSizeInvalidException.class},
-                        {"Internal", MediaAPIExceptionFactory.JWPlatformInternalException.class},
-                        {"ApiKeyMissing", MediaAPIExceptionFactory.JWPlatformApiKeyMissingException.class},
-                        {"ApiKeyInvalid", MediaAPIExceptionFactory.JWPlatformApiKeyInvalidException.class},
-                        {"TimestampMissing", MediaAPIExceptionFactory.JWPlatformTimestampMissingException.class},
-                        {"TimestampInvalid", MediaAPIExceptionFactory.JWPlatformTimestampInvalidException.class},
-                        {"NonceInvalid", MediaAPIExceptionFactory.JWPlatformNonceInvalidException.class},
-                        {"SignatureMissing", MediaAPIExceptionFactory.JWPlatformSignatureMissingException.class},
-                        {"SignatureInvalid", MediaAPIExceptionFactory.JWPlatformSignatureInvalidException.class},
-                        {"RateLimitExceeded", MediaAPIExceptionFactory.JWPlatformRateLimitExceededException.class}
+                        {"NotFoundError", JWPlatformNotFoundException.class},
+                        {"NoMethod", JWPlatformNoMethodException.class},
+                        {"NotImplemented", JWPlatformNotImplementedException.class},
+                        {"NotSupported", JWPlatformNotSupportedException.class},
+                        {"CallFailed", JWPlatformCallFailedException.class},
+                        {"CallUnavailable", JWPlatformCallUnavailableException.class},
+                        {"CallInvalid", JWPlatformCallInvalidException.class},
+                        {"ParameterMissing", JWPlatformParameterMissingException.class},
+                        {"ParameterEmpty", JWPlatformParameterEmptyException.class},
+                        {"ParameterEncoding", JWPlatformParameterEncodingException.class},
+                        {"ParameterInvalid", JWPlatformParameterInvalidException.class},
+                        {"PreconditionFailed", JWPlatformPreconditionFailedException.class},
+                        {"ItemAlreadyExists", JWPlatformItemAlreadyExistsException.class},
+                        {"PermissionDenied", JWPlatformPermissionDeniedException.class},
+                        {"Database", JWPlatformDatabaseException.class},
+                        {"Integrity", JWPlatformIntegrityException.class},
+                        {"DigestMissing", JWPlatformDigestMissingException.class},
+                        {"DigestInvalid", JWPlatformDigestInvalidException.class},
+                        {"FileUploadFailed", JWPlatformFileUploadFailedException.class},
+                        {"FileSizeMissing", JWPlatformFileSizeMissingException.class},
+                        {"FileSizeInvalid", JWPlatformFileSizeInvalidException.class},
+                        {"Internal", JWPlatformInternalException.class},
+                        {"ApiKeyMissing", JWPlatformApiKeyMissingException.class},
+                        {"ApiKeyInvalid", JWPlatformApiKeyInvalidException.class},
+                        {"TimestampMissing", JWPlatformTimestampMissingException.class},
+                        {"TimestampInvalid", JWPlatformTimestampInvalidException.class},
+                        {"NonceInvalid", JWPlatformNonceInvalidException.class},
+                        {"SignatureMissing", JWPlatformSignatureMissingException.class},
+                        {"SignatureInvalid", JWPlatformSignatureInvalidException.class},
+                        {"RateLimitExceeded", JWPlatformRateLimitExceededException.class}
                 });
     }
 
