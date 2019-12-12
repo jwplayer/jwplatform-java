@@ -102,16 +102,16 @@ public class JWPlatformClient {
    * appropriate JWPlatformException exception based on the
    * error message.
    *
-   * @param response - a {@code HttpResponse} object with the API response
+   * @param statusCode - the response status code
+   * @param response - a {@code JSONObject} object with the API response block
    * @throws JWPlatformException - API returned an exception
    */
-  private void checkForNon200Response(final HttpResponse<JsonNode> response) throws JWPlatformException {
-    if (response.getStatus() != 200) {
+  private void checkForNon200Response(final int statusCode, final JSONObject response)
+          throws JWPlatformException {
+    if (statusCode != 200) {
       try {
-        final String errorType = response.getBody().getObject().get("code").toString();
-        final String message = response.getBody().getObject().toString(2);
         MediaAPIExceptionFactory.throwJWPlatformException(
-            StringUtils.stripEnd(errorType, "Error"), message);
+                StringUtils.stripEnd(response.getString("code"), "Error"), response.toString());
       } catch (final JSONException e) {
         throw new JWPlatformUnknownException(
                 String.format("Unknown JSONException thrown: %s", e.toString()));
@@ -172,18 +172,11 @@ public class JWPlatformClient {
 
       final Reader reader = new InputStreamReader(r.getBody());
       response = XML.toJSONObject(CharStreams.toString(reader));
+
+      checkForNon200Response(r.getStatus(), response.getJSONObject("response"));
     } catch (final UnirestException | IOException e) {
       throw new JWPlatformUnknownException(
               String.format("Non-JSON response from server: %s", e.toString()));
-    }
-
-    final JSONObject responseBlock =  response.getJSONObject("response");
-    final String status = responseBlock.getString("status");
-    if (status.toUpperCase().equals("ERROR")) {
-      final String errorType = responseBlock.getString("code");
-      final String message = responseBlock.getString("message");
-      MediaAPIExceptionFactory.throwJWPlatformException(
-              StringUtils.stripEnd(errorType, "Error"), message);
     }
 
     return response;
@@ -257,9 +250,10 @@ public class JWPlatformClient {
         default:
           throw new JWPlatformException(String.format("%s is not a supported request type.", requestType));
       }
-      checkForNon200Response(response);
+      final JSONObject responseBlock = response.getBody().getObject();
+      checkForNon200Response(response.getStatus(), responseBlock);
 
-      return response.getBody().getObject();
+      return responseBlock;
     } catch (final UnirestException e) {
       throw new JWPlatformUnknownException(
               String.format("Non-JSON response from server: %s", e.toString()));
