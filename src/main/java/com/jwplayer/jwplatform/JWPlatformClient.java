@@ -1,8 +1,5 @@
 package com.jwplayer.jwplatform;
 
-import static com.jwplayer.jwplatform.HTTPConstants.HEADER_NAME_ACCEPT;
-import static com.jwplayer.jwplatform.HTTPConstants.HEADER_VALUE_JSON;
-
 import com.google.common.base.Preconditions;
 import com.google.common.io.CharStreams;
 import com.jwplayer.jwplatform.exception.JWPlatformException;
@@ -43,15 +40,17 @@ import org.json.XML;
 public class JWPlatformClient {
 
   private final String host;
-  private final String bypassKey;
   private final String apiSecret;
   private final String apiKey;
 
-  private JWPlatformClient(final String apiKey, final String apiSecret, final String host, final String bypassKey) {
+  private JWPlatformClient(final String apiKey, final String apiSecret) {
+    this(apiKey, apiSecret, "https://api.jwplatform.com/v1/");
+  }
+
+  private JWPlatformClient(final String apiKey, final String apiSecret, final String host) {
     this.apiKey = apiKey;
     this.apiSecret = apiSecret;
     this.host = host;
-    this.bypassKey = bypassKey;
   }
 
   /**
@@ -61,13 +60,26 @@ public class JWPlatformClient {
    * @param apiKey - your api secret
    * @return a {@code JWPlatformClient} instance
    */
-  public static JWPlatformClient create(final String apiKey, final String apiSecret, final String host, final String bypassKey) {
+  public static JWPlatformClient create(final String apiKey, final String apiSecret) {
+    Preconditions.checkNotNull(apiKey, "API Key must not be null!");
+    Preconditions.checkNotNull(apiSecret, "API Secret must not be null!");
+
+    return new JWPlatformClient(apiKey, apiSecret);
+  }
+
+  /**
+   * Instantiate a new {@code JWPlatformClient} instance.
+   *
+   * @param apiSecret - your api key
+   * @param apiKey - your api secret
+   * @return a {@code JWPlatformClient} instance
+   */
+  public static JWPlatformClient create(final String apiKey, final String apiSecret, final String host) {
     Preconditions.checkNotNull(apiKey, "API Key must not be null!");
     Preconditions.checkNotNull(apiSecret, "API Secret must not be null!");
     Preconditions.checkNotNull(host, "Host must not be null!");
-    Preconditions.checkNotNull(bypassKey, "Bypass Key must not be null!");
 
-    return new JWPlatformClient(apiKey, apiSecret, host, bypassKey);
+    return new JWPlatformClient(apiKey, apiSecret, host);
   }
 
   /**
@@ -195,26 +207,34 @@ public class JWPlatformClient {
   }
 
   /**
-   * see {@link #request(String, Map, boolean, String)}.
+   * see {@link #request(String, Map, boolean, String, Map)}.
    */
   public JSONObject request(final String path) throws JWPlatformException {
     return this.request(path, new HashMap<>());
   }
 
   /**
-   * see {@link #request(String, Map, boolean, String)}.
+   * see {@link #request(String, Map, boolean, String, Map)}.
    */
   public JSONObject request(final String path, final Map<String, String> params)
           throws JWPlatformException {
-    return this.request(path, params, false,"Get");
+    return this.request(path, params, false, "Get", new HashMap<>());
   }
 
   /**
-   * see {@link #request(String, Map, boolean, String)}.
+   * see {@link #request(String, Map, boolean, String, Map)}.
    */
   public JSONObject request(final String path, final String requestType)
-          throws JWPlatformException {
-    return this.request(path, new HashMap<>(), false, requestType);
+      throws JWPlatformException {
+    return this.request(path, new HashMap<>(), false, requestType, new HashMap<>());
+  }
+
+  /**
+   * see {@link #request(String, Map, boolean, String, Map)}.
+   */
+  public JSONObject request(final String path, final Map<String, String> params, final boolean isBodyParams, final String requestType)
+      throws JWPlatformException {
+    return this.request(path, params, isBodyParams, requestType, new HashMap<>());
   }
 
   /**
@@ -240,15 +260,10 @@ public class JWPlatformClient {
    *         {@code e.getCause().getMessage()}
    */
   public JSONObject request(final String path, final Map<String, String> params,
-                            final boolean isBodyParams, final String requestType)
+                            final boolean isBodyParams, final String requestType, final Map<String, String> headers)
           throws JWPlatformException {
     final String requestUrl;
     final HttpResponse<JsonNode> response;
-    // Build an immutable map of key/value header pairs. Pass a list of keys and a list of values
-    // for the map
-    final Map<String, String> headers = new HashMap<>();
-    headers.put(HEADER_NAME_ACCEPT, "x-jw-ratelimit-bypass");
-    headers.put(HEADER_VALUE_JSON, this.bypassKey);
 
     try {
       switch (requestType.toUpperCase()) {
@@ -259,6 +274,7 @@ public class JWPlatformClient {
         case "POST":
           if (isBodyParams) {
             requestUrl = this.buildRequestUrl(host, path, Collections.emptyMap());
+            System.out.println(Unirest.post(requestUrl).toString());
             response = Unirest.post(requestUrl).headers(headers).body(new JSONObject(params)).asJson();
           } else {
             requestUrl = this.buildRequestUrl(host, path, params);
