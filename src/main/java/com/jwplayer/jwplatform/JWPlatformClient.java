@@ -49,7 +49,6 @@ public class JWPlatformClient {
    * @param apiSecret - your api key
    * @param apiKey - your api secret
    * @param host - url for the Media API
-   * @return a {@code JWPlatformClient} instance
    */
   private JWPlatformClient(final String apiKey, final String apiSecret, final String host) {
     this.apiKey = apiKey;
@@ -202,14 +201,14 @@ public class JWPlatformClient {
   }
 
   /**
-   * see {@link #request(String, Map, boolean, String, Map)}.
+   * see {@link #request(String, Map, boolean, String)}.
    */
   public JSONObject request(final String path) throws JWPlatformException {
     return this.request(path, new HashMap<>());
   }
 
   /**
-   * see {@link #request(String, Map, boolean, String, Map)}.
+   * see {@link #request(String, Map, boolean, String)}.
    */
   public JSONObject request(final String path, final Map<String, String> params)
           throws JWPlatformException {
@@ -217,7 +216,7 @@ public class JWPlatformClient {
   }
 
   /**
-   * see {@link #request(String, Map, boolean, String, Map)}.
+   * see {@link #request(String, Map, boolean, String)}.
    */
   public JSONObject request(final String path, final String requestType)
       throws JWPlatformException {
@@ -225,7 +224,7 @@ public class JWPlatformClient {
   }
 
   /**
-   * see {@link #request(String, Map, boolean, String, Map)}.
+   * see {@link #request(String, Map, boolean, String)}.
    */
   public JSONObject request(final String path, final Map<String, String> params, final boolean isBodyParams, final String requestType)
       throws JWPlatformException {
@@ -299,10 +298,6 @@ public class JWPlatformClient {
 
   /**
    * Upload a video file for a video created with `sourcetype: file`.
-   *
-   * <p>The upload url is constructed from the {@code JSONObject} response object
-   * of the `videos/create` API call. If you do not have this object, you
-   * can supply the upload url yourself using {@link #upload(String, String)}.
    *
    * @param videosCreateResponse - the response object from a 'videos/create' API call.
    * @param localFilePath - path to the video file on the local file system.
