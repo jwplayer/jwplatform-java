@@ -43,10 +43,6 @@ public class JWPlatformClient {
   private final String apiSecret;
   private final String apiKey;
 
-  private JWPlatformClient(final String apiKey, final String apiSecret) {
-    this(apiKey, apiSecret, "https://api.jwplatform.com/v1/");
-  }
-
   private JWPlatformClient(final String apiKey, final String apiSecret, final String host) {
     this.apiKey = apiKey;
     this.apiSecret = apiSecret;
@@ -64,7 +60,7 @@ public class JWPlatformClient {
     Preconditions.checkNotNull(apiKey, "API Key must not be null!");
     Preconditions.checkNotNull(apiSecret, "API Secret must not be null!");
 
-    return new JWPlatformClient(apiKey, apiSecret);
+    return create(apiKey, apiSecret ,"https://api.jwplatform.com/v1/");
   }
 
   /**
@@ -274,7 +270,6 @@ public class JWPlatformClient {
         case "POST":
           if (isBodyParams) {
             requestUrl = this.buildRequestUrl(host, path, Collections.emptyMap());
-            System.out.println(Unirest.post(requestUrl).toString());
             response = Unirest.post(requestUrl).headers(headers).body(new JSONObject(params)).asJson();
           } else {
             requestUrl = this.buildRequestUrl(host, path, params);
