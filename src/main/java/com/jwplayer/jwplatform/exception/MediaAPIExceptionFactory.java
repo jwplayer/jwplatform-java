@@ -6,38 +6,38 @@ import java.util.Map;
 /** Factory for creating and throwing JWPlatform Exceptions. */
 public class MediaAPIExceptionFactory {
 
-  private static final Map<String, JWPlatformException> exceptions = ImmutableMap.<String, JWPlatformException>builder()
-          .put("Unknown", new JWPlatformUnknownException())
-          .put("NotFound", new JWPlatformNotFoundException())
-          .put("NoMethod", new JWPlatformNoMethodException())
-          .put("NotImplemented", new JWPlatformNotImplementedException())
-          .put("NotSupported", new JWPlatformNotSupportedException())
-          .put("CallFailed", new JWPlatformCallFailedException())
-          .put("CallUnavailable", new JWPlatformCallUnavailableException())
-          .put("CallInvalid", new JWPlatformCallInvalidException())
-          .put("ParameterMissing", new JWPlatformParameterMissingException())
-          .put("ParameterEmpty", new JWPlatformParameterEmptyException())
-          .put("ParameterEncoding", new JWPlatformParameterEncodingException())
-          .put("ParameterInvalid", new JWPlatformParameterInvalidException())
-          .put("PreconditionFailed", new JWPlatformPreconditionFailedException())
-          .put("ItemAlreadyExists", new JWPlatformItemAlreadyExistsException())
-          .put("PermissionDenied", new JWPlatformPermissionDeniedException())
-          .put("Database", new JWPlatformDatabaseException())
-          .put("Integrity", new JWPlatformIntegrityException())
-          .put("DigestMissing", new JWPlatformDigestMissingException())
-          .put("DigestInvalid", new JWPlatformDigestInvalidException())
-          .put("FileUploadFailed", new JWPlatformFileUploadFailedException())
-          .put("FileSizeMissing", new JWPlatformFileSizeMissingException())
-          .put("FileSizeInvalid", new JWPlatformFileSizeInvalidException())
-          .put("Internal", new JWPlatformInternalException())
-          .put("ApiKeyMissing", new JWPlatformApiKeyMissingException())
-          .put("ApiKeyInvalid", new JWPlatformApiKeyInvalidException())
-          .put("TimestampMissing", new JWPlatformTimestampMissingException())
-          .put("TimestampInvalid", new JWPlatformTimestampInvalidException())
-          .put("NonceInvalid", new JWPlatformNonceInvalidException())
-          .put("SignatureMissing", new JWPlatformSignatureMissingException())
-          .put("SignatureInvalid", new JWPlatformSignatureInvalidException())
-          .put("RateLimitExceeded", new JWPlatformRateLimitExceededException())
+  private static final Map<String, Class> exceptions = ImmutableMap.<String, Class>builder()
+          .put("Unknown", JWPlatformUnknownException.class)
+          .put("NotFound", JWPlatformNotFoundException.class)
+          .put("NoMethod", JWPlatformNoMethodException.class)
+          .put("NotImplemented", JWPlatformNotImplementedException.class)
+          .put("NotSupported", JWPlatformNotSupportedException.class)
+          .put("CallFailed", JWPlatformCallFailedException.class)
+          .put("CallUnavailable", JWPlatformCallUnavailableException.class)
+          .put("CallInvalid", JWPlatformCallInvalidException.class)
+          .put("ParameterMissing", JWPlatformParameterMissingException.class)
+          .put("ParameterEmpty", JWPlatformParameterEmptyException.class)
+          .put("ParameterEncoding", JWPlatformParameterEncodingException.class)
+          .put("ParameterInvalid", JWPlatformParameterInvalidException.class)
+          .put("PreconditionFailed", JWPlatformPreconditionFailedException.class)
+          .put("ItemAlreadyExists", JWPlatformItemAlreadyExistsException.class)
+          .put("PermissionDenied", JWPlatformPermissionDeniedException.class)
+          .put("Database", JWPlatformDatabaseException.class)
+          .put("Integrity", JWPlatformIntegrityException.class)
+          .put("DigestMissing", JWPlatformDigestMissingException.class)
+          .put("DigestInvalid", JWPlatformDigestInvalidException.class)
+          .put("FileUploadFailed", JWPlatformFileUploadFailedException.class)
+          .put("FileSizeMissing", JWPlatformFileSizeMissingException.class)
+          .put("FileSizeInvalid", JWPlatformFileSizeInvalidException.class)
+          .put("Internal", JWPlatformInternalException.class)
+          .put("ApiKeyMissing", JWPlatformApiKeyMissingException.class)
+          .put("ApiKeyInvalid", JWPlatformApiKeyInvalidException.class)
+          .put("TimestampMissing", JWPlatformTimestampMissingException.class)
+          .put("TimestampInvalid", JWPlatformTimestampInvalidException.class)
+          .put("NonceInvalid", JWPlatformNonceInvalidException.class)
+          .put("SignatureMissing", JWPlatformSignatureMissingException.class)
+          .put("SignatureInvalid", JWPlatformSignatureInvalidException.class)
+          .put("RateLimitExceeded", JWPlatformRateLimitExceededException.class)
           .build();
 
   /**
@@ -48,12 +48,18 @@ public class MediaAPIExceptionFactory {
    * @param message - error message
    * @throws JWPlatformException - JWPlatform API returned exception
    */
+  @SuppressWarnings("unchecked")
   public static void throwJWPlatformException(final String errorType, final String message)
           throws JWPlatformException {
-    final JWPlatformException exception =
+    final Class<JWPlatformException> clazz =
             exceptions.containsKey(errorType) ? exceptions.get(errorType) : exceptions.get("Unknown");
-    exception.initCause(new JWPlatformException(message));
 
-    throw exception;
+    try {
+      final JWPlatformException exception = clazz.newInstance();
+      exception.initCause(new JWPlatformException(message));
+      throw exception;
+    } catch (InstantiationException | IllegalAccessException e) {
+      throw new JWPlatformUnknownException(message);
+    }
   }
 }

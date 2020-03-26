@@ -1,40 +1,11 @@
-package com.jwplayer.jwplatform;
+package com.jwplayer.jwplatform.exception;
 
 import static org.mockito.Matchers.anyMap;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.when;
 import static org.powermock.api.mockito.PowerMockito.mockStatic;
 
-import com.jwplayer.jwplatform.exception.JWPlatformApiKeyInvalidException;
-import com.jwplayer.jwplatform.exception.JWPlatformApiKeyMissingException;
-import com.jwplayer.jwplatform.exception.JWPlatformCallFailedException;
-import com.jwplayer.jwplatform.exception.JWPlatformCallInvalidException;
-import com.jwplayer.jwplatform.exception.JWPlatformCallUnavailableException;
-import com.jwplayer.jwplatform.exception.JWPlatformDatabaseException;
-import com.jwplayer.jwplatform.exception.JWPlatformDigestInvalidException;
-import com.jwplayer.jwplatform.exception.JWPlatformDigestMissingException;
-import com.jwplayer.jwplatform.exception.JWPlatformFileSizeInvalidException;
-import com.jwplayer.jwplatform.exception.JWPlatformFileSizeMissingException;
-import com.jwplayer.jwplatform.exception.JWPlatformFileUploadFailedException;
-import com.jwplayer.jwplatform.exception.JWPlatformIntegrityException;
-import com.jwplayer.jwplatform.exception.JWPlatformInternalException;
-import com.jwplayer.jwplatform.exception.JWPlatformItemAlreadyExistsException;
-import com.jwplayer.jwplatform.exception.JWPlatformNoMethodException;
-import com.jwplayer.jwplatform.exception.JWPlatformNonceInvalidException;
-import com.jwplayer.jwplatform.exception.JWPlatformNotFoundException;
-import com.jwplayer.jwplatform.exception.JWPlatformNotImplementedException;
-import com.jwplayer.jwplatform.exception.JWPlatformNotSupportedException;
-import com.jwplayer.jwplatform.exception.JWPlatformParameterEmptyException;
-import com.jwplayer.jwplatform.exception.JWPlatformParameterEncodingException;
-import com.jwplayer.jwplatform.exception.JWPlatformParameterInvalidException;
-import com.jwplayer.jwplatform.exception.JWPlatformParameterMissingException;
-import com.jwplayer.jwplatform.exception.JWPlatformPermissionDeniedException;
-import com.jwplayer.jwplatform.exception.JWPlatformPreconditionFailedException;
-import com.jwplayer.jwplatform.exception.JWPlatformRateLimitExceededException;
-import com.jwplayer.jwplatform.exception.JWPlatformSignatureInvalidException;
-import com.jwplayer.jwplatform.exception.JWPlatformSignatureMissingException;
-import com.jwplayer.jwplatform.exception.JWPlatformTimestampInvalidException;
-import com.jwplayer.jwplatform.exception.JWPlatformTimestampMissingException;
+import com.jwplayer.jwplatform.JWPlatformClient;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
@@ -96,6 +67,8 @@ public class TestJWPlatformClientExceptions {
                         {"NonceInvalid", JWPlatformNonceInvalidException.class},
                         {"SignatureMissing", JWPlatformSignatureMissingException.class},
                         {"SignatureInvalid", JWPlatformSignatureInvalidException.class},
+                        {"RateLimitExceeded", JWPlatformRateLimitExceededException.class},
+                        // add twice to test instance conflict
                         {"RateLimitExceeded", JWPlatformRateLimitExceededException.class}
                 });
     }
