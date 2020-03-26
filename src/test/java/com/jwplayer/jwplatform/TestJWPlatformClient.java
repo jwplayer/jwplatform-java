@@ -36,6 +36,8 @@ public class TestJWPlatformClient {
 
   private final String apiKey = "fakeApiKey";
   private final String apiSecret = "fakeApiSecret";
+  private final String host = "fakehost";
+  private final String bypassKey = "fakeBypassKey";
   private final String path = "/v1/videos/create";
 
   @Test
@@ -51,7 +53,7 @@ public class TestJWPlatformClient {
     final JSONObject expectedResponse = new JSONObject();
     expectedResponse.put("status", 200);
 
-    final JWPlatformClient mediaAPIClient = JWPlatformClient.create(apiKey, apiSecret);
+    final JWPlatformClient mediaAPIClient = JWPlatformClient.create(apiKey, apiSecret, host, bypassKey);
 
     final HttpResponse httpResponse = PowerMockito.mock(HttpResponse.class);
     final JsonNode jsonNode = PowerMockito.mock(JsonNode.class);
@@ -102,7 +104,7 @@ public class TestJWPlatformClient {
     when(requestWithBody.body(any(JSONObject.class))).thenReturn(requestBodyEntity);
     when(requestBodyEntity.asJson()).thenReturn(httpResponse);
 
-    final JWPlatformClient mediaAPIClient = JWPlatformClient.create(apiKey, apiSecret);
+    final JWPlatformClient mediaAPIClient = JWPlatformClient.create(apiKey, apiSecret, host, bypassKey);
     final JSONObject actualResponse = mediaAPIClient.request(path, params, true, "POST");
 
     assertEquals(expectedResponse.getInt("status"), actualResponse.getInt("status"));
@@ -111,7 +113,7 @@ public class TestJWPlatformClient {
   @Test(expected = JWPlatformUnknownException.class)
   public void testGetRequestNon200ResponseUnknownException() throws Exception {
     final JSONObject expectedResponse = new JSONObject();
-    final JWPlatformClient mediaAPIClient = JWPlatformClient.create(apiKey, apiSecret);
+    final JWPlatformClient mediaAPIClient = JWPlatformClient.create(apiKey, apiSecret, host, bypassKey);
     final HttpResponse httpResponse = PowerMockito.mock(HttpResponse.class);
     final JsonNode jsonNode = PowerMockito.mock(JsonNode.class);
     final GetRequest getRequest = PowerMockito.mock(GetRequest.class);
@@ -129,7 +131,7 @@ public class TestJWPlatformClient {
 
   @Test(expected = JWPlatformUnknownException.class)
   public void testGetRequestUnirestException() throws Exception {
-    final JWPlatformClient mediaAPIClient = JWPlatformClient.create(apiKey, apiSecret);
+    final JWPlatformClient mediaAPIClient = JWPlatformClient.create(apiKey, apiSecret, host, bypassKey);
     final GetRequest getRequest = PowerMockito.mock(GetRequest.class);
     mockStatic(Unirest.class);
 
@@ -143,7 +145,7 @@ public class TestJWPlatformClient {
   @Test(expected = JWPlatformUnknownException.class)
   public void testPostRequestNon200ResponseUnknownException() throws Exception {
     final JSONObject expectedResponse = new JSONObject();
-    final JWPlatformClient mediaAPIClient = JWPlatformClient.create(apiKey, apiSecret);
+    final JWPlatformClient mediaAPIClient = JWPlatformClient.create(apiKey, apiSecret, host, bypassKey);
     final HttpResponse httpResponse = PowerMockito.mock(HttpResponse.class);
     final JsonNode jsonNode = PowerMockito.mock(JsonNode.class);
     final HttpRequestWithBody requestWithBody = PowerMockito.mock(HttpRequestWithBody.class);
@@ -161,7 +163,7 @@ public class TestJWPlatformClient {
 
   @Test(expected = JWPlatformUnknownException.class)
   public void testPostRequestUnirestException() throws Exception {
-    final JWPlatformClient mediaAPIClient = JWPlatformClient.create(apiKey, apiSecret);
+    final JWPlatformClient mediaAPIClient = JWPlatformClient.create(apiKey, apiSecret, host, bypassKey);
     final HttpRequestWithBody requestWithBody = PowerMockito.mock(HttpRequestWithBody.class);
     mockStatic(Unirest.class);
 
@@ -173,13 +175,13 @@ public class TestJWPlatformClient {
 
   @Test(expected = JWPlatformException.class)
   public void testExceptionForUnsupportRequestType() throws Exception {
-    final JWPlatformClient mediaAPIClient = JWPlatformClient.create(apiKey, apiSecret);
+    final JWPlatformClient mediaAPIClient = JWPlatformClient.create(apiKey, apiSecret, host, bypassKey);
     mediaAPIClient.request(path, "PUT");
   }
 
   @Test
   public void testSuccessfulUpload() throws Exception {
-    final JWPlatformClient mediaAPIClient = JWPlatformClient.create(apiKey, apiSecret);
+    final JWPlatformClient mediaAPIClient = JWPlatformClient.create(apiKey, apiSecret, host, bypassKey);
     final HttpRequestWithBody requestWithBody = PowerMockito.mock(HttpRequestWithBody.class);
     final MultipartBody multipartBody = PowerMockito.mock(MultipartBody.class);
     final HttpResponse<InputStream> response = PowerMockito.mock(HttpResponse.class);

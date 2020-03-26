@@ -1,5 +1,8 @@
 package com.jwplayer.jwplatform;
 
+import static com.jwplayer.jwplatform.HTTPConstants.HEADER_NAME_ACCEPT;
+import static com.jwplayer.jwplatform.HTTPConstants.HEADER_VALUE_JSON;
+
 import com.google.common.base.Preconditions;
 import com.google.common.io.CharStreams;
 import com.jwplayer.jwplatform.exception.JWPlatformException;
@@ -39,14 +42,16 @@ import org.json.XML;
  */
 public class JWPlatformClient {
 
-  private final String host = "https://api.jwplatform.com/v1/";
-
+  private final String host;
+  private final String bypassKey;
   private final String apiSecret;
   private final String apiKey;
 
-  private JWPlatformClient(final String apiKey, final String apiSecret) {
+  private JWPlatformClient(final String apiKey, final String apiSecret, final String host, final String bypassKey) {
     this.apiKey = apiKey;
     this.apiSecret = apiSecret;
+    this.host = host;
+    this.bypassKey = bypassKey;
   }
 
   /**
@@ -56,11 +61,13 @@ public class JWPlatformClient {
    * @param apiKey - your api secret
    * @return a {@code JWPlatformClient} instance
    */
-  public static JWPlatformClient create(final String apiKey, final String apiSecret) {
+  public static JWPlatformClient create(final String apiKey, final String apiSecret, final String host, final String bypassKey) {
     Preconditions.checkNotNull(apiKey, "API Key must not be null!");
     Preconditions.checkNotNull(apiSecret, "API Secret must not be null!");
+    Preconditions.checkNotNull(host, "Host must not be null!");
+    Preconditions.checkNotNull(bypassKey, "Bypass Key must not be null!");
 
-    return new JWPlatformClient(apiKey, apiSecret);
+    return new JWPlatformClient(apiKey, apiSecret, host, bypassKey);
   }
 
   /**
@@ -237,16 +244,22 @@ public class JWPlatformClient {
           throws JWPlatformException {
     final String requestUrl;
     final HttpResponse<JsonNode> response;
+    // Build an immutable map of key/value header pairs. Pass a list of keys and a list of values
+    // for the map
+    final Map<String, String> headers = new HashMap<>();
+    headers.put(HEADER_NAME_ACCEPT, "x-jw-ratelimit-bypass");
+    headers.put(HEADER_VALUE_JSON, this.bypassKey);
+
     try {
       switch (requestType.toUpperCase()) {
         case "GET":
           requestUrl = this.buildRequestUrl(host, path, params);
-          response = Unirest.get(requestUrl).asJson();
+          response = Unirest.get(requestUrl).headers(headers).asJson();
           break;
         case "POST":
           if (isBodyParams) {
             requestUrl = this.buildRequestUrl(host, path, Collections.emptyMap());
-            response = Unirest.post(requestUrl).body(new JSONObject(params)).asJson();
+            response = Unirest.post(requestUrl).headers(headers).body(new JSONObject(params)).asJson();
           } else {
             requestUrl = this.buildRequestUrl(host, path, params);
             response = Unirest.post(requestUrl).asJson();

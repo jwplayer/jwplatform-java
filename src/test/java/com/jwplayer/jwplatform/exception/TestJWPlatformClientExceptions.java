@@ -77,7 +77,7 @@ public class TestJWPlatformClientExceptions {
     public void testCorrectJWPlatformExceptionRaised() throws Exception {
         exceptionRule.expect(expectedException);
 
-        final JWPlatformClient mediaAPIClient = JWPlatformClient.create("fakeApiKey", "fakeApiSecret");
+        final JWPlatformClient mediaAPIClient = JWPlatformClient.create("fakeApiKey", "fakeApiSecret", "fakeHost", "fakeBypassKey");
         final HttpResponse httpResponse = PowerMockito.mock(HttpResponse.class);
         final GetRequest getRequest = PowerMockito.mock(GetRequest.class);
         final JsonNode non200ResponseBody = new JsonNode("{\"code\":\""+ exceptionName + "\"}");
