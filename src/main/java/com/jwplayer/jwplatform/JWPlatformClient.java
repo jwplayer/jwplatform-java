@@ -39,28 +39,40 @@ import org.json.XML;
  */
 public class JWPlatformClient {
 
-  private final String host = "https://api.jwplatform.com/v1/";
-
+  private final String host;
   private final String apiSecret;
   private final String apiKey;
-
-  private JWPlatformClient(final String apiKey, final String apiSecret) {
-    this.apiKey = apiKey;
-    this.apiSecret = apiSecret;
-  }
 
   /**
    * Instantiate a new {@code JWPlatformClient} instance.
    *
    * @param apiSecret - your api key
    * @param apiKey - your api secret
+   * @param host - url for the Media API
    * @return a {@code JWPlatformClient} instance
    */
+  private JWPlatformClient(final String apiKey, final String apiSecret, final String host) {
+    this.apiKey = apiKey;
+    this.apiSecret = apiSecret;
+    this.host = host;
+  }
+
+  /**
+   * see {@link #JWPlatformClient(String, String, String)}.
+   */
   public static JWPlatformClient create(final String apiKey, final String apiSecret) {
+    return create(apiKey, apiSecret, "https://api.jwplatform.com/v1/");
+  }
+
+  /**
+   * see {@link #JWPlatformClient(String, String, String)}.
+   */
+  public static JWPlatformClient create(final String apiKey, final String apiSecret, final String host) {
     Preconditions.checkNotNull(apiKey, "API Key must not be null!");
     Preconditions.checkNotNull(apiSecret, "API Secret must not be null!");
+    Preconditions.checkNotNull(host, "Host must not be null!");
 
-    return new JWPlatformClient(apiKey, apiSecret);
+    return new JWPlatformClient(apiKey, apiSecret, host);
   }
 
   /**
@@ -163,15 +175,17 @@ public class JWPlatformClient {
    * Upload a video file from the local file system.
    *
    * @param uploadPath - the fully constructed upload url
-   * @param localFilePath - the path to the video file on the local file system.
+   * @param localFilePath - the path to the video file on the local file system
+   * @param headers - Map of headers to add to the request
    * @return - JSON response from JW Platform API
    * @throws JWPlatformException - API returned an exception
    */
-  private JSONObject uploadVideo(final String uploadPath, final String localFilePath)
+  private JSONObject uploadVideo(final String uploadPath, final String localFilePath, final Map<String, String> headers)
           throws JWPlatformException {
     JSONObject response;
     try {
       HttpResponse<InputStream> r = Unirest.post(uploadPath)
+              .headers(headers)
               .field("file", new File(localFilePath))
               .asBinary();
 
@@ -188,26 +202,34 @@ public class JWPlatformClient {
   }
 
   /**
-   * see {@link #request(String, Map, boolean, String)}.
+   * see {@link #request(String, Map, boolean, String, Map)}.
    */
   public JSONObject request(final String path) throws JWPlatformException {
     return this.request(path, new HashMap<>());
   }
 
   /**
-   * see {@link #request(String, Map, boolean, String)}.
+   * see {@link #request(String, Map, boolean, String, Map)}.
    */
   public JSONObject request(final String path, final Map<String, String> params)
           throws JWPlatformException {
-    return this.request(path, params, false,"Get");
+    return this.request(path, params, false, "Get", new HashMap<>());
   }
 
   /**
-   * see {@link #request(String, Map, boolean, String)}.
+   * see {@link #request(String, Map, boolean, String, Map)}.
    */
   public JSONObject request(final String path, final String requestType)
-          throws JWPlatformException {
-    return this.request(path, new HashMap<>(), false, requestType);
+      throws JWPlatformException {
+    return this.request(path, new HashMap<>(), false, requestType, new HashMap<>());
+  }
+
+  /**
+   * see {@link #request(String, Map, boolean, String, Map)}.
+   */
+  public JSONObject request(final String path, final Map<String, String> params, final boolean isBodyParams, final String requestType)
+      throws JWPlatformException {
+    return this.request(path, params, isBodyParams, requestType, new HashMap<>());
   }
 
   /**
@@ -221,6 +243,7 @@ public class JWPlatformClient {
    * @param isBodyParams - Whether the parameters are to be included as query params or in
    *                     the body of the request. This is only relevant for POST requests.
    * @param requestType - The type of HTTP. Valid values are ["GET", "POST"].
+   * @param headers - Map of headers to add to the request
    * @return - JSON response from JW Platform API
    * @throws JWPlatformException - JWPlatform API returned an exception. Because we dynamically
    *     build our exceptions, if you wish to retrieve the error message, you must call it
@@ -233,20 +256,21 @@ public class JWPlatformClient {
    *         {@code e.getCause().getMessage()}
    */
   public JSONObject request(final String path, final Map<String, String> params,
-                            final boolean isBodyParams, final String requestType)
+                            final boolean isBodyParams, final String requestType, final Map<String, String> headers)
           throws JWPlatformException {
     final String requestUrl;
     final HttpResponse<JsonNode> response;
+
     try {
       switch (requestType.toUpperCase()) {
         case "GET":
           requestUrl = this.buildRequestUrl(host, path, params);
-          response = Unirest.get(requestUrl).asJson();
+          response = Unirest.get(requestUrl).headers(headers).asJson();
           break;
         case "POST":
           if (isBodyParams) {
             requestUrl = this.buildRequestUrl(host, path, Collections.emptyMap());
-            response = Unirest.post(requestUrl).body(new JSONObject(params)).asJson();
+            response = Unirest.post(requestUrl).headers(headers).body(new JSONObject(params)).asJson();
           } else {
             requestUrl = this.buildRequestUrl(host, path, params);
             response = Unirest.post(requestUrl).asJson();
@@ -266,6 +290,14 @@ public class JWPlatformClient {
   }
 
   /**
+   * see {@link #upload(JSONObject, String, Map)}.
+   */
+  public JSONObject upload(final JSONObject videosCreateResponse, final String localFilePath)
+      throws JWPlatformException {
+    return this.upload(videosCreateResponse, localFilePath, new HashMap<>());
+  }
+
+  /**
    * Upload a video file for a video created with `sourcetype: file`.
    *
    * <p>The upload url is constructed from the {@code JSONObject} response object
@@ -274,6 +306,7 @@ public class JWPlatformClient {
    *
    * @param videosCreateResponse - the response object from a 'videos/create' API call.
    * @param localFilePath - path to the video file on the local file system.
+   * @param headers - map of headers for the request
    * @return - JSON response from JW Platform API
    * @throws JWPlatformException - JWPlatform API returned an exception. Because we dynamically
    *     build our exceptions, if you wish to retrieve the error message, you must call it
@@ -285,7 +318,7 @@ public class JWPlatformClient {
    *     Example: this will contain error message
    *         {@code e.getCause().getMessage()}
    */
-  public JSONObject upload(final JSONObject videosCreateResponse, final String localFilePath)
+  public JSONObject upload(final JSONObject videosCreateResponse, final String localFilePath, final Map<String, String> headers)
           throws JWPlatformException {
     final JSONObject link = videosCreateResponse.getJSONObject("link");
     final String path = link.getString("path");
@@ -297,7 +330,7 @@ public class JWPlatformClient {
     final String uploadUrl =
             protocol + "://" + address + path + "?api_format=xml&key=" + key + "&token=" + token;
 
-    return this.upload(uploadUrl, localFilePath);
+    return this.upload(uploadUrl, localFilePath, headers);
   }
 
   /**
@@ -306,6 +339,7 @@ public class JWPlatformClient {
    * @param uploadPath - the fully constructed upload url. Refer to the JWPlatform documentation for
    *     instructions on how to build the url.
    * @param localFilePath - path to the video file on the local file system.
+   * @param headers - map of headers for the request
    * @return - JSON response from JW Platform API
    * @throws JWPlatformException - JWPlatform API returned an exception. Because we dynamically
    *     build our exceptions, if you wish to retrieve the error message, you must call it
@@ -317,8 +351,8 @@ public class JWPlatformClient {
    *     Example: this will contain error message
    *         {@code e.getCause().getMessage()}
    */
-  public JSONObject upload(final String uploadPath, final String localFilePath)
+  public JSONObject upload(final String uploadPath, final String localFilePath, final Map<String, String> headers)
       throws JWPlatformException {
-    return uploadVideo(uploadPath, localFilePath);
+    return uploadVideo(uploadPath, localFilePath, headers);
   }
 }

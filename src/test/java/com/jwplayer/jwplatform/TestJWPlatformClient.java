@@ -99,6 +99,7 @@ public class TestJWPlatformClient {
     final HttpRequestWithBody requestWithBody = PowerMockito.mock(HttpRequestWithBody.class);
     final RequestBodyEntity requestBodyEntity = PowerMockito.mock(RequestBodyEntity.class);
     when(Unirest.post(anyString())).thenReturn(requestWithBody);
+    when(Unirest.post(anyString()).headers(anyMap())).thenReturn(requestWithBody);
     when(requestWithBody.body(any(JSONObject.class))).thenReturn(requestBodyEntity);
     when(requestBodyEntity.asJson()).thenReturn(httpResponse);
 
@@ -111,7 +112,7 @@ public class TestJWPlatformClient {
   @Test(expected = JWPlatformUnknownException.class)
   public void testGetRequestNon200ResponseUnknownException() throws Exception {
     final JSONObject expectedResponse = new JSONObject();
-    final JWPlatformClient mediaAPIClient = JWPlatformClient.create(apiKey, apiSecret);
+    final JWPlatformClient mediaAPIClient = JWPlatformClient.create(apiKey, apiSecret, "aHostGoesHere");
     final HttpResponse httpResponse = PowerMockito.mock(HttpResponse.class);
     final JsonNode jsonNode = PowerMockito.mock(JsonNode.class);
     final GetRequest getRequest = PowerMockito.mock(GetRequest.class);
@@ -202,6 +203,7 @@ public class TestJWPlatformClient {
     when(response.getStatus()).thenReturn(200);
     when(requestWithBody.field(eq("file"), any(File.class))).thenReturn(multipartBody);
     when(Unirest.post(anyString())).thenReturn(requestWithBody);
+    when(Unirest.post(anyString()).headers(anyMap())).thenReturn(requestWithBody);
 
     final Map<String, String> queryBlock = new HashMap<>();
     queryBlock.put("key", "abc");
