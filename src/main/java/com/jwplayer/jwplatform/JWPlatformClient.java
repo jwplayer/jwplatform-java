@@ -57,10 +57,7 @@ public class JWPlatformClient {
    * @return a {@code JWPlatformClient} instance
    */
   public static JWPlatformClient create(final String apiKey, final String apiSecret) {
-    Preconditions.checkNotNull(apiKey, "API Key must not be null!");
-    Preconditions.checkNotNull(apiSecret, "API Secret must not be null!");
-
-    return create(apiKey, apiSecret ,"https://api.jwplatform.com/v1/");
+    return create(apiKey, apiSecret, "https://api.jwplatform.com/v1/");
   }
 
   /**
@@ -182,11 +179,12 @@ public class JWPlatformClient {
    * @return - JSON response from JW Platform API
    * @throws JWPlatformException - API returned an exception
    */
-  private JSONObject uploadVideo(final String uploadPath, final String localFilePath)
+  private JSONObject uploadVideo(final String uploadPath, final String localFilePath, final Map<String, String> headers)
           throws JWPlatformException {
     JSONObject response;
     try {
       HttpResponse<InputStream> r = Unirest.post(uploadPath)
+              .headers(headers)
               .field("file", new File(localFilePath))
               .asBinary();
 
@@ -290,6 +288,14 @@ public class JWPlatformClient {
   }
 
   /**
+   * see {@link #upload(JSONObject, String, Map)}.
+   */
+  public JSONObject upload(final JSONObject videosCreateResponse, final String localFilePath)
+      throws JWPlatformException {
+    return this.upload(videosCreateResponse, localFilePath, new HashMap<>());
+  }
+
+  /**
    * Upload a video file for a video created with `sourcetype: file`.
    *
    * <p>The upload url is constructed from the {@code JSONObject} response object
@@ -298,6 +304,7 @@ public class JWPlatformClient {
    *
    * @param videosCreateResponse - the response object from a 'videos/create' API call.
    * @param localFilePath - path to the video file on the local file system.
+   * @param headers - map of headers for the request
    * @return - JSON response from JW Platform API
    * @throws JWPlatformException - JWPlatform API returned an exception. Because we dynamically
    *     build our exceptions, if you wish to retrieve the error message, you must call it
@@ -309,7 +316,7 @@ public class JWPlatformClient {
    *     Example: this will contain error message
    *         {@code e.getCause().getMessage()}
    */
-  public JSONObject upload(final JSONObject videosCreateResponse, final String localFilePath)
+  public JSONObject upload(final JSONObject videosCreateResponse, final String localFilePath, final Map<String, String> headers)
           throws JWPlatformException {
     final JSONObject link = videosCreateResponse.getJSONObject("link");
     final String path = link.getString("path");
@@ -321,7 +328,7 @@ public class JWPlatformClient {
     final String uploadUrl =
             protocol + "://" + address + path + "?api_format=xml&key=" + key + "&token=" + token;
 
-    return this.upload(uploadUrl, localFilePath);
+    return this.upload(uploadUrl, localFilePath, headers);
   }
 
   /**
@@ -330,6 +337,7 @@ public class JWPlatformClient {
    * @param uploadPath - the fully constructed upload url. Refer to the JWPlatform documentation for
    *     instructions on how to build the url.
    * @param localFilePath - path to the video file on the local file system.
+   * @param headers - map of headers for the request
    * @return - JSON response from JW Platform API
    * @throws JWPlatformException - JWPlatform API returned an exception. Because we dynamically
    *     build our exceptions, if you wish to retrieve the error message, you must call it
@@ -341,8 +349,8 @@ public class JWPlatformClient {
    *     Example: this will contain error message
    *         {@code e.getCause().getMessage()}
    */
-  public JSONObject upload(final String uploadPath, final String localFilePath)
+  public JSONObject upload(final String uploadPath, final String localFilePath, final Map<String, String> headers)
       throws JWPlatformException {
-    return uploadVideo(uploadPath, localFilePath);
+    return uploadVideo(uploadPath, localFilePath, headers);
   }
 }

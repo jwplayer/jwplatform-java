@@ -203,6 +203,7 @@ public class TestJWPlatformClient {
     when(response.getStatus()).thenReturn(200);
     when(requestWithBody.field(eq("file"), any(File.class))).thenReturn(multipartBody);
     when(Unirest.post(anyString())).thenReturn(requestWithBody);
+    when(Unirest.post(anyString()).headers(anyMap())).thenReturn(requestWithBody);
 
     final Map<String, String> queryBlock = new HashMap<>();
     queryBlock.put("key", "abc");
