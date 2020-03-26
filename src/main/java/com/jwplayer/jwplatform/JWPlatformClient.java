@@ -43,6 +43,14 @@ public class JWPlatformClient {
   private final String apiSecret;
   private final String apiKey;
 
+  /**
+   * Instantiate a new {@code JWPlatformClient} instance.
+   *
+   * @param apiSecret - your api key
+   * @param apiKey - your api secret
+   * @param host - url for the Media API
+   * @return a {@code JWPlatformClient} instance
+   */
   private JWPlatformClient(final String apiKey, final String apiSecret, final String host) {
     this.apiKey = apiKey;
     this.apiSecret = apiSecret;
@@ -50,22 +58,14 @@ public class JWPlatformClient {
   }
 
   /**
-   * Instantiate a new {@code JWPlatformClient} instance.
-   *
-   * @param apiSecret - your api key
-   * @param apiKey - your api secret
-   * @return a {@code JWPlatformClient} instance
+   * see {@link #JWPlatformClient(String, String, String)}.
    */
   public static JWPlatformClient create(final String apiKey, final String apiSecret) {
     return create(apiKey, apiSecret, "https://api.jwplatform.com/v1/");
   }
 
   /**
-   * Instantiate a new {@code JWPlatformClient} instance.
-   *
-   * @param apiSecret - your api key
-   * @param apiKey - your api secret
-   * @return a {@code JWPlatformClient} instance
+   * see {@link #JWPlatformClient(String, String, String)}.
    */
   public static JWPlatformClient create(final String apiKey, final String apiSecret, final String host) {
     Preconditions.checkNotNull(apiKey, "API Key must not be null!");
@@ -175,7 +175,8 @@ public class JWPlatformClient {
    * Upload a video file from the local file system.
    *
    * @param uploadPath - the fully constructed upload url
-   * @param localFilePath - the path to the video file on the local file system.
+   * @param localFilePath - the path to the video file on the local file system
+   * @param headers - Map of headers to add to the request
    * @return - JSON response from JW Platform API
    * @throws JWPlatformException - API returned an exception
    */
@@ -242,6 +243,7 @@ public class JWPlatformClient {
    * @param isBodyParams - Whether the parameters are to be included as query params or in
    *                     the body of the request. This is only relevant for POST requests.
    * @param requestType - The type of HTTP. Valid values are ["GET", "POST"].
+   * @param headers - Map of headers to add to the request
    * @return - JSON response from JW Platform API
    * @throws JWPlatformException - JWPlatform API returned an exception. Because we dynamically
    *     build our exceptions, if you wish to retrieve the error message, you must call it
