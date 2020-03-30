@@ -1,5 +1,6 @@
 package com.jwplayer.jwplatform;
 
+import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Preconditions;
 import com.google.common.io.CharStreams;
 import com.jwplayer.jwplatform.exception.JWPlatformException;
@@ -15,14 +16,11 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.UnsupportedEncodingException;
-import java.net.MalformedURLException;
-import java.net.URISyntaxException;
 import java.net.URLEncoder;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.TreeMap;
 import java.util.concurrent.ThreadLocalRandom;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -64,7 +62,7 @@ public class JWPlatformClient {
    * see {@link #JWPlatformClient(String, String, String)}.
    */
   public static JWPlatformClient create(final String apiKey, final String apiSecret) {
-    return create(apiKey, apiSecret, "api.jwplatform.com/v1/");
+    return create(apiKey, apiSecret, "api.jwplatform.com");
   }
 
   /**
@@ -83,7 +81,8 @@ public class JWPlatformClient {
    *
    * @return - unix timestamp in seconds
    */
-  private String getCurrentUnixTimestampInSeconds() {
+  @VisibleForTesting
+  String getCurrentUnixTimestampInSeconds() {
     return Long.toString((new Date()).getTime() / 1000);
   }
 
@@ -92,7 +91,8 @@ public class JWPlatformClient {
    *
    * @return - random 8 digit {@code Integer}
    */
-  private String getRandomNonce() {
+  @VisibleForTesting
+  String getRandomNonce() {
     return Integer.toString(ThreadLocalRandom.current().nextInt(10000000, 100000000));
   }
 
@@ -147,7 +147,8 @@ public class JWPlatformClient {
    * @return - Fully formed request URL for an API request with api signature
    * @throws JWPlatformException - an exception occurred during encoding
    */
-  private String buildRequestUrl(
+  @VisibleForTesting
+  public String buildRequestUrl(
       final String host, final String path, final Map<String, String> params)
       throws JWPlatformException {
 
@@ -157,8 +158,9 @@ public class JWPlatformClient {
       uriBuilder.setHost(host);
       uriBuilder.setScheme(this.scheme);
       uriBuilder.setPath(path);
-      uriBuilder.addParameter("api_key", this.apiKey);
+
       uriBuilder.addParameter("api_format", "json");
+      uriBuilder.addParameter("api_key", this.apiKey);
       uriBuilder.addParameter("api_nonce", this.getRandomNonce());
       uriBuilder.addParameter("api_timestamp", this.getCurrentUnixTimestampInSeconds());
 
@@ -166,13 +168,13 @@ public class JWPlatformClient {
         uriBuilder.addParameter(entry.getKey(), encodeStringForJWPlatformAPI(entry.getValue()));
       }
 
-      final String paramsNoSignature = uriBuilder.getQueryParams().toString();
+      final String paramsNoSignature = uriBuilder.build().getRawQuery();
 
       final String hexDigest = DigestUtils.sha1Hex(paramsNoSignature + this.apiSecret);
 
       uriBuilder.addParameter("api_signature", hexDigest);
 
-      return uriBuilder.build().toURL().toString() + paramsNoSignature;
+      return uriBuilder.build().toURL().toString();
     } catch (Exception e) {
       throw new JWPlatformException(String.format("Unable to build request URL: %s", e.getMessage()));
     }

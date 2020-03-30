@@ -6,6 +6,7 @@ import static org.mockito.Matchers.*;
 import static org.mockito.Mockito.contains;
 import static org.mockito.Mockito.when;
 import static org.powermock.api.mockito.PowerMockito.mockStatic;
+import static org.powermock.api.mockito.PowerMockito.spy;
 
 import com.jwplayer.jwplatform.exception.JWPlatformException;
 import com.jwplayer.jwplatform.exception.JWPlatformUnknownException;
@@ -36,7 +37,29 @@ public class TestJWPlatformClient {
 
   private final String apiKey = "fakeApiKey";
   private final String apiSecret = "fakeApiSecret";
-  private final String path = "videos/create";
+  private final String path = "v1/videos/create";
+  private final String host = "website.com/";
+
+  @Test
+  @SuppressWarnings("unchecked")
+  public void testBuildRequestUrl() throws Exception {
+    final Map<String, String> fakeParams = new HashMap<>();
+    fakeParams.put("param1", "value1");
+    fakeParams.put("param2", "value2");
+
+    final JWPlatformClient mockClient = spy(JWPlatformClient.create(apiKey, apiSecret, host));
+    final String fakeNonce = "foo";
+    final String fakeTimestamp = "1585592845";
+
+    when(mockClient.getRandomNonce()).thenReturn(fakeNonce);
+    when(mockClient.getCurrentUnixTimestampInSeconds()).thenReturn(fakeTimestamp);
+
+    final String actualUrl = mockClient.buildRequestUrl(host, path, fakeParams);
+    final String expectedUrl = "https://website.com/v1/videos/create?" +
+        "api_format=json&api_key=fakeApiKey&api_nonce=foo&api_timestamp=1585592845" +
+        "&param1=value1&param2=value2&api_signature=1b56023931f51a17f8ee5b2bd50ceefe18aa9e32";
+    assertEquals(expectedUrl, actualUrl);
+  }
 
   @Test
   @SuppressWarnings("unchecked")
@@ -210,7 +233,7 @@ public class TestJWPlatformClient {
     queryBlock.put("token", "def");
 
     final Map<String, Object> linkBlock = new HashMap<>();
-    linkBlock.put("path", "videos/upload");
+    linkBlock.put("path", "v1/videos/upload");
     linkBlock.put("protocol", "http");
     linkBlock.put("address", "upload-portal.jwplatform.com");
     linkBlock.put("query", queryBlock);
