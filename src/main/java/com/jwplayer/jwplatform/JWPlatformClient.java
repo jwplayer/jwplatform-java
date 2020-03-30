@@ -148,7 +148,7 @@ public class JWPlatformClient {
    * @throws JWPlatformException - an exception occurred during encoding
    */
   @VisibleForTesting
-  public String buildRequestUrl(
+  String buildRequestUrl(
       final String host, final String path, final Map<String, String> params)
       throws JWPlatformException {
 
