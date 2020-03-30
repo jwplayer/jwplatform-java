@@ -146,40 +146,36 @@ public class JWPlatformClient {
    * @param params - Parameters to be included in the request
    * @return - Fully formed request URL for an API request with api signature
    * @throws JWPlatformException - an exception occurred during encoding
-   * @throws URISyntaxException - an exception occured while building the URI
-   * @throws MalformedURLException - an exception occurred converting the URI to a URL
    */
   private String buildRequestUrl(
       final String host, final String path, final Map<String, String> params)
-      throws JWPlatformException, URISyntaxException, MalformedURLException {
+      throws JWPlatformException {
+
     final URIBuilder uriBuilder = new URIBuilder();
 
-    final TreeMap<String, String> orderedParams = new TreeMap<>(params);
+    try {
+      uriBuilder.setHost(host);
+      uriBuilder.setScheme(this.scheme);
+      uriBuilder.setPath(path);
+      uriBuilder.addParameter("api_key", this.apiKey);
+      uriBuilder.addParameter("api_format", "json");
+      uriBuilder.addParameter("api_nonce", this.getRandomNonce());
+      uriBuilder.addParameter("api_timestamp", this.getCurrentUnixTimestampInSeconds());
 
-    uriBuilder.setHost(host);
-    uriBuilder.setScheme(this.scheme);
-    uriBuilder.setPath(path);
-    uriBuilder.addParameter("api_key", this.apiKey);
-    uriBuilder.addParameter("api_format", "json");
-    uriBuilder.addParameter("api_nonce", this.getRandomNonce());
-    uriBuilder.addParameter("api_timestamp", this.getCurrentUnixTimestampInSeconds());
-    final String hexDigest = DigestUtils.sha1Hex(uriBuilder.getQueryParams().toString());
-
-    uriBuilder.addParameter("api_signature", hexDigest);
-
-    final StringBuilder encodedParams = new StringBuilder();
-
-    for (final String param : orderedParams.keySet()) {
-      if (encodedParams.length() != 0) {
-        encodedParams.append("&");
+      for (final Map.Entry<String, String> entry : params.entrySet()) {
+        uriBuilder.addParameter(entry.getKey(), encodeStringForJWPlatformAPI(entry.getValue()));
       }
-      final String encodedValue = encodeStringForJWPlatformAPI(orderedParams.get(param));
-      encodedParams.append(param).append("=").append(encodedValue);
-    }
-    final String paramsNoSignature = encodedParams.toString();
-    encodedParams.append(this.apiSecret);
 
-    return uriBuilder.build().toURL().toString() + paramsNoSignature;
+      final String paramsNoSignature = uriBuilder.getQueryParams().toString();
+
+      final String hexDigest = DigestUtils.sha1Hex(paramsNoSignature + this.apiSecret);
+
+      uriBuilder.addParameter("api_signature", hexDigest);
+
+      return uriBuilder.build().toURL().toString() + paramsNoSignature;
+    } catch (Exception e) {
+      throw new JWPlatformException(String.format("Unable to build request URL: %s", e.getMessage()));
+    }
   }
 
   /**
@@ -215,7 +211,7 @@ public class JWPlatformClient {
   /**
    * see {@link #request(String, Map, boolean, String)}.
    */
-  public JSONObject request(final String path) throws JWPlatformException, MalformedURLException, URISyntaxException {
+  public JSONObject request(final String path) throws JWPlatformException {
     return this.request(path, new HashMap<>());
   }
 
@@ -223,7 +219,7 @@ public class JWPlatformClient {
    * see {@link #request(String, Map, boolean, String)}.
    */
   public JSONObject request(final String path, final Map<String, String> params)
-          throws JWPlatformException, MalformedURLException, URISyntaxException {
+          throws JWPlatformException {
     return this.request(path, params, false, "Get", new HashMap<>());
   }
 
@@ -231,7 +227,7 @@ public class JWPlatformClient {
    * see {@link #request(String, Map, boolean, String)}.
    */
   public JSONObject request(final String path, final String requestType)
-      throws JWPlatformException, MalformedURLException, URISyntaxException {
+      throws JWPlatformException {
     return this.request(path, new HashMap<>(), false, requestType, new HashMap<>());
   }
 
@@ -239,7 +235,7 @@ public class JWPlatformClient {
    * see {@link #request(String, Map, boolean, String)}.
    */
   public JSONObject request(final String path, final Map<String, String> params, final boolean isBodyParams, final String requestType)
-      throws JWPlatformException, MalformedURLException, URISyntaxException {
+      throws JWPlatformException {
     return this.request(path, params, isBodyParams, requestType, new HashMap<>());
   }
 
@@ -265,12 +261,10 @@ public class JWPlatformClient {
    *
    *     Example: this will contain error message
    *         {@code e.getCause().getMessage()}
-   * @throws URISyntaxException - an exception occured while building the URI
-   * @throws MalformedURLException - an exception occurred converting the URI to a URL
    */
   public JSONObject request(final String path, final Map<String, String> params,
                             final boolean isBodyParams, final String requestType, final Map<String, String> headers)
-      throws JWPlatformException, MalformedURLException, URISyntaxException {
+      throws JWPlatformException {
     final String requestUrl;
     final HttpResponse<JsonNode> response;
 
