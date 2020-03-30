@@ -36,7 +36,7 @@ public class TestJWPlatformClient {
 
   private final String apiKey = "fakeApiKey";
   private final String apiSecret = "fakeApiSecret";
-  private final String path = "/v1/videos/create";
+  private final String path = "videos/create";
 
   @Test
   @SuppressWarnings("unchecked")
@@ -210,7 +210,7 @@ public class TestJWPlatformClient {
     queryBlock.put("token", "def");
 
     final Map<String, Object> linkBlock = new HashMap<>();
-    linkBlock.put("path", "/v1/videos/upload");
+    linkBlock.put("path", "videos/upload");
     linkBlock.put("protocol", "http");
     linkBlock.put("address", "upload-portal.jwplatform.com");
     linkBlock.put("query", queryBlock);

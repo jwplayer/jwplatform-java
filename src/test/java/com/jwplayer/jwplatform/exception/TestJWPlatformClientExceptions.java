@@ -89,6 +89,6 @@ public class TestJWPlatformClientExceptions {
         when(httpResponse.getStatus()).thenReturn(418);
         when(httpResponse.getBody()).thenReturn(non200ResponseBody);
 
-        mediaAPIClient.request("/v1/videos/create");
+        mediaAPIClient.request("videos/create");
     }
 }
