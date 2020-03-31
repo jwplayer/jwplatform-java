@@ -138,10 +138,10 @@ public class JWPlatformClient {
   /**
    * Generates fully formed URL for api request.
    *
-   * @param path - endpoint to be used in API request
-   * @param params - Parameters to be included in the request
-   * @return - Fully formed request URL for an API request with api signature
-   * @throws JWPlatformException - an exception occurred during encoding
+   * @param path - endpoint to be used in API request which includes a leading slash (ie /my/path not my/path).
+   * @param params - Parameters to be included in the request.
+   * @return - Fully formed request URL for an API request with api signature.
+   * @throws JWPlatformException - an exception occurred during encoding.
    */
   private String buildRequestUrl(
       final String host, final String path, final Map<String, String> params)
@@ -173,7 +173,7 @@ public class JWPlatformClient {
   /**
    * Upload a video file from the local file system.
    *
-   * @param uploadPath - the fully constructed upload url
+   * @param uploadPath - the fully constructed upload url which includes a leading slash (ie /my/path not my/path)
    * @param localFilePath - the path to the video file on the local file system
    * @param headers - Map of headers to add to the request
    * @return - JSON response from JW Platform API
@@ -237,7 +237,7 @@ public class JWPlatformClient {
    * <p>This function generates an API signature, makes request to JWPlatform API and returns
    * result.
    *
-   * @param path - endpoint to be used in API request
+   * @param path - endpoint to be used in API request which includes a leading slash (ie /my/path not my/path)
    * @param params - Parameters to be included in the request
    * @param isBodyParams - Whether the parameters are to be included as query params or in
    *                     the body of the request. This is only relevant for POST requests.
@@ -299,7 +299,7 @@ public class JWPlatformClient {
   /**
    * Upload a video file for a video created with `sourcetype: file`.
    *
-   * @param videosCreateResponse - the response object from a 'videos/create' API call.
+   * @param videosCreateResponse - the response object from a '/videos/create' API call.
    * @param localFilePath - path to the video file on the local file system.
    * @param headers - map of headers for the request
    * @return - JSON response from JW Platform API
