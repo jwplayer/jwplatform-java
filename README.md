@@ -48,7 +48,7 @@ public class JWPlatformClientExample {
         videosCreateParams.put("sourceurl", "http://www.some-url.com/some-video.mp4");
         videosCreateParams.put("title", "Some Video Title");
 
-        String videosShowPath = "videos/show";
+        String videosShowPath = "/videos/show";
         
         try {            
             JWPlatformClient client = JWPlatformClient.create(apiKey, apiSecret);
@@ -87,12 +87,12 @@ public class JWPlatformClientExample {
     String apiKey = "key";
     String apiSecret = "secret";
 
-    String videosCreatePath = "videos/create";
+    String videosCreatePath = "/videos/create";
     Map<String, String> videosCreateParams = new HashMap<>();
     videosCreateParams.put("sourcetype", "file");
     videosCreateParams.put("title", "Some Video Title");
 
-    String localFilePath = "/some/path//test_video.mp4";
+    String localFilePath = "/some/path/test_video.mp4";
 
     try {
         JWPlatformClient client = JWPlatformClient.create(apiKey, apiSecret);
@@ -109,6 +109,10 @@ public class JWPlatformClientExample {
     }
 }
 ```
+_**Note**_
+
+In the preceding snippets, all URL paths feature a leading slash. These must be included
+for the URL builder to work properly.
 
 ## Supported operations
 
