@@ -1,3 +1,6 @@
+## 0.3.1
+* Javadoc updates
+
 ## 0.3.0
 * Security upgrade of puppycrawl
 * Add param for headers to requests() and upload()
