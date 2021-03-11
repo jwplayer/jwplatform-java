@@ -1,4 +1,4 @@
-package com.jwplayer.jwplatform;
+package com.jwplayer.jwplatform.v1;
 
 import static junit.framework.TestCase.fail;
 import static org.junit.Assert.assertEquals;
@@ -9,6 +9,7 @@ import static org.powermock.api.mockito.PowerMockito.mockStatic;
 
 import com.jwplayer.jwplatform.exception.JWPlatformException;
 import com.jwplayer.jwplatform.exception.JWPlatformUnknownException;
+import com.jwplayer.jwplatform.v1.JWPlatformClient;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
