@@ -1,4 +1,4 @@
-package com.jwplayer.jwplatform;
+package com.jwplayer.jwplatform.client;
 
 /**
  * JW Platform API client.
