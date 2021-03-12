@@ -28,7 +28,7 @@ public class MediaClient{
 		headers.put("accept", "application/json");
 		this.path = format(siteId);
 		System.out.println(this.path);
-		return HttpCalls.request(this.path, new HashMap<>(), false, "GET", headers);
+		return HttpCalls.request(this.path, params, false, "GET", headers);
 	}
 
 }
