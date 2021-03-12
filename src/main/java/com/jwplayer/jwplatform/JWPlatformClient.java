@@ -11,5 +11,4 @@ package com.jwplayer.jwplatform;
  */
 
 interface JWPlatformClient {
-	JWPlatformClient create(String secret);
 }
