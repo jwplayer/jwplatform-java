@@ -6,6 +6,7 @@ import java.util.Map;
 import org.json.JSONObject;
 
 import com.jwplayer.jwplatform.exception.JWPlatformException;
+import com.jwplayer.jwplatform.rest.HttpCalls;
 
 public class MediaClient{
 
@@ -21,14 +22,13 @@ public class MediaClient{
 		return String.format(this.path, siteId);
 	}
 
-	public JSONObject listAllMedia(String siteId) throws JWPlatformException {
+	public JSONObject listAllMedia(String siteId, Map<String, String> params) throws JWPlatformException {
 		Map<String, String> headers = new HashMap<>();
 		headers.put("Authorization", "Bearer "+secret);
 		headers.put("accept", "application/json");
 		this.path = format(siteId);
 		System.out.println(this.path);
-		//JSONObject response = HttpCalls.request(this.path, new HashMap<>(), false, "GET", headers);
-		return null;
+		return HttpCalls.request(this.path, new HashMap<>(), false, "GET", headers);
 	}
 
 }
