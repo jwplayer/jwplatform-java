@@ -49,4 +49,11 @@ public class MediaClient{
 		this.path = format(siteId, headers)+mediaId+"/";
 		return HttpCalls.request(this.path, new HashMap<>(), false, "DELETE", headers);
 	}
+	
+	public JSONObject updateMedia(String siteId, String mediaId, Map<String, String> bodyParams) throws JWPlatformException {
+		Map<String, String> headers = new HashMap<>();
+		this.path = format(siteId, headers)+mediaId+"/";
+		boolean isBodyParams = bodyParams.size()>0;
+		return HttpCalls.request(this.path, bodyParams, isBodyParams, "PATCH", headers);
+	}
 }
