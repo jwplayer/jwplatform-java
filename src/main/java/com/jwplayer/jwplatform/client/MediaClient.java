@@ -40,7 +40,13 @@ public class MediaClient{
 	
 	public JSONObject retrieveMediaById(String siteId, String mediaId, Map<String, String> params) throws JWPlatformException {
 		Map<String, String> headers = new HashMap<>();
-		this.path = format(siteId, headers)+"media/"+mediaId+"/";
+		this.path = format(siteId, headers)+mediaId+"/";
 		return HttpCalls.request(this.path, params, false, "GET", headers);
+	}
+
+	public JSONObject deleteMedia(String siteId, String mediaId) throws JWPlatformException {
+		Map<String, String> headers = new HashMap<>();
+		this.path = format(siteId, headers)+mediaId+"/";
+		return HttpCalls.request(this.path, new HashMap<>(), false, "DELETE", headers);
 	}
 }

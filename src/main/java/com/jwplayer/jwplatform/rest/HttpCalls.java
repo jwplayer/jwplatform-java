@@ -53,12 +53,13 @@ public class HttpCalls {
 				break;
 			case "DELETE":
 				response = Unirest.delete(path).headers(headers).asJson();
+				if(response.getStatus()== 201 || response.getStatus()== 200 || response.getStatus() == 204) return new JSONObject("{\"message\":\"Deletion successful\"}");
+				break;
 			default:
 				throw new JWPlatformException(String.format("%s is not a supported request type.", requestType));
 			}
 			final JSONObject responseBlock = response.getBody().getObject();
 			checkForNon200Response(response.getStatus(), responseBlock);
-
 			return responseBlock;
 		} catch (final UnirestException e) {
 			throw new JWPlatformUnknownException(String.format("Non-JSON response from server: %s", e.toString()));
