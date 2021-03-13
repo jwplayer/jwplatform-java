@@ -42,6 +42,17 @@ public class HttpCalls {
 					response = Unirest.post(requestUrl).asJson();
 				}
 				break;
+			case "PATCH":
+				if (isBodyParams) {
+					requestUrl = buildRequestUrl(path, Collections.emptyMap());
+					response = Unirest.patch(requestUrl).headers(headers).body(new JSONObject(params)).asJson();
+				} else {
+					requestUrl = buildRequestUrl(path, params);
+					response = Unirest.patch(requestUrl).asJson();
+				}
+				break;
+			case "DELETE":
+				response = Unirest.delete(path).headers(headers).asJson();
 			default:
 				throw new JWPlatformException(String.format("%s is not a supported request type.", requestType));
 			}
@@ -114,7 +125,7 @@ public class HttpCalls {
 	   */
 	  private static void checkForNon200Response(final int statusCode, final JSONObject response)
 	          throws JWPlatformException {
-	    if (statusCode != 200) {
+	    if (statusCode != 200 && statusCode != 201) {
 	      try {
 	        MediaAPIExceptionFactory.throwJWPlatformException(
 	                StringUtils.stripEnd(response.getString("code"), "Error"), response.toString());

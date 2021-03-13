@@ -21,6 +21,7 @@ public class MediaClient{
 	private String format(String siteId, Map<String,String> headers) {
 		headers.put("Authorization", "Bearer "+secret);
 		headers.put("accept", "application/json");
+		headers.put("Content-Type", "application/json");
 		return String.format(this.path, siteId);
 	}
 
