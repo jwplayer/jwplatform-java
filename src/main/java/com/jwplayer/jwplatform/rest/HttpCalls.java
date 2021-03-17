@@ -24,7 +24,6 @@ public class HttpCalls {
 		try {
 			switch (requestType.toUpperCase()) {
 			case "GET":
-				//requestUrl = buildRequestUrl(path, params);
 				response = Unirest.get(path).headers(headers).asJson();
 				break;
 			case "POST":
@@ -43,6 +42,15 @@ public class HttpCalls {
 				} else {
 					requestUrl = buildRequestUrl(path, params);
 					response = Unirest.patch(requestUrl).asJson();
+				}
+				break;
+			case "PUT":
+				if (isBodyParams) {
+					requestUrl = buildRequestUrl(path, Collections.emptyMap());
+					response = Unirest.put(requestUrl).headers(headers).body(new JSONObject(params)).asJson();
+				} else {
+					requestUrl = buildRequestUrl(path, params);
+					response = Unirest.put(requestUrl).asJson();
 				}
 				break;
 			case "DELETE":
