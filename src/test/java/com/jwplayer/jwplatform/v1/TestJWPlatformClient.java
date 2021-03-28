@@ -2,7 +2,10 @@ package com.jwplayer.jwplatform.v1;
 
 import static junit.framework.TestCase.fail;
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Matchers.*;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyMap;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.contains;
 import static org.mockito.Mockito.when;
 import static org.powermock.api.mockito.PowerMockito.mockStatic;
@@ -82,11 +85,11 @@ public class TestJWPlatformClient {
   @SuppressWarnings("unchecked")
   public void testPostRequestWithSpecialCharacterUrlEncoding() throws Exception {
     final HashMap<String, String> params =
-            new HashMap<String, String>() {
-              {
-                put("url", "media.com +!~");
-              }
-            };
+        new HashMap<String, String>() {
+          {
+            put("url", "media.com +!~");
+          }
+        };
     final JSONObject expectedResponse = new JSONObject();
     expectedResponse.put("status", 200);
 
