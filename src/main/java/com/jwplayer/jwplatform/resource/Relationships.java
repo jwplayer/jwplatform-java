@@ -7,7 +7,7 @@ public class Relationships {
 	Protection_Rule protection_rule;
 	
 	public Relationships(JSONObject relationships) {
-		this.setProtection_Rule(new Protection_Rule(relationships.getString("id")));
+		if(!relationships.isNull("id")) this.setProtection_Rule(new Protection_Rule(relationships.getString("id")));
 	}
 
 	private void setProtection_Rule(Protection_Rule protection_rule) {

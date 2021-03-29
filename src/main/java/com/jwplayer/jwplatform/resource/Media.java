@@ -21,20 +21,20 @@ public class Media {
 	String type;
 	
 	public Media(JSONObject media) {
-		this.setCreated((Date) media.get("created"));
-		this.setDuration(media.getInt("duration"));
-		this.setError_message(media.getString("error_message"));
-		this.setHosting_type(media.getString("hosting_type"));
-		this.setId(media.getString("id"));
-		this.setLast_modified((Date) media.get("last_modified"));
-		this.setMedia_type(media.getString("media_type"));
-		this.setMetadata(new Metadata(media.getJSONObject("metadata")));
-		this.setMime_type(media.getString("mime_type"));
-		this.setRelationships(new Relationships(media.getJSONObject("relationships")));
-		this.setStatus(media.getString("status"));
-		this.setTrim_in_point(media.getString("trim_in_point"));
-		this.setTrim_out_point(media.getString("trim_out_point"));
-		this.setType(media.getString("type"));
+		if(!media.isNull("created")) this.setCreated((Date) media.get("created"));
+		if(!media.isNull("duration")) this.setDuration(media.getInt("duration"));
+		if(!media.isNull("error_message")) this.setError_message(media.getString("error_message"));
+		if(!media.isNull("hosting_type")) this.setHosting_type(media.getString("hosting_type"));
+		if(!media.isNull("id")) this.setId(media.getString("id"));
+		if(!media.isNull("last_modified")) this.setLast_modified((Date) media.get("last_modified"));
+		if(!media.isNull("media_type")) this.setMedia_type(media.getString("media_type"));
+		if(!media.isNull("metadata")) this.setMetadata(new Metadata(media.getJSONObject("metadata")));
+		if(!media.isNull("mime_type")) this.setMime_type(media.getString("mime_type"));
+		if(!media.isNull("relationships")) this.setRelationships(new Relationships(media.getJSONObject("relationships")));
+		if(!media.isNull("status")) this.setStatus(media.getString("status"));
+		if(!media.isNull("trim_in_point")) this.setTrim_in_point(media.getString("trim_in_point"));
+		if(!media.isNull("trim_out_point")) this.setTrim_out_point(media.getString("trim_out_point"));
+		if(!media.isNull("type")) this.setType(media.getString("type"));
 	}
 	@Override
 	public String toString() {
