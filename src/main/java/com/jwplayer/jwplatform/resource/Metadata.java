@@ -6,6 +6,15 @@ import java.util.Date;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+/**
+ * 
+ * @author smurthy
+ * JW Platform Metadata resource object.
+ *
+ * <p>An object class for the Metadata object. For the documentation see:
+ * https://developer.jwplayer.com/jwplayer/reference?showHidden=93052#section-get-v2-sites-site_id-media-media-metadata
+ *
+ */
 public class Metadata {
 	Custom_Params custom_params;
 	Protection_Rule protection_rule;

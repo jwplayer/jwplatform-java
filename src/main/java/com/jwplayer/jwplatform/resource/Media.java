@@ -4,6 +4,15 @@ import java.util.Date;
 
 import org.json.JSONObject;
 
+/**
+ * 
+ * @author smurthy
+ * JW Platform Media resource object.
+ *
+ * <p>An object class for the Media object. For the documentation see:
+ * https://developer.jwplayer.com/jwplayer/reference?showHidden=93052#section-get-v2-sites-site_id-media-media
+ *
+ */
 public class Media {
 	Date created;
 	int duration;
