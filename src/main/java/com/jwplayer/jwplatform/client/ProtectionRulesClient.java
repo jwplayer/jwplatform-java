@@ -66,7 +66,7 @@ public class ProtectionRulesClient {
 	 * 
 	 * @param siteId
 	 * @param params
-	 * @return JSON response from Media API
+	 * @return JSON response from ProtectionRules API
 	 * @throws JWPlatformException
 	 * See https://developer.jwplayer.com/jwplayer/reference?showHidden=93052#get_v2-sites-site-id-media-protection-rules
 	 */
@@ -80,7 +80,7 @@ public class ProtectionRulesClient {
 	 * 
 	 * @param siteId
 	 * @param bodyParams
-	 * @return JSON response from Media API
+	 * @return JSON response from ProtectionRules API
 	 * @throws JWPlatformException
 	 * See https://developer.jwplayer.com/jwplayer/reference?showHidden=93052#post_v2-sites-site-id-media-protection-rules
 	 */
@@ -96,7 +96,7 @@ public class ProtectionRulesClient {
 	 * @param siteId
 	 * @param protectionRuleId
 	 * @param params
-	 * @return JSON response from Media API
+	 * @return JSON response from ProtectionRules API
 	 * @throws JWPlatformException
 	 * See https://developer.jwplayer.com/jwplayer/reference?showHidden=93052#get_v2-sites-site-id-media-protection-rules-protection-rule-id-
 	 */
@@ -111,7 +111,7 @@ public class ProtectionRulesClient {
 	 * 
 	 * @param siteId
 	 * @param protectionRuleId
-	 * @return JSON response from Media API
+	 * @return JSON response from ProtectionRules API
 	 * @throws JWPlatformException
 	 * See https://developer.jwplayer.com/jwplayer/reference?showHidden=93052#delete_v2-sites-site-id-media-protection-rules-protection-rule-id-
 	 */
@@ -127,7 +127,7 @@ public class ProtectionRulesClient {
 	 * @param siteId
 	 * @param protectionRuleId
 	 * @param bodyParams
-	 * @return JSON response from Media API
+	 * @return JSON response from ProtectionRules API
 	 * @throws JWPlatformException
 	 * See https://developer.jwplayer.com/jwplayer/reference?showHidden=93052#patch_v2-sites-site-id-media-protection-rules-protection-rule-id-
 	 */
@@ -143,7 +143,7 @@ public class ProtectionRulesClient {
 	 * 
 	 * @param siteId
 	 * @param params
-	 * @return JSON response from Media API
+	 * @return JSON response from ProtectionRules API
 	 * @throws JWPlatformException
 	 * See https://developer.jwplayer.com/jwplayer/reference?showHidden=93052#get_v2-sites-site-id-site-protection-rule
 	 */
@@ -157,7 +157,7 @@ public class ProtectionRulesClient {
 	 * 
 	 * @param siteId
 	 * @param bodyParams
-	 * @return JSON response from Media API
+	 * @return JSON response from ProtectionRules API
 	 * @throws JWPlatformException
 	 * See https://developer.jwplayer.com/jwplayer/reference?showHidden=93052#patch_v2-sites-site-id-site-protection-rule
 	 */
