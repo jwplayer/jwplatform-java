@@ -143,7 +143,6 @@ public class VPBConfigsClient {
 	/**
 	 * 
 	 * @param siteId
-	 * @param configId
 	 * @param bodyParams
 	 * @return JSON response from Media API
 	 * @throws JWPlatformException
