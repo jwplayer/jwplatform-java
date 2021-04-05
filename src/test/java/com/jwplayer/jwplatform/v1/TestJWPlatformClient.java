@@ -2,17 +2,30 @@ package com.jwplayer.jwplatform.v1;
 
 import static junit.framework.TestCase.fail;
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyMap;
-import static org.mockito.Matchers.anyString;
-import static org.mockito.Matchers.eq;
-import static org.mockito.Mockito.contains;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyMap;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.contains;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 import static org.powermock.api.mockito.PowerMockito.mockStatic;
 
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.json.JSONObject;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mockito;
+import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
+
 import com.jwplayer.jwplatform.exception.JWPlatformException;
 import com.jwplayer.jwplatform.exception.JWPlatformUnknownException;
-import com.jwplayer.jwplatform.v1.JWPlatformClient;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
@@ -21,18 +34,6 @@ import com.mashape.unirest.request.GetRequest;
 import com.mashape.unirest.request.HttpRequestWithBody;
 import com.mashape.unirest.request.body.MultipartBody;
 import com.mashape.unirest.request.body.RequestBodyEntity;
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.InputStream;
-import java.util.HashMap;
-import java.util.Map;
-import org.json.JSONObject;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.internal.verification.VerificationModeFactory;
-import org.powermock.api.mockito.PowerMockito;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({Unirest.class, HttpResponse.class, HttpRequestWithBody.class, MultipartBody.class})
@@ -187,7 +188,8 @@ public class TestJWPlatformClient {
     final JWPlatformClient mediaAPIClient = JWPlatformClient.create(apiKey, apiSecret);
     final HttpRequestWithBody requestWithBody = PowerMockito.mock(HttpRequestWithBody.class);
     final MultipartBody multipartBody = PowerMockito.mock(MultipartBody.class);
-    final HttpResponse<InputStream> response = PowerMockito.mock(HttpResponse.class);
+    @SuppressWarnings("unchecked")
+	final HttpResponse<InputStream> response = PowerMockito.mock(HttpResponse.class);
     mockStatic(Unirest.class);
 
     final String xmlResponse =
@@ -238,9 +240,9 @@ public class TestJWPlatformClient {
     expectedResponseMap.put("response", expectedResponseBlock);
 
     final JSONObject expectedResponse = new JSONObject(expectedResponseMap);
-
     final JSONObject actualResponse = mediaAPIClient.upload(videoCreateResponse, "/some/path");
-    PowerMockito.verifyStatic(VerificationModeFactory.times(1));
     assertEquals(expectedResponse.toString(), actualResponse.toString());
+    PowerMockito.verifyStatic(Unirest.class, Mockito.times(1));
+    Unirest.post("");
   }
 }
