@@ -96,4 +96,40 @@ public class MediaClientTest {
 		PowerMockito.verifyStatic(HttpCalls.class, Mockito.times(1));
 		HttpCalls.request(anyString(), anyMap(), anyBoolean(), eq("GET"), anyMap());
 	}
+	
+	@Test
+	public void testDeleteMedia() throws JWPlatformException {
+		mockStatic(HttpCalls.class);
+		JSONObject expected = new JSONObject();
+		expected.append("key", "value");
+		when(HttpCalls.request(anyString(), anyMap(), anyBoolean(), eq("DELETE"), anyMap())).thenReturn(expected);
+		JSONObject actual = mediaClient.deleteMedia("siteId", "ajhsbjdsha");
+		assertEquals(expected, actual);
+		PowerMockito.verifyStatic(HttpCalls.class, Mockito.times(1));
+		HttpCalls.request(anyString(), anyMap(), anyBoolean(), eq("DELETE"), anyMap());
+	}
+	
+	@Test
+	public void testUpdateMedia() throws JWPlatformException {
+		mockStatic(HttpCalls.class);
+		JSONObject expected = new JSONObject();
+		expected.append("key", "value");
+		when(HttpCalls.request(anyString(), anyMap(), anyBoolean(), eq("PATCH"), anyMap())).thenReturn(expected);
+		JSONObject actual = mediaClient.updateMedia("siteId", "ajhsbjdsha", new HashMap<>());
+		assertEquals(expected, actual);
+		PowerMockito.verifyStatic(HttpCalls.class, Mockito.times(1));
+		HttpCalls.request(anyString(), anyMap(), anyBoolean(), eq("PATCH"), anyMap());
+	}
+	
+	@Test
+	public void testReupload() throws JWPlatformException {
+		mockStatic(HttpCalls.class);
+		JSONObject expected = new JSONObject();
+		expected.append("key", "value");
+		when(HttpCalls.request(anyString(), anyMap(), anyBoolean(), eq("PUT"), anyMap())).thenReturn(expected);
+		JSONObject actual = mediaClient.reuploadMedia("siteId", "ajhsbjdsha", new HashMap<>());
+		assertEquals(expected, actual);
+		PowerMockito.verifyStatic(HttpCalls.class, Mockito.times(1));
+		HttpCalls.request(anyString(), anyMap(), anyBoolean(), eq("PUT"), anyMap());
+	}
 }
