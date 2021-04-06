@@ -20,10 +20,9 @@ import org.powermock.modules.junit4.PowerMockRunner;
 
 import com.jwplayer.jwplatform.exception.JWPlatformException;
 import com.jwplayer.jwplatform.rest.HttpCalls;
-import com.mashape.unirest.http.Unirest;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({Unirest.class, HttpCalls.class})
+@PrepareForTest({HttpCalls.class})
 public class AdvertisingClientTest {
 
 	AdvertisingClient advertisingClient = AdvertisingClient.getClient("fakeSecret");
