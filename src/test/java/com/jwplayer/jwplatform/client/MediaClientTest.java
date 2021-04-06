@@ -11,7 +11,6 @@ import static org.powermock.api.mockito.PowerMockito.mockStatic;
 import java.util.HashMap;
 
 import org.json.JSONObject;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
