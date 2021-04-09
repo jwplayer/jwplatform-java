@@ -18,11 +18,10 @@ import com.jwplayer.jwplatform.rest.HttpCalls;
  * <p>Example:
  *    AnalyticsClient client = AnalyticsClient.getClient(secret);
  */
-public class AnalyticsClient{
+public class AnalyticsClient extends JWplatformClientV2{
 
 	private String path;
 	private final String secret;
-	private static Map<String,String> headers;
 	
 	/**
 	   * Instantiate a new {@code AnalyticsClient} instance.
@@ -44,23 +43,6 @@ public class AnalyticsClient{
 	public static AnalyticsClient getClient(String secret) {
 		Preconditions.checkNotNull(secret, "API Secret must not be null!");
 		return new AnalyticsClient(secret);
-	}
-	
-	/**
-	 * Add custom/additional headers
-	 * @param key
-	 * @param value
-	 */
-	public void addHeader(String key, String value) {
-		headers.put(key, value);
-	}
-	
-	/**
-	 * Remove a header
-	 * @param key
-	 */
-	public void removeHeader(String key) {
-		headers.remove(key);
 	}
 	
 	/**

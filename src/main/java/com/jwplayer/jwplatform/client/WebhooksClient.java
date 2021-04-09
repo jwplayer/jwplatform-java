@@ -18,11 +18,10 @@ import com.jwplayer.jwplatform.rest.HttpCalls;
  * <p>Example:
  *    WebhooksClient client = WebhooksClient.getClient(secret);
  */
-public class WebhooksClient {
+public class WebhooksClient extends JWplatformClientV2{
 
 	private String path;
 	private final String secret;
-	private static Map<String,String> headers;
 	
 	/**
 	   * Instantiate a new {@code WebhooksClient} instance.
@@ -44,23 +43,6 @@ public class WebhooksClient {
 	public static WebhooksClient getClient(String secret) {
 		Preconditions.checkNotNull(secret, "API Secret must not be null!");
 		return new WebhooksClient(secret);
-	}
-	
-	/**
-	 * Add custom/additional headers
-	 * @param key
-	 * @param value
-	 */
-	public void addHeader(String key, String value) {
-		headers.put(key, value);
-	}
-	
-	/**
-	 * Remove a header
-	 * @param key
-	 */
-	public void removeHeader(String key) {
-		headers.remove(key);
 	}
 	
 	/**

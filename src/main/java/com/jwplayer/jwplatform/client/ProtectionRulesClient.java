@@ -18,10 +18,9 @@ import com.jwplayer.jwplatform.rest.HttpCalls;
  * <p>Example:
  *    ProtectionRulesClient client = ProtectionRulesClient.getClient(secret);
  */
-public class ProtectionRulesClient {
+public class ProtectionRulesClient extends JWplatformClientV2 {
 	private String path;	
 	private final String secret;
-	private static Map<String,String> headers;
 	
 	/**
 	   * Instantiate a new {@code ProtectionRulesClient} instance.
@@ -43,23 +42,6 @@ public class ProtectionRulesClient {
 	public static ProtectionRulesClient getClient(String secret) {
 		Preconditions.checkNotNull(secret, "API Secret must not be null!");
 		return new ProtectionRulesClient(secret);
-	}
-	
-	/**
-	 * Add custom/additional headers
-	 * @param key
-	 * @param value
-	 */
-	public void addHeader(String key, String value) {
-		headers.put(key, value);
-	}
-	
-	/**
-	 * Remove a header
-	 * @param key
-	 */
-	public void removeHeader(String key) {
-		headers.remove(key);
 	}
 	
 	/**
