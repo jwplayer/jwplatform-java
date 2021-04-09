@@ -14,8 +14,30 @@ import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
+/**
+ * 
+ * @author smurthy
+ * HttpCalls is used internally by client classes for management API V2 to make Http calls. Additionally,
+ * it is also used to build the request to be used for the Http call. Detailed description of each method is
+ * provided below
+ */
 public class HttpCalls {
 
+	/**
+	   * Send a request to the Management API V2 of the JWPlatform.
+	   *
+	   * <p>This function generates an API signature, makes request to JWPlatform API V2 and returns
+	   * result.
+	   *
+	   * @param path         - endpoint to be used in API request which includes a leading slash (ie /my/path not my/path)
+	   * @param params       - Parameters to be included in the request
+	   * @param isBodyParams - Whether the parameters are to be included as query params or in
+	   *                     the body of the request. This is only relevant for POST requests.
+	   * @param requestType  - The type of HTTP. Valid values are ["GET", "POST"].
+	   * @param headers      - Map of headers to add to the request
+	   * @return - JSON response from JW Platform API
+	   * @throws JWPlatformException - JWPlatform API returned an exception.
+	   */
 	public static JSONObject request(final String path, final Map<String, String> params, final boolean isBodyParams,
 			final String requestType, final Map<String, String> headers) throws JWPlatformException {
 		final String requestUrl;
