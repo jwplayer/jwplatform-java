@@ -13,6 +13,15 @@ import com.jwplayer.jwplatform.exception.JWPlatformException;
 import com.jwplayer.jwplatform.exception.JWPlatformUnknownException;
 import com.jwplayer.jwplatform.exception.MediaAPIExceptionFactory;
 
+/**
+ * Util class.
+ *
+ * <p>A utility for the JW Platform API clients. This class contains of methods that can be accessed
+ * separately as shown in the example below. Detailed documentation for each method is provided below.
+ *
+ * <p>Example:
+ *    Util.encodeStringForJWPlatformAPI("StringToEncode");
+ */
 public class Util {
 	/**
 	   * URL encodes a {@code String}, then modifies it to be compliant with the JW Platform API.
