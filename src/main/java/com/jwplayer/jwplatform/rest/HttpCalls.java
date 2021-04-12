@@ -15,8 +15,8 @@ import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
 /**
+ * HttpCalls class
  * 
- * @author smurthy
  * HttpCalls is used internally by client classes for management API V2 to make Http calls. Additionally,
  * it is also used to build the request to be used for the Http call. Detailed description of each method is
  * provided below
@@ -77,7 +77,8 @@ public class HttpCalls {
 				break;
 			case "DELETE":
 				response = Unirest.delete(path).headers(headers).asJson();
-				if(response.getStatus()== 201 || response.getStatus()== 200 || response.getStatus() == 204) return new JSONObject("{\"message\":\"Deletion successful\"}");
+				int firstDigit = Integer.parseInt(Integer.toString(response.getStatus()).substring(0, 1));
+				if(firstDigit == 2) return new JSONObject("{\"message\":\"Deletion successful for the request"+path+" \"}");
 				break;
 			default:
 				throw new JWPlatformException(String.format("%s is not a supported request type.", requestType));
