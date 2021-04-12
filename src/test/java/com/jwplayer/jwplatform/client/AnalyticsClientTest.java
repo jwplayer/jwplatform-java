@@ -1,5 +1,6 @@
 package com.jwplayer.jwplatform.client;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.ArgumentMatchers.anyMap;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -29,8 +30,9 @@ public class AnalyticsClientTest {
 	public void testRunQueryNoSourceNoFormat() throws JWPlatformException {
 		analyticsClient.addHeader("test", "testVal");
 		mockStatic(HttpCalls.class);
-		when(HttpCalls.request(eq("https://api.jwplayer.com/v2/sites/siteID/analytics/queries/?source=default&format=json"), anyMap(), anyBoolean(), eq("GET"), anyMap())).thenReturn(new JSONObject());
-		analyticsClient.runQuery("siteID", null, null, new HashMap<>());
+		when(HttpCalls.request(eq("https://api.jwplayer.com/v2/sites/siteID/analytics/queries/?source=default&format=json"), anyMap(), anyBoolean(), eq("GET"), anyMap())).thenReturn(new JSONObject("{\"code\":\"success\"}"));
+		JSONObject resp = analyticsClient.runQuery("siteID", null, null, new HashMap<>());
+		assertEquals(resp.get("code"),"success");
 		PowerMockito.verifyStatic(HttpCalls.class, Mockito.times(1));
 		HttpCalls.request(eq("https://api.jwplayer.com/v2/sites/siteID/analytics/queries/?source=default&format=json"), anyMap(), anyBoolean(), anyString(), anyMap());
 		analyticsClient.removeHeader("test");
@@ -40,8 +42,9 @@ public class AnalyticsClientTest {
 	public void testRunQueryEmptySourceEmptyFormat() throws JWPlatformException {
 		analyticsClient.addHeader("test", "testVal");
 		mockStatic(HttpCalls.class);
-		when(HttpCalls.request(eq("https://api.jwplayer.com/v2/sites/siteID/analytics/queries/?source=default&format=json"), anyMap(), anyBoolean(), eq("GET"), anyMap())).thenReturn(new JSONObject());
-		analyticsClient.runQuery("siteID", "", "", new HashMap<>());
+		when(HttpCalls.request(eq("https://api.jwplayer.com/v2/sites/siteID/analytics/queries/?source=default&format=json"), anyMap(), anyBoolean(), eq("GET"), anyMap())).thenReturn(new JSONObject("{\"code\":\"success\"}"));
+		JSONObject resp = analyticsClient.runQuery("siteID", "", "", new HashMap<>());
+		assertEquals(resp.get("code"),"success");
 		PowerMockito.verifyStatic(HttpCalls.class, Mockito.times(1));
 		HttpCalls.request(eq("https://api.jwplayer.com/v2/sites/siteID/analytics/queries/?source=default&format=json"), anyMap(), anyBoolean(), anyString(), anyMap());
 	}
@@ -50,9 +53,18 @@ public class AnalyticsClientTest {
 	public void testRunQuery() throws JWPlatformException {
 		analyticsClient.addHeader("test", "testVal");
 		mockStatic(HttpCalls.class);
-		when(HttpCalls.request(eq("https://api.jwplayer.com/v2/sites/siteID/analytics/queries/?source=floatleft&format=csv"), anyMap(), anyBoolean(), eq("GET"), anyMap())).thenReturn(new JSONObject());
-		analyticsClient.runQuery("siteID", "floatleft", "csv", new HashMap<>());
+		when(HttpCalls.request(eq("https://api.jwplayer.com/v2/sites/siteID/analytics/queries/?source=floatleft&format=csv"), anyMap(), anyBoolean(), eq("GET"), anyMap())).thenReturn(new JSONObject("{\"code\":\"success\"}"));
+		JSONObject resp = analyticsClient.runQuery("siteID", "floatleft", "csv", new HashMap<>());
+		assertEquals(resp.get("code"),"success");
 		PowerMockito.verifyStatic(HttpCalls.class, Mockito.times(1));
 		HttpCalls.request(eq("https://api.jwplayer.com/v2/sites/siteID/analytics/queries/?source=floatleft&format=csv"), anyMap(), anyBoolean(), anyString(), anyMap());
+	}
+	
+	@Test(expected = JWPlatformException.class )
+	public void testRunQueryExcption() throws JWPlatformException{
+		analyticsClient.addHeader("test", "testVal");
+		mockStatic(HttpCalls.class);
+		when(HttpCalls.request(eq("https://api.jwplayer.com/v2/sites/siteID/analytics/queries/?source=default&format=json"), anyMap(), anyBoolean(), eq("GET"), anyMap())).thenThrow(new JWPlatformException("some exception occured"));
+		analyticsClient.runQuery("siteID", null, null, new HashMap<>());
 	}
 }
