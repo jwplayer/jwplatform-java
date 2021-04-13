@@ -123,7 +123,7 @@ public class EventsClient extends JWplatformClientV2{
 	 * @param params - Parameters to be included in the request
 	 * @return JSONObject response from api call
 	 * @throws JWPlatformException
-	 * See <a href="https://developer.jwplayer.com/jwplayer/reference?showHidden=93052#get_sites-site-id-channels-channel-id-events-event-id-master-1>Download the master asset for the event</a>
+	 * See <a href="https://developer.jwplayer.com/jwplayer/reference?showHidden=93052#get_sites-site-id-channels-channel-id-events-event-id-master-1">Download the master asset for the event</a>
 	 */
 	public JSONObject downloadMasterAsset(String siteId, String channelId, String eventId, Map<String, String> params) throws JWPlatformException {
 		Preconditions.checkNotNull(siteId, "Site ID must not be null!");
