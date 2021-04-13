@@ -10,10 +10,10 @@ import com.jwplayer.jwplatform.exception.JWPlatformException;
 import com.jwplayer.jwplatform.rest.HttpCalls;
 
 /**
- * JW Platform Events API client.
+ * JW Platform Uploads API client.
  *
  * <p>An API client for the JW Platform Uploads API. For the API documentation see:
- * https://developer.jwplayer.com/jwplayer/reference#introduction-to-api-v2
+ * <a href="https://developer.jwplayer.com/jwplayer/reference#introduction-to-api-v2">Introduction to api v2</a>
  *
  * <p>Example:
  *    UploadsClient client = UploadsClient.getClient(secret);
@@ -47,11 +47,11 @@ public class UploadsClient extends JWplatformClientV2 {
 	
 	/**
 	 * 
-	 * @param uploadId
-	 * @param params
+	 * @param uploadId - Unique identifier for a resource
+	 * @param params - Parameters to be included in the request
 	 * @return JSONObject response from api call
 	 * @throws JWPlatformException
-	 * See https://developer.jwplayer.com/jwplayer/reference?showHidden=93052#uploads
+	 * See <a href="https://developer.jwplayer.com/jwplayer/reference?showHidden=93052#uploads">List completed and uncompleted parts</a>
 	 */
 	public JSONObject listCompleteIncompleteParts(String uploadId, Map<String, String> params) throws JWPlatformException {
 		Preconditions.checkNotNull(uploadId, "Upload ID must not be null!");
@@ -61,11 +61,11 @@ public class UploadsClient extends JWplatformClientV2 {
 	
 	/**
 	 * 
-	 * @param uploadId
-	 * @param bodyParams
+	 * @param uploadId - Unique identifier for a resource
+	 * @param bodyParams - Parameters to be included in the request body
 	 * @return JSONObject response from api call
 	 * @throws JWPlatformException
-	 * See https://developer.jwplayer.com/jwplayer/reference?showHidden=93052#put_v2-uploads-upload-id-complete
+	 * See <a href="https://developer.jwplayer.com/jwplayer/reference?showHidden=93052#put_v2-uploads-upload-id-complete">Complete upload</a>
 	 */
 	public JSONObject completeUpload(String uploadId, Map<String, String> bodyParams) throws JWPlatformException {
 		Preconditions.checkNotNull(uploadId, "Upload ID must not be null!");

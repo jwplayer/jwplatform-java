@@ -10,10 +10,10 @@ import com.jwplayer.jwplatform.exception.JWPlatformException;
 import com.jwplayer.jwplatform.rest.HttpCalls;
 
 /**
- * JW Platform Events API client.
+ * JW Platform Webhooks API client.
  *
  * <p>An API client for the JW Platform Webhooks API. For the API documentation see:
- * https://developer.jwplayer.com/jwplayer/reference#introduction-to-api-v2
+ * <a href="https://developer.jwplayer.com/jwplayer/reference#introduction-to-api-v2">Introduction to api v2</a>
  *
  * <p>Example:
  *    WebhooksClient client = WebhooksClient.getClient(secret);
@@ -47,10 +47,10 @@ public class WebhooksClient extends JWplatformClientV2{
 	
 	/**
 	 * 
-	 * @param params
+	 * @param params - Parameters to be included in the request
 	 * @return JSON response from Media API
 	 * @throws JWPlatformException
-	 * See https://developer.jwplayer.com/jwplayer/reference?showHidden=93052#get_v2-webhooks
+	 * See <a href="https://developer.jwplayer.com/jwplayer/reference?showHidden=93052#get_v2-webhooks">List webhooks</a>
 	 */
 	public JSONObject listWebhooks(Map<String, String> params) throws JWPlatformException {
 		return HttpCalls.request(this.path, params, false, "GET", headers);
@@ -58,10 +58,10 @@ public class WebhooksClient extends JWplatformClientV2{
 
 	/**
 	 * 
-	 * @param bodyParams
+	 * @param bodyParams - Parameters to be included in the request body
 	 * @return JSON response from Media API
 	 * @throws JWPlatformException
-	 * See https://developer.jwplayer.com/jwplayer/reference?showHidden=93052#post_v2-webhooks
+	 * See <a href="https://developer.jwplayer.com/jwplayer/reference?showHidden=93052#post_v2-webhooks">Create webhook resource</a>
 	 */
 	public JSONObject createWebhookResource(Map<String, String> bodyParams) throws JWPlatformException {
 		boolean isBodyParams = bodyParams.size()>0;
@@ -70,11 +70,11 @@ public class WebhooksClient extends JWplatformClientV2{
 	
 	/**
 	 * 
-	 * @param webhookId
-	 * @param params
+	 * @param webhookId - Unique identifier for a resource
+	 * @param params - Parameters to be included in the request
 	 * @return JSON response from Media API
 	 * @throws JWPlatformException
-	 * See https://developer.jwplayer.com/jwplayer/reference?showHidden=93052#get_v2-webhooks-webhook-id-
+	 * See <a href="https://developer.jwplayer.com/jwplayer/reference?showHidden=93052#get_v2-webhooks-webhook-id-">Retrieve webhook by ID</a>
 	 */
 	public JSONObject retrieveWebhookById(String webhookId, Map<String, String> params) throws JWPlatformException {
 		Preconditions.checkNotNull(webhookId, "Webhook ID must not be null!");
@@ -84,10 +84,10 @@ public class WebhooksClient extends JWplatformClientV2{
 	
 	/**
 	 * 
-	 * @param webhookId
+	 * @param webhookId - Unique identifier for a resource
 	 * @return JSON response from Media API
 	 * @throws JWPlatformException
-	 * See https://developer.jwplayer.com/jwplayer/reference?showHidden=93052#delete_v2-webhooks-webhook-id-
+	 * See <a href="https://developer.jwplayer.com/jwplayer/reference?showHidden=93052#delete_v2-webhooks-webhook-id-">Delete webhook</a>
 	 */
 	public JSONObject deleteWebhook(String webhookId) throws JWPlatformException {
 		Preconditions.checkNotNull(webhookId, "Webhook ID must not be null!");
@@ -97,11 +97,11 @@ public class WebhooksClient extends JWplatformClientV2{
 	
 	/**
 	 * 
-	 * @param webhookId
-	 * @param bodyParams
+	 * @param webhookId - Unique identifier for a resource
+	 * @param bodyParams - Parameters to be included in the request body
 	 * @return JSON response from Media API
 	 * @throws JWPlatformException
-	 * See https://developer.jwplayer.com/jwplayer/reference?showHidden=93052#patch_v2-webhooks-webhook-id-
+	 * See <a href="https://developer.jwplayer.com/jwplayer/reference?showHidden=93052#patch_v2-webhooks-webhook-id-">Update webhook</a>
 	 */
 	public JSONObject updateWebhook(String webhookId, Map<String, String> bodyParams) throws JWPlatformException {
 		Preconditions.checkNotNull(webhookId, "Webhook ID must not be null!");

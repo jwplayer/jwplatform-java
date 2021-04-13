@@ -13,7 +13,7 @@ import com.jwplayer.jwplatform.rest.HttpCalls;
  * JW Platform Advertising API client.
  *
  * <p>An API client for the JW Platform Advertising API. For the API documentation see:
- * https://developer.jwplayer.com/jwplayer/reference#introduction-to-api-v2
+ * <a href="https://developer.jwplayer.com/jwplayer/reference#introduction-to-api-v2">Introduction to api v2</a>
  *
  * <p>Example:
  *    AdvertisingClient client = AdvertisingClient.getClient(secret);
@@ -38,7 +38,8 @@ public class AdvertisingClient extends JWplatformClientV2{
 	}
 	
 	/**
-	   * see {@link #AdvertisingClient(String)}.
+	   * Get advertising client
+	   * @param secret - your api secret
 	   */
 	public static AdvertisingClient getClient(String secret) {
 		Preconditions.checkNotNull(secret, "API Secret must not be null!");
@@ -47,11 +48,11 @@ public class AdvertisingClient extends JWplatformClientV2{
 	
 	/**
 	 * 
-	 * @param siteId
-	 * @param params
+	 * @param siteId - Property ID
+	 * @param params - Parameters to be included in the request
 	 * @return response object from listAdvertisingSchedules API call 
 	 * @throws JWPlatformException
-	 * See https://developer.jwplayer.com/jwplayer/reference?showHidden=93052#get_v2-sites-site-id-advertising-schedules
+	 * See <a href="https://developer.jwplayer.com/jwplayer/reference?showHidden=93052#get_v2-sites-site-id-advertising-schedules">List Advertising Schedules</a>
 	 */
 	public JSONObject listAdvertisingSchedules(String siteId, Map<String, String> params) throws JWPlatformException {
 		Preconditions.checkNotNull(siteId, "Site ID must not be null!");
@@ -61,11 +62,11 @@ public class AdvertisingClient extends JWplatformClientV2{
 	
 	/**
 	 * 
-	 * @param siteId
-	 * @param bodyParams
+	 * @param siteId - Property ID
+	 * @param bodyParams - Parameters to be included in the body of the request
 	 * @return response object from createAdvertisingSchedule API call 
 	 * @throws JWPlatformException
-	 * See https://developer.jwplayer.com/jwplayer/reference?showHidden=93052#post_v2-sites-site-id-advertising-schedules
+	 * See <a href="https://developer.jwplayer.com/jwplayer/reference?showHidden=93052#post_v2-sites-site-id-advertising-schedules">Create Advertising Schedule </a>
 	 */
 	public JSONObject createAdvertisingSchedule(String siteId, Map<String, String> bodyParams) throws JWPlatformException {
 		Preconditions.checkNotNull(siteId, "Site ID must not be null!");
@@ -76,12 +77,12 @@ public class AdvertisingClient extends JWplatformClientV2{
 	
 	/**
 	 * 
-	 * @param siteId
-	 * @param adScheduleId
-	 * @param params
+	 * @param siteId - Property ID
+	 * @param adScheduleId - Unique alphanumeric ID of the ad schedule
+	 * @param params - Parameters to be included in the request
 	 * @return response object from retrieveAdvertisingScheduleById API call 
 	 * @throws JWPlatformException
-	 * See https://developer.jwplayer.com/jwplayer/reference?showHidden=93052#get_v2-sites-site-id-advertising-schedules-ad-schedule-id-
+	 * See <a href="https://developer.jwplayer.com/jwplayer/reference?showHidden=93052#get_v2-sites-site-id-advertising-schedules-ad-schedule-id-">Retrieve Advertising ScheduleById </a>
 	 */
 	public JSONObject retrieveAdvertisingScheduleById(String siteId, String adScheduleId, Map<String, String> params) throws JWPlatformException {
 		Preconditions.checkNotNull(siteId, "Site ID must not be null!");
@@ -92,12 +93,12 @@ public class AdvertisingClient extends JWplatformClientV2{
 	
 	/**
 	 * 
-	 * @param siteId
-	 * @param adScheduleId
-	 * @param bodyParams
+	 * @param siteId - Property ID
+	 * @param adScheduleId - Unique alphanumeric Unique alphanumeric ID of the ad schedule
+	 * @param bodyParams - Parameters to be included in the body of the request
 	 * @return response object from updateAdvertisingSchedule API call
 	 * @throws JWPlatformException
-	 * See https://developer.jwplayer.com/jwplayer/reference?showHidden=93052#patch_v2-sites-site-id-advertising-schedules-ad-schedule-id-
+	 * See <a href="https://developer.jwplayer.com/jwplayer/reference?showHidden=93052#patch_v2-sites-site-id-advertising-schedules-ad-schedule-id-">Update Advertising Schedule </a>
 	 */
 	public JSONObject updateAdvertisingSchedule(String siteId, String adScheduleId, Map<String, String> bodyParams) throws JWPlatformException {
 		Preconditions.checkNotNull(siteId, "Site ID must not be null!");
@@ -109,11 +110,11 @@ public class AdvertisingClient extends JWplatformClientV2{
 	
 	/**
 	 * 
-	 * @param siteId
-	 * @param adScheduleId
+	 * @param siteId - Property ID
+	 * @param adScheduleId - Unique alphanumeric ID of the ad schedule
 	 * @return response object from deleteAdvertisingScheduleById API call
 	 * @throws JWPlatformException
-	 * See https://developer.jwplayer.com/jwplayer/reference?showHidden=93052#delete_v2-sites-site-id-advertising-schedules-ad-schedule-id-
+	 * See <a href="https://developer.jwplayer.com/jwplayer/reference?showHidden=93052#delete_v2-sites-site-id-advertising-schedules-ad-schedule-id-"> Delete Ad schedule By Id </a>
 	 */
 	public JSONObject deleteAdvertisingScheduleById(String siteId, String adScheduleId) throws JWPlatformException {
 		Preconditions.checkNotNull(siteId, "Site ID must not be null!");

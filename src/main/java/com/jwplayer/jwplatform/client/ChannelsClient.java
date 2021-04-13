@@ -10,10 +10,10 @@ import com.jwplayer.jwplatform.exception.JWPlatformException;
 import com.jwplayer.jwplatform.rest.HttpCalls;
 
 /**
- * JW Platform Imports API client.
+ * JW Platform Channels API client.
  *
  * <p>An API client for the JW Platform Channels API. For the API documentation see:
- * https://developer.jwplayer.com/jwplayer/reference#introduction-to-api-v2
+ * <a href="https://developer.jwplayer.com/jwplayer/reference#introduction-to-api-v2">Introduction to api v2</a>
  *
  * <p>Example:
  *    ChannelsClient client = ChannelsClient.getClient(secret);
@@ -46,11 +46,11 @@ public class ChannelsClient extends JWplatformClientV2{
 	
 	/**
 	 * 
-	 * @param siteId
-	 * @param params
+	 * @param siteId - Property ID
+	 * @param params -Parameters to be included in the request
 	 * @return JSONObject response from api call
 	 * @throws JWPlatformException
-	 * See https://developer.jwplayer.com/jwplayer/reference?showHidden=93052#get_v2-sites-site-id-channels
+	 * See <a href="https://developer.jwplayer.com/jwplayer/reference?showHidden=93052#get_v2-sites-site-id-channels">List Channels</a>
 	 */
 	public JSONObject listChannels(String siteId, Map<String, String> params) throws JWPlatformException {
 		Preconditions.checkNotNull(siteId, "Site ID must not be null!");
@@ -60,11 +60,11 @@ public class ChannelsClient extends JWplatformClientV2{
 	
 	/**
 	 * 
-	 * @param siteId
-	 * @param bodyParams
+	 * @param siteId - Property ID
+	 * @param bodyParams - Parameters to be included in the body of the request
 	 * @return JSONObject response from api call
 	 * @throws JWPlatformException
-	 * See https://developer.jwplayer.com/jwplayer/reference?showHidden=93052#post_v2-sites-site-id-channels
+	 * See <a href="https://developer.jwplayer.com/jwplayer/reference?showHidden=93052#post_v2-sites-site-id-channels"> Create Channel </a>
 	 */
 	public JSONObject createChannel(String siteId, Map<String, String> bodyParams) throws JWPlatformException {
 		Preconditions.checkNotNull(siteId, "Site ID must not be null!");
@@ -76,11 +76,11 @@ public class ChannelsClient extends JWplatformClientV2{
 	/**
 	 * 
 	 * @param siteId
-	 * @param channelId
-	 * @param params
+	 * @param channelId - Live Channel ID
+	 * @param params - Parameters to be included in the request
 	 * @return JSONObject response from api call
 	 * @throws JWPlatformException
-	 * See https://developer.jwplayer.com/jwplayer/reference?showHidden=93052#get_v2-sites-site-id-channels-channel-id-
+	 * See <a href="https://developer.jwplayer.com/jwplayer/reference?showHidden=93052#get_v2-sites-site-id-channels-channel-id-"> Get Details By Id</a>
 	 */
 	public JSONObject getDetailsById(String siteId, String channelId, Map<String, String> params) throws JWPlatformException {
 		Preconditions.checkNotNull(siteId, "Site ID must not be null!");
@@ -91,11 +91,11 @@ public class ChannelsClient extends JWplatformClientV2{
 	
 	/**
 	 * 
-	 * @param siteId
-	 * @param channelId
+	 * @param siteId - Property ID
+	 * @param channelId - Live Channel ID
 	 * @return JSONObject response from api call
 	 * @throws JWPlatformException
-	 * https://developer.jwplayer.com/jwplayer/reference?showHidden=93052#delete_v2-sites-site-id-channels-channel-id-
+	 * See <a href="https://developer.jwplayer.com/jwplayer/reference?showHidden=93052#delete_v2-sites-site-id-channels-channel-id-"> Delete Channel </a>
 	 */
 	public JSONObject deleteChannel(String siteId, String channelId) throws JWPlatformException {
 		Preconditions.checkNotNull(siteId, "Site ID must not be null!");
@@ -106,12 +106,12 @@ public class ChannelsClient extends JWplatformClientV2{
 	
 	/**
 	 * 
-	 * @param siteId
-	 * @param channelId
-	 * @param bodyParams
+	 * @param siteId - Property ID
+	 * @param channelId - Live Channel ID
+	 * @param bodyParams - Parameters to be included in the body of the request
 	 * @return JSONObject response from api call
 	 * @throws JWPlatformException
-	 * See https://developer.jwplayer.com/jwplayer/reference?showHidden=93052#patch_v2-sites-site-id-channels-channel-id-
+	 * See <a href="https://developer.jwplayer.com/jwplayer/reference?showHidden=93052#patch_v2-sites-site-id-channels-channel-id-"> Change Settings For Channel </a>
 	 */
 	public JSONObject changeSettingsForChannel(String siteId, String channelId, Map<String, String> bodyParams) throws JWPlatformException {
 		Preconditions.checkNotNull(siteId, "Site ID must not be null!");

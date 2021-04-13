@@ -13,7 +13,7 @@ import com.jwplayer.jwplatform.rest.HttpCalls;
  * JW Platform Imports API client.
  *
  * <p>An API client for the JW Platform Imports API. For the API documentation see:
- * https://developer.jwplayer.com/jwplayer/reference#introduction-to-api-v2
+ * <a href="https://developer.jwplayer.com/jwplayer/reference#introduction-to-api-v2">Introduction to api v2</a>
  *
  * <p>Example:
  *    ImportsClient client = ImportsClient.getClient(secret);
@@ -47,11 +47,11 @@ public class ImportsClient extends JWplatformClientV2{
 	
 	/**
 	 * 
-	 * @param siteId
-	 * @param params
+	 * @param siteId - Property ID
+	 * @param params - Parameters to be included in the request
 	 * @return JSONObject response from api call
 	 * @throws JWPlatformException
-	 * See https://developer.jwplayer.com/jwplayer/reference?showHidden=93052#get_v2-sites-site-id-imports-1
+	 * See <a href="https://developer.jwplayer.com/jwplayer/reference?showHidden=93052#get_v2-sites-site-id-imports-1"> List Imports </a>
 	 */
 	public JSONObject listImports(String siteId, Map<String, String> params) throws JWPlatformException {
 		Preconditions.checkNotNull(siteId, "Site ID must not be null!");
@@ -61,11 +61,11 @@ public class ImportsClient extends JWplatformClientV2{
 	
 	/**
 	 * 
-	 * @param siteId
-	 * @param bodyParams
+	 * @param siteId - Property ID
+	 * @param bodyParams - Parameters to be included in the request body
 	 * @return JSONObject response from api call
 	 * @throws JWPlatformException
-	 * See https://developer.jwplayer.com/jwplayer/reference?showHidden=93052#post_v2-sites-site-id-imports-1
+	 * See <a href="https://developer.jwplayer.com/jwplayer/reference?showHidden=93052#post_v2-sites-site-id-imports-1">Add Import</a>
 	 */
 	public JSONObject addImport(String siteId, Map<String, String> bodyParams) throws JWPlatformException {
 		Preconditions.checkNotNull(siteId, "Site ID must not be null!");
@@ -76,12 +76,12 @@ public class ImportsClient extends JWplatformClientV2{
 	
 	/**
 	 * 
-	 * @param siteId
-	 * @param importId
-	 * @param params
+	 * @param siteId - Property ID
+	 * @param importId - Unique alphanumeric ID of the import source
+	 * @param params - Parameters to be included in the request
 	 * @return JSONObject response from api call
 	 * @throws JWPlatformException
-	 * https://developer.jwplayer.com/jwplayer/reference?showHidden=93052#get_v2-sites-site-id-import-import-id--1
+	 * See <a href="https://developer.jwplayer.com/jwplayer/reference?showHidden=93052#get_v2-sites-site-id-import-import-id--1">Get Import By ID</a>
 	 */
 	public JSONObject getImportById(String siteId, String importId, Map<String, String> params) throws JWPlatformException {
 		Preconditions.checkNotNull(siteId, "Site ID must not be null!");
@@ -92,12 +92,12 @@ public class ImportsClient extends JWplatformClientV2{
 	
 	/**
 	 * 
-	 * @param siteId
-	 * @param importId
-	 * @param bodyParams
+	 * @param siteId - Property ID
+	 * @param importId - Unique alphanumeric ID of the import source
+	 * @param bodyParams - Parameters to be included in the request body
 	 * @return JSONObject response from api call
 	 * @throws JWPlatformException
-	 * See https://developer.jwplayer.com/jwplayer/reference?showHidden=93052#patch_v2-sites-site-id-import-import-id--1
+	 * See <a href="https://developer.jwplayer.com/jwplayer/reference?showHidden=93052#patch_v2-sites-site-id-import-import-id--1">Update Import</a>
 	 */
 	public JSONObject updateImport(String siteId, String importId, Map<String, String> bodyParams) throws JWPlatformException {
 		Preconditions.checkNotNull(siteId, "Site ID must not be null!");
@@ -109,11 +109,11 @@ public class ImportsClient extends JWplatformClientV2{
 	
 	/**
 	 * 
-	 * @param siteId
-	 * @param importId
+	 * @param siteId - Property ID
+	 * @param importId - Unique alphanumeric ID of the import source
 	 * @return JSONObject response from api call
 	 * @throws JWPlatformException
-	 * See https://developer.jwplayer.com/jwplayer/reference?showHidden=93052#delete_v2-sites-site-id-import-import-id--1
+	 * See <a href="https://developer.jwplayer.com/jwplayer/reference?showHidden=93052#delete_v2-sites-site-id-import-import-id--1">Delete Import </a>
 	 */
 	public JSONObject deleteImport(String siteId, String importId) throws JWPlatformException {
 		Preconditions.checkNotNull(siteId, "Site ID must not be null!");

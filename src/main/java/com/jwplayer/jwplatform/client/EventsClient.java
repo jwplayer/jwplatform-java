@@ -13,7 +13,7 @@ import com.jwplayer.jwplatform.rest.HttpCalls;
  * JW Platform Events API client.
  *
  * <p>An API client for the JW Platform Channels API. For the API documentation see:
- * https://developer.jwplayer.com/jwplayer/reference#introduction-to-api-v2
+ * <a href="https://developer.jwplayer.com/jwplayer/reference#introduction-to-api-v2">Introduction to api v2</a>
  *
  * <p>Example:
  *    EventsClient client = EventsClient.getClient(secret);
@@ -47,12 +47,12 @@ public class EventsClient extends JWplatformClientV2{
 	
 	/**
 	 * 
-	 * @param siteId
-	 * @param channelId
-	 * @param params
+	 * @param siteId - Property ID
+	 * @param channelId - Live Channel ID
+	 * @param params - Parameters to be included in the request
 	 * @return JSONObject response from api call
 	 * @throws JWPlatformException
-	 * See https://developer.jwplayer.com/jwplayer/reference?showHidden=93052#get_v2-sites-site-id-channels-channel-id-events
+	 * See <a href="https://developer.jwplayer.com/jwplayer/reference?showHidden=93052#get_v2-sites-site-id-channels-channel-id-events"> List Events of a Channel</a>
 	 */
 	public JSONObject listEventsOfChannel(String siteId, String channelId, Map<String, String> params) throws JWPlatformException {
 		Preconditions.checkNotNull(siteId, "Site ID must not be null!");
@@ -63,13 +63,13 @@ public class EventsClient extends JWplatformClientV2{
 	
 	/**
 	 * 
-	 * @param siteId
-	 * @param channelId
-	 * @param eventId
-	 * @param params
+	 * @param siteId - Property ID
+	 * @param channelId - Live Channel ID
+	 * @param eventId - Live Channel Event ID
+	 * @param params - Parameters to be included in the request
 	 * @return JSONObject response from api call
 	 * @throws JWPlatformException
-	 * See https://developer.jwplayer.com/jwplayer/reference?showHidden=93052#get_v2-sites-site-id-channels-channel-id-events-event-id-
+	 * See <a href="https://developer.jwplayer.com/jwplayer/reference?showHidden=93052#get_v2-sites-site-id-channels-channel-id-events-event-id-"> List event details of a channel</a>
 	 */
 	public JSONObject listEventDetailsOfChannel(String siteId, String channelId, String eventId, Map<String, String> params) throws JWPlatformException {
 		Preconditions.checkNotNull(siteId, "Site ID must not be null!");
@@ -81,13 +81,13 @@ public class EventsClient extends JWplatformClientV2{
 	
 	/**
 	 * 
-	 * @param siteId
-	 * @param channelId
-	 * @param eventId
-	 * @param bodyParams
+	 * @param siteId - Property ID
+	 * @param channelId - Live Channel ID
+	 * @param eventId - Live Channel Event ID
+	 * @param bodyParams - Parameters to be included in the request body
 	 * @return JSONObject response from api call
 	 * @throws JWPlatformException
-	 * See https://developer.jwplayer.com/jwplayer/reference?showHidden=93052#put_v2-sites-site-id-channels-channel-id-events-event-id-request-master
+	 * See <a href="https://developer.jwplayer.com/jwplayer/reference?showHidden=93052#put_v2-sites-site-id-channels-channel-id-events-event-id-request-master">Request download availability of the master</a>
 	 */
 	public JSONObject requestMasterDownloadAvailability(String siteId, String channelId, String eventId, Map<String, String> bodyParams) throws JWPlatformException {
 		Preconditions.checkNotNull(siteId, "Site ID must not be null!");
@@ -99,13 +99,13 @@ public class EventsClient extends JWplatformClientV2{
 	
 	/**
 	 * 
-	 * @param siteId
-	 * @param channelId
-	 * @param eventId
-	 * @param bodyParams
+	 * @param siteId - Property ID
+	 * @param channelId - Live Channel ID
+	 * @param eventId - Live Channel Event ID
+	 * @param bodyParams - Parameters to be included in the request body
 	 * @return JSONObject response from api call
 	 * @throws JWPlatformException
-	 * See https://developer.jwplayer.com/jwplayer/reference?showHidden=93052#put_v2-sites-site-id-channels-channel-id-events-event-id-clip-1
+	 * See <a href="https://developer.jwplayer.com/jwplayer/reference?showHidden=93052#put_v2-sites-site-id-channels-channel-id-events-event-id-clip-1">Create a new VOD asset by clipping an event</a>
 	 */
 	public JSONObject createVODAsset(String siteId, String channelId, String eventId, Map<String, String> bodyParams) throws JWPlatformException {
 		Preconditions.checkNotNull(siteId, "Site ID must not be null!");
@@ -117,13 +117,13 @@ public class EventsClient extends JWplatformClientV2{
 	
 	/**
 	 * 
-	 * @param siteId
-	 * @param channelId
-	 * @param eventId
-	 * @param params
+	 * @param siteId - Property ID
+	 * @param channelId - Live Channel ID
+	 * @param eventId - Live Channel Event ID
+	 * @param params - Parameters to be included in the request
 	 * @return JSONObject response from api call
 	 * @throws JWPlatformException
-	 * See https://developer.jwplayer.com/jwplayer/reference?showHidden=93052#get_sites-site-id-channels-channel-id-events-event-id-master-1
+	 * See <a href="https://developer.jwplayer.com/jwplayer/reference?showHidden=93052#get_sites-site-id-channels-channel-id-events-event-id-master-1>Download the master asset for the event</a>
 	 */
 	public JSONObject downloadMasterAsset(String siteId, String channelId, String eventId, Map<String, String> params) throws JWPlatformException {
 		Preconditions.checkNotNull(siteId, "Site ID must not be null!");

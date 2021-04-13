@@ -13,7 +13,7 @@ import com.jwplayer.jwplatform.rest.HttpCalls;
  * JW Platform Analytics API client.
  *
  * <p>An API client for the JW Platform Analytics API. For the API documentation see:
- * https://developer.jwplayer.com/jwplayer/reference#introduction-to-api-v2
+ * <a href="https://developer.jwplayer.com/jwplayer/reference#introduction-to-api-v2">Introduction to api v2</a>
  *
  * <p>Example:
  *    AnalyticsClient client = AnalyticsClient.getClient(secret);
@@ -47,13 +47,13 @@ public class AnalyticsClient extends JWplatformClientV2{
 	
 	/**
 	 * 
-	 * @param siteId
-	 * @param source - can be null or empty, defaults to "default"
-	 * @param format - can be null or empty, defaults to "json"
-	 * @param params
+	 * @param siteId - Property ID
+	 * @param source - Data set against which to run the request query, can be null or empty, defaults to "default"
+	 * @param format - File type of the response query output, can be null or empty, defaults to "json"
+	 * @param params - Parameters to be included in the request
 	 * @return JSONObject from api call
 	 * @throws JWPlatformException
-	 * See https://developer.jwplayer.com/jwplayer/reference?showHidden=93052#run-a-query
+	 * See <a href="https://developer.jwplayer.com/jwplayer/reference?showHidden=93052#run-a-query"> Run Query </a>
 	 */
 	public JSONObject runQuery(String siteId, String source, String format, Map<String,String> params) throws JWPlatformException {
 		if(source==null || source.equals("")) source = "default";
