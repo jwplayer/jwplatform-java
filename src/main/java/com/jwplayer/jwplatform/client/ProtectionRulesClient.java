@@ -76,7 +76,7 @@ public class ProtectionRulesClient extends JWplatformClientV2 {
 			throws JWPlatformException {
 		Preconditions.checkNotNull(siteId, "Site ID must not be null!");
 		this.path = String.format(this.path, siteId) + "media_protection_rules/";
-		boolean isBodyParams = bodyParams.size() > 0;
+		final boolean isBodyParams = bodyParams.size() > 0;
 		return HttpCalls.request(this.path, bodyParams, isBodyParams, "POST", headers);
 	}
 
@@ -129,7 +129,7 @@ public class ProtectionRulesClient extends JWplatformClientV2 {
 		Preconditions.checkNotNull(siteId, "Site ID must not be null!");
 		Preconditions.checkNotNull(protectionRuleId, "ProtectionRule ID must not be null!");
 		this.path = String.format(this.path, siteId) + "media_protection_rules/" + protectionRuleId + "/";
-		boolean isBodyParams = bodyParams.size() > 0;
+		final boolean isBodyParams = bodyParams.size() > 0;
 		return HttpCalls.request(this.path, bodyParams, isBodyParams, "PATCH", headers);
 	}
 
@@ -161,7 +161,7 @@ public class ProtectionRulesClient extends JWplatformClientV2 {
 			throws JWPlatformException {
 		Preconditions.checkNotNull(siteId, "Site ID must not be null!");
 		this.path = String.format(this.path, siteId) + "site_protection_rule/";
-		boolean isBodyParams = bodyParams.size() > 0;
+		final boolean isBodyParams = bodyParams.size() > 0;
 		return HttpCalls.request(this.path, bodyParams, isBodyParams, "PATCH", headers);
 	}
 

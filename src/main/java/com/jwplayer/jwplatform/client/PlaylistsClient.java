@@ -109,7 +109,7 @@ public class PlaylistsClient extends JWplatformClientV2 {
 	public JSONObject createManualPlaylist(String siteId, Map<String, String> bodyParams) throws JWPlatformException {
 		Preconditions.checkNotNull(siteId, "Site ID must not be null!");
 		this.path = String.format(this.path, siteId) + "manual_playlist/";
-		boolean isBodyParams = bodyParams.size() > 0;
+		final boolean isBodyParams = bodyParams.size() > 0;
 		return HttpCalls.request(this.path, bodyParams, isBodyParams, "POST", headers);
 	}
 
@@ -146,7 +146,7 @@ public class PlaylistsClient extends JWplatformClientV2 {
 		Preconditions.checkNotNull(siteId, "Site ID must not be null!");
 		Preconditions.checkNotNull(playlistId, "Playlist ID must not be null!");
 		this.path = String.format(this.path, siteId) + playlistId + "/manual_playlist/";
-		boolean isBodyParams = bodyParams.size() > 0;
+		final boolean isBodyParams = bodyParams.size() > 0;
 		return HttpCalls.request(this.path, bodyParams, isBodyParams, "PATCH", headers);
 	}
 
@@ -178,7 +178,7 @@ public class PlaylistsClient extends JWplatformClientV2 {
 	public JSONObject createDynamicPlaylist(String siteId, Map<String, String> bodyParams) throws JWPlatformException {
 		Preconditions.checkNotNull(siteId, "Site ID must not be null!");
 		this.path = String.format(this.path, siteId) + "dynamic_playlist/";
-		boolean isBodyParams = bodyParams.size() > 0;
+		final boolean isBodyParams = bodyParams.size() > 0;
 		return HttpCalls.request(this.path, bodyParams, isBodyParams, "POST", headers);
 	}
 
@@ -215,7 +215,7 @@ public class PlaylistsClient extends JWplatformClientV2 {
 		Preconditions.checkNotNull(siteId, "Site ID must not be null!");
 		Preconditions.checkNotNull(playlistId, "Playlist ID must not be null!");
 		this.path = String.format(this.path, siteId) + playlistId + "/dynamic_playlist/";
-		boolean isBodyParams = bodyParams.size() > 0;
+		final boolean isBodyParams = bodyParams.size() > 0;
 		return HttpCalls.request(this.path, bodyParams, isBodyParams, "PATCH", headers);
 	}
 
@@ -247,7 +247,7 @@ public class PlaylistsClient extends JWplatformClientV2 {
 	public JSONObject createTrendingPlaylist(String siteId, Map<String, String> bodyParams) throws JWPlatformException {
 		Preconditions.checkNotNull(siteId, "Site ID must not be null!");
 		this.path = String.format(this.path, siteId) + "trending_playlist/";
-		boolean isBodyParams = bodyParams.size() > 0;
+		final boolean isBodyParams = bodyParams.size() > 0;
 		return HttpCalls.request(this.path, bodyParams, isBodyParams, "POST", headers);
 	}
 
@@ -284,7 +284,7 @@ public class PlaylistsClient extends JWplatformClientV2 {
 		Preconditions.checkNotNull(siteId, "Site ID must not be null!");
 		Preconditions.checkNotNull(playlistId, "Playlist ID must not be null!");
 		this.path = String.format(this.path, siteId) + playlistId + "/trending_playlist/";
-		boolean isBodyParams = bodyParams.size() > 0;
+		final boolean isBodyParams = bodyParams.size() > 0;
 		return HttpCalls.request(this.path, bodyParams, isBodyParams, "PATCH", headers);
 	}
 
@@ -317,7 +317,7 @@ public class PlaylistsClient extends JWplatformClientV2 {
 			throws JWPlatformException {
 		Preconditions.checkNotNull(siteId, "Site ID must not be null!");
 		this.path = String.format(this.path, siteId) + "article_matching_playlist/";
-		boolean isBodyParams = bodyParams.size() > 0;
+		final boolean isBodyParams = bodyParams.size() > 0;
 		return HttpCalls.request(this.path, bodyParams, isBodyParams, "POST", headers);
 	}
 
@@ -354,7 +354,7 @@ public class PlaylistsClient extends JWplatformClientV2 {
 		Preconditions.checkNotNull(siteId, "Site ID must not be null!");
 		Preconditions.checkNotNull(playlistId, "Playlist ID must not be null!");
 		this.path = String.format(this.path, siteId) + playlistId + "/article_matching_playlist/";
-		boolean isBodyParams = bodyParams.size() > 0;
+		final boolean isBodyParams = bodyParams.size() > 0;
 		return HttpCalls.request(this.path, bodyParams, isBodyParams, "PATCH", headers);
 	}
 
@@ -386,7 +386,7 @@ public class PlaylistsClient extends JWplatformClientV2 {
 	public JSONObject createSearchPlaylist(String siteId, Map<String, String> bodyParams) throws JWPlatformException {
 		Preconditions.checkNotNull(siteId, "Site ID must not be null!");
 		this.path = String.format(this.path, siteId) + "search_playlist/";
-		boolean isBodyParams = bodyParams.size() > 0;
+		final boolean isBodyParams = bodyParams.size() > 0;
 		return HttpCalls.request(this.path, bodyParams, isBodyParams, "POST", headers);
 	}
 
@@ -423,7 +423,7 @@ public class PlaylistsClient extends JWplatformClientV2 {
 		Preconditions.checkNotNull(siteId, "Site ID must not be null!");
 		Preconditions.checkNotNull(playlistId, "Playlist ID must not be null!");
 		this.path = String.format(this.path, siteId) + playlistId + "/search_playlist/";
-		boolean isBodyParams = bodyParams.size() > 0;
+		final boolean isBodyParams = bodyParams.size() > 0;
 		return HttpCalls.request(this.path, bodyParams, isBodyParams, "PATCH", headers);
 	}
 
@@ -456,7 +456,7 @@ public class PlaylistsClient extends JWplatformClientV2 {
 			throws JWPlatformException {
 		Preconditions.checkNotNull(siteId, "Site ID must not be null!");
 		this.path = String.format(this.path, siteId) + "recommendations_playlist/";
-		boolean isBodyParams = bodyParams.size() > 0;
+		final boolean isBodyParams = bodyParams.size() > 0;
 		return HttpCalls.request(this.path, bodyParams, isBodyParams, "POST", headers);
 	}
 
@@ -493,7 +493,7 @@ public class PlaylistsClient extends JWplatformClientV2 {
 		Preconditions.checkNotNull(siteId, "Site ID must not be null!");
 		Preconditions.checkNotNull(playlistId, "Playlist ID must not be null!");
 		this.path = String.format(this.path, siteId) + playlistId + "/recommendations_playlist/";
-		boolean isBodyParams = bodyParams.size() > 0;
+		final boolean isBodyParams = bodyParams.size() > 0;
 		return HttpCalls.request(this.path, bodyParams, isBodyParams, "PATCH", headers);
 	}
 

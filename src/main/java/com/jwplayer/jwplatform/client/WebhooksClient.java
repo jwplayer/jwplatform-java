@@ -69,7 +69,7 @@ public class WebhooksClient extends JWplatformClientV2 {
 	 *                             webhook resource</a>
 	 */
 	public JSONObject createWebhookResource(Map<String, String> bodyParams) throws JWPlatformException {
-		boolean isBodyParams = bodyParams.size() > 0;
+		final boolean isBodyParams = bodyParams.size() > 0;
 		return HttpCalls.request(this.path, bodyParams, isBodyParams, "POST", headers);
 	}
 
@@ -114,7 +114,7 @@ public class WebhooksClient extends JWplatformClientV2 {
 	public JSONObject updateWebhook(String webhookId, Map<String, String> bodyParams) throws JWPlatformException {
 		Preconditions.checkNotNull(webhookId, "Webhook ID must not be null!");
 		this.path = String.format(this.path) + webhookId + "/";
-		boolean isBodyParams = bodyParams.size() > 0;
+		final boolean isBodyParams = bodyParams.size() > 0;
 		return HttpCalls.request(this.path, bodyParams, isBodyParams, "PATCH", headers);
 	}
 }

@@ -75,7 +75,7 @@ public class MediaClient extends JWplatformClientV2 {
 	public JSONObject createMedia(String siteId, Map<String, String> bodyParams) throws JWPlatformException {
 		Preconditions.checkNotNull(siteId, "Site ID must not be null!");
 		this.path = String.format(this.path, siteId);
-		boolean isBodyParams = bodyParams.size() > 0;
+		final boolean isBodyParams = bodyParams.size() > 0;
 		return HttpCalls.request(this.path, bodyParams, isBodyParams, "POST", headers);
 	}
 
@@ -128,7 +128,7 @@ public class MediaClient extends JWplatformClientV2 {
 		Preconditions.checkNotNull(siteId, "Site ID must not be null!");
 		Preconditions.checkNotNull(mediaId, "Media ID must not be null!");
 		this.path = String.format(this.path, siteId) + mediaId + "/";
-		boolean isBodyParams = bodyParams.size() > 0;
+		final boolean isBodyParams = bodyParams.size() > 0;
 		return HttpCalls.request(this.path, bodyParams, isBodyParams, "PATCH", headers);
 	}
 
