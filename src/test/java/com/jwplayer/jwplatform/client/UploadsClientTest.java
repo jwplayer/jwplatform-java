@@ -23,30 +23,34 @@ import com.jwplayer.jwplatform.exception.JWPlatformException;
 import com.jwplayer.jwplatform.rest.HttpCalls;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({HttpCalls.class})
+@PrepareForTest({ HttpCalls.class })
 public class UploadsClientTest {
 
 	UploadsClient uploadsClient = UploadsClient.getClient("fakeSecret");
+
 	@Test
 	public void testAllMethods() throws JWPlatformException {
 		uploadsClient.addHeader("test", "testVal");
 		mockStatic(HttpCalls.class);
-		when(HttpCalls.request(anyString(), anyMap(), anyBoolean(), eq("GET"), anyMap())).thenReturn((new JSONObject("{\"code\":\"success\"}")));
-		when(HttpCalls.request(anyString(), anyMap(), anyBoolean(), eq("PUT"), anyMap())).thenReturn((new JSONObject("{\"code\":\"Upload successful\"}")));
+		when(HttpCalls.request(anyString(), anyMap(), anyBoolean(), eq("GET"), anyMap()))
+				.thenReturn((new JSONObject("{\"code\":\"success\"}")));
+		when(HttpCalls.request(anyString(), anyMap(), anyBoolean(), eq("PUT"), anyMap()))
+				.thenReturn((new JSONObject("{\"code\":\"Upload successful\"}")));
 		JSONObject listResp = uploadsClient.listCompleteIncompleteParts("uploadId", new HashMap<>());
-		assertEquals(listResp.get("code"),"success");
+		assertEquals(listResp.get("code"), "success");
 		JSONObject putResp = uploadsClient.completeUpload("uploadId", new HashMap<>());
-		assertEquals(putResp.get("code"),"Upload successful");
+		assertEquals(putResp.get("code"), "Upload successful");
 		PowerMockito.verifyStatic(HttpCalls.class, Mockito.times(2));
 		HttpCalls.request(anyString(), anyMap(), anyBoolean(), anyString(), anyMap());
 		uploadsClient.removeHeader("test");
 	}
-	
+
 	@Test(expected = JWPlatformException.class)
 	public void testGetException() throws JSONException, JWPlatformException {
 		uploadsClient.addHeader("test", "testVal");
 		mockStatic(HttpCalls.class);
-		when(HttpCalls.request(anyString(), anyMap(), anyBoolean(), eq("GET"), anyMap())).thenThrow(new JWPlatformException("some exception occured"));
+		when(HttpCalls.request(anyString(), anyMap(), anyBoolean(), eq("GET"), anyMap()))
+				.thenThrow(new JWPlatformException("some exception occured"));
 		uploadsClient.listCompleteIncompleteParts("uploadId", new HashMap<>());
 	}
 }

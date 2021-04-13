@@ -27,6 +27,12 @@
             <organization>JW Player</organization>
             <organizationUrl>http://www.jwplayer.com</organizationUrl>
         </developer>
+        <developer>
+            <name>Shweta Murthy</name>
+            <email>smurthy@jwplayer.com</email>
+            <organization>JW Player</organization>
+            <organizationUrl>http://www.jwplayer.com</organizationUrl>
+        </developer>
     </developers>
 
     <scm>

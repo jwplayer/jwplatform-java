@@ -24,40 +24,46 @@ import com.jwplayer.jwplatform.exception.JWPlatformException;
 import com.jwplayer.jwplatform.rest.HttpCalls;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({HttpCalls.class})
+@PrepareForTest({ HttpCalls.class })
 public class AdvertisingClientTest {
 
 	AdvertisingClient advertisingClient = AdvertisingClient.getClient("fakeSecret");
+
 	@Test
 	public void testAllMethods() throws JWPlatformException {
 		advertisingClient.addHeader("test", "testVal");
 		mockStatic(HttpCalls.class);
-		when(HttpCalls.request(anyString(), anyMap(), anyBoolean(), eq("GET"), anyMap())).thenReturn(new JSONObject("{\"code\":\"success\"}"));
-		when(HttpCalls.request(anyString(), anyMap(), anyBoolean(), eq("POST"), anyMap())).thenReturn(new JSONObject("{\"code\":\"Object creation successful\"}"));
-		when(HttpCalls.request(anyString(), anyMap(), anyBoolean(), eq("DELETE"), anyMap())).thenReturn(new JSONObject("{\"code\":\"Deletion success!\"}"));
-		when(HttpCalls.request(anyString(), anyMap(), anyBoolean(), eq("PATCH"), anyMap())).thenReturn(new JSONObject("{\"code\":\"Update successful\"}"));
+		when(HttpCalls.request(anyString(), anyMap(), anyBoolean(), eq("GET"), anyMap()))
+				.thenReturn(new JSONObject("{\"code\":\"success\"}"));
+		when(HttpCalls.request(anyString(), anyMap(), anyBoolean(), eq("POST"), anyMap()))
+				.thenReturn(new JSONObject("{\"code\":\"Object creation successful\"}"));
+		when(HttpCalls.request(anyString(), anyMap(), anyBoolean(), eq("DELETE"), anyMap()))
+				.thenReturn(new JSONObject("{\"code\":\"Deletion success!\"}"));
+		when(HttpCalls.request(anyString(), anyMap(), anyBoolean(), eq("PATCH"), anyMap()))
+				.thenReturn(new JSONObject("{\"code\":\"Update successful\"}"));
 		JSONObject listResp = advertisingClient.listAdvertisingSchedules("siteId", new HashMap<>());
-		assertEquals(listResp.get("code"),"success");
+		assertEquals(listResp.get("code"), "success");
 		JSONObject createResp = advertisingClient.createAdvertisingSchedule("siteId", new HashMap<>());
-		assertEquals(createResp.get("code"),"Object creation successful");
+		assertEquals(createResp.get("code"), "Object creation successful");
 		JSONObject deleteResp = advertisingClient.deleteAdvertisingScheduleById("siteId", "adScheduleId");
-		assertEquals(deleteResp.get("code"),"Deletion success!");
-		Map<String,String> updateParams = new HashMap<>();
+		assertEquals(deleteResp.get("code"), "Deletion success!");
+		Map<String, String> updateParams = new HashMap<>();
 		updateParams.put("title", "test");
 		JSONObject updateAdResp = advertisingClient.updateAdvertisingSchedule("siteId", "adScheduleId", updateParams);
-		assertEquals(updateAdResp.get("code"),"Update successful");
+		assertEquals(updateAdResp.get("code"), "Update successful");
 		advertisingClient.updateAdvertisingSchedule("siteId", "adScheduleId", new HashMap<>());
 		advertisingClient.retrieveAdvertisingScheduleById("siteId", "adScheduleId", new HashMap<>());
 		PowerMockito.verifyStatic(HttpCalls.class, Mockito.times(6));
 		HttpCalls.request(anyString(), anyMap(), anyBoolean(), anyString(), anyMap());
 		advertisingClient.removeHeader("test");
 	}
-	
+
 	@Test(expected = JWPlatformException.class)
 	public void testGetException() throws JSONException, JWPlatformException {
 		advertisingClient.addHeader("test", "testVal");
 		mockStatic(HttpCalls.class);
-		when(HttpCalls.request(anyString(), anyMap(), anyBoolean(), eq("GET"), anyMap())).thenThrow(new JWPlatformException("some exception occured"));
+		when(HttpCalls.request(anyString(), anyMap(), anyBoolean(), eq("GET"), anyMap()))
+				.thenThrow(new JWPlatformException("some exception occured"));
 		advertisingClient.listAdvertisingSchedules("siteId", new HashMap<>());
 	}
 }

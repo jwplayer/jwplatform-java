@@ -31,7 +31,8 @@ public class TestJWPlatformClientExceptions {
 
   @Parameterized.Parameter
   public String exceptionName;
-  @Parameterized.Parameter(1)
+  @SuppressWarnings("rawtypes")
+@Parameterized.Parameter(1)
   public Class expectedException;
 
   @Parameterized.Parameters(name = "{index}: testCorrectJWPlatformExceptionRaised({0})={1}")
