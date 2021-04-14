@@ -21,7 +21,7 @@ import com.jwplayer.jwplatform.rest.HttpCalls;
  * <p>
  * Example: UploadsClient client = UploadsClient.getClient(secret);
  */
-public class UploadsClient extends JWplatformClientV2 {
+public class UploadsClient extends JWPlatformClientV2 {
 
 	private String path;
 	private final String secret;

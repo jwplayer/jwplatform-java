@@ -21,7 +21,7 @@ import com.jwplayer.jwplatform.rest.HttpCalls;
  * <p>
  * Example: PlaylistsClient client = PlaylistsClient.getClient(secret);
  */
-public class PlaylistsClient extends JWplatformClientV2 {
+public class PlaylistsClient extends JWPlatformClientV2 {
 
 	private String path;
 	private final String secret;

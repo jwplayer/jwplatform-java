@@ -21,7 +21,7 @@ import com.jwplayer.jwplatform.rest.HttpCalls;
  * <p>
  * Example: ImportsClient client = ImportsClient.getClient(secret);
  */
-public class ImportsClient extends JWplatformClientV2 {
+public class ImportsClient extends JWPlatformClientV2 {
 
 	private String path;
 	private final String secret;

@@ -23,73 +23,69 @@ import org.powermock.modules.junit4.PowerMockRunnerDelegate;
 
 @RunWith(PowerMockRunner.class)
 @PowerMockRunnerDelegate(Parameterized.class)
-@PrepareForTest({Unirest.class, HttpResponse.class})
+@PrepareForTest({ Unirest.class, HttpResponse.class })
 public class TestJWPlatformClientExceptions {
 
-  @Rule
-  public ExpectedException exceptionRule = ExpectedException.none();
+	@Rule
+	public ExpectedException exceptionRule = ExpectedException.none();
 
-  @Parameterized.Parameter
-  public String exceptionName;
-  @SuppressWarnings("rawtypes")
-@Parameterized.Parameter(1)
-  public Class expectedException;
+	@Parameterized.Parameter
+	public String exceptionName;
+	@SuppressWarnings("rawtypes")
+	@Parameterized.Parameter(1)
+	public Class expectedException;
 
-  @Parameterized.Parameters(name = "{index}: testCorrectJWPlatformExceptionRaised({0})={1}")
-  public static Iterable<Object[]> data() {
-    return Arrays.asList(
-        new Object[][] {
-            {"NotFoundError", JWPlatformNotFoundException.class},
-            {"NoMethod", JWPlatformNoMethodException.class},
-            {"NotImplemented", JWPlatformNotImplementedException.class},
-            {"NotSupported", JWPlatformNotSupportedException.class},
-            {"CallFailed", JWPlatformCallFailedException.class},
-            {"CallUnavailable", JWPlatformCallUnavailableException.class},
-            {"CallInvalid", JWPlatformCallInvalidException.class},
-            {"ParameterMissing", JWPlatformParameterMissingException.class},
-            {"ParameterEmpty", JWPlatformParameterEmptyException.class},
-            {"ParameterEncoding", JWPlatformParameterEncodingException.class},
-            {"ParameterInvalid", JWPlatformParameterInvalidException.class},
-            {"PreconditionFailed", JWPlatformPreconditionFailedException.class},
-            {"ItemAlreadyExists", JWPlatformItemAlreadyExistsException.class},
-            {"PermissionDenied", JWPlatformPermissionDeniedException.class},
-            {"Database", JWPlatformDatabaseException.class},
-            {"Integrity", JWPlatformIntegrityException.class},
-            {"DigestMissing", JWPlatformDigestMissingException.class},
-            {"DigestInvalid", JWPlatformDigestInvalidException.class},
-            {"FileUploadFailed", JWPlatformFileUploadFailedException.class},
-            {"FileSizeMissing", JWPlatformFileSizeMissingException.class},
-            {"FileSizeInvalid", JWPlatformFileSizeInvalidException.class},
-            {"Internal", JWPlatformInternalException.class},
-            {"ApiKeyMissing", JWPlatformApiKeyMissingException.class},
-            {"ApiKeyInvalid", JWPlatformApiKeyInvalidException.class},
-            {"TimestampMissing", JWPlatformTimestampMissingException.class},
-            {"TimestampInvalid", JWPlatformTimestampInvalidException.class},
-            {"NonceInvalid", JWPlatformNonceInvalidException.class},
-            {"SignatureMissing", JWPlatformSignatureMissingException.class},
-            {"SignatureInvalid", JWPlatformSignatureInvalidException.class},
-            {"RateLimitExceeded", JWPlatformRateLimitExceededException.class},
-            // add twice to test instance conflict
-            {"RateLimitExceeded", JWPlatformRateLimitExceededException.class}
-        });
-  }
+	@Parameterized.Parameters(name = "{index}: testCorrectJWPlatformExceptionRaised({0})={1}")
+	public static Iterable<Object[]> data() {
+		return Arrays.asList(new Object[][] { { "NotFoundError", JWPlatformNotFoundException.class },
+				{ "NoMethod", JWPlatformNoMethodException.class },
+				{ "NotImplemented", JWPlatformNotImplementedException.class },
+				{ "NotSupported", JWPlatformNotSupportedException.class },
+				{ "CallFailed", JWPlatformCallFailedException.class },
+				{ "CallUnavailable", JWPlatformCallUnavailableException.class },
+				{ "CallInvalid", JWPlatformCallInvalidException.class },
+				{ "ParameterMissing", JWPlatformParameterMissingException.class },
+				{ "ParameterEmpty", JWPlatformParameterEmptyException.class },
+				{ "ParameterEncoding", JWPlatformParameterEncodingException.class },
+				{ "ParameterInvalid", JWPlatformParameterInvalidException.class },
+				{ "PreconditionFailed", JWPlatformPreconditionFailedException.class },
+				{ "ItemAlreadyExists", JWPlatformItemAlreadyExistsException.class },
+				{ "PermissionDenied", JWPlatformPermissionDeniedException.class },
+				{ "Database", JWPlatformDatabaseException.class }, { "Integrity", JWPlatformIntegrityException.class },
+				{ "DigestMissing", JWPlatformDigestMissingException.class },
+				{ "DigestInvalid", JWPlatformDigestInvalidException.class },
+				{ "FileUploadFailed", JWPlatformFileUploadFailedException.class },
+				{ "FileSizeMissing", JWPlatformFileSizeMissingException.class },
+				{ "FileSizeInvalid", JWPlatformFileSizeInvalidException.class },
+				{ "Internal", JWPlatformInternalException.class },
+				{ "ApiKeyMissing", JWPlatformApiKeyMissingException.class },
+				{ "ApiKeyInvalid", JWPlatformApiKeyInvalidException.class },
+				{ "TimestampMissing", JWPlatformTimestampMissingException.class },
+				{ "TimestampInvalid", JWPlatformTimestampInvalidException.class },
+				{ "NonceInvalid", JWPlatformNonceInvalidException.class },
+				{ "SignatureMissing", JWPlatformSignatureMissingException.class },
+				{ "SignatureInvalid", JWPlatformSignatureInvalidException.class },
+				{ "RateLimitExceeded", JWPlatformRateLimitExceededException.class },
+				// add twice to test instance conflict
+				{ "RateLimitExceeded", JWPlatformRateLimitExceededException.class } });
+	}
 
-  @Test
-  public void testCorrectJWPlatformExceptionRaised() throws Exception {
-    exceptionRule.expect(expectedException);
+	@Test
+	public void testCorrectJWPlatformExceptionRaised() throws Exception {
+		exceptionRule.expect(expectedException);
 
-    final JWPlatformClient mediaAPIClient = JWPlatformClient.create("fakeApiKey", "fakeApiSecret");
-    final HttpResponse httpResponse = PowerMockito.mock(HttpResponse.class);
-    final GetRequest getRequest = PowerMockito.mock(GetRequest.class);
-    final JsonNode non200ResponseBody = new JsonNode("{\"code\":\"" + exceptionName + "\"}");
-    mockStatic(Unirest.class);
+		final JWPlatformClient mediaAPIClient = JWPlatformClient.create("fakeApiKey", "fakeApiSecret");
+		final HttpResponse httpResponse = PowerMockito.mock(HttpResponse.class);
+		final GetRequest getRequest = PowerMockito.mock(GetRequest.class);
+		final JsonNode non200ResponseBody = new JsonNode("{\"code\":\"" + exceptionName + "\"}");
+		mockStatic(Unirest.class);
 
-    when(Unirest.get(anyString())).thenReturn(getRequest);
-    when(getRequest.headers(anyMap())).thenReturn(getRequest);
-    when(getRequest.asJson()).thenReturn(httpResponse);
-    when(httpResponse.getStatus()).thenReturn(418);
-    when(httpResponse.getBody()).thenReturn(non200ResponseBody);
+		when(Unirest.get(anyString())).thenReturn(getRequest);
+		when(getRequest.headers(anyMap())).thenReturn(getRequest);
+		when(getRequest.asJson()).thenReturn(httpResponse);
+		when(httpResponse.getStatus()).thenReturn(418);
+		when(httpResponse.getBody()).thenReturn(non200ResponseBody);
 
-    mediaAPIClient.request("/v1/videos/create");
-  }
+		mediaAPIClient.request("/v1/videos/create");
+	}
 }

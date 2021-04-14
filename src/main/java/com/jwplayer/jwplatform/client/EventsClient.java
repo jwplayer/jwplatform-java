@@ -21,7 +21,7 @@ import com.jwplayer.jwplatform.rest.HttpCalls;
  * <p>
  * Example: EventsClient client = EventsClient.getClient(secret);
  */
-public class EventsClient extends JWplatformClientV2 {
+public class EventsClient extends JWPlatformClientV2 {
 
 	private String path;
 	private final String secret;

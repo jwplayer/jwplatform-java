@@ -21,7 +21,7 @@ import com.jwplayer.jwplatform.rest.HttpCalls;
  * <p>
  * Example: AdvertisingClient client = AdvertisingClient.getClient(secret);
  */
-public class AdvertisingClient extends JWplatformClientV2 {
+public class AdvertisingClient extends JWPlatformClientV2 {
 
 	private String path;
 	private final String secret;

@@ -21,7 +21,7 @@ import com.jwplayer.jwplatform.rest.HttpCalls;
  * <p>
  * Example: ChannelsClient client = ChannelsClient.getClient(secret);
  */
-public class ChannelsClient extends JWplatformClientV2 {
+public class ChannelsClient extends JWPlatformClientV2 {
 	private String path;
 	private final String secret;
 

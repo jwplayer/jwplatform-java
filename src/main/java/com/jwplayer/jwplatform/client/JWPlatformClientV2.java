@@ -7,7 +7,7 @@ import java.util.Map;
  * @author smurthy Base JWPlatformClient class for V2 providing common
  *         functionalities shared by V2 clients.
  */
-public abstract class JWplatformClientV2 {
+public abstract class JWPlatformClientV2 {
 	protected Map<String, String> headers;
 
 	/**

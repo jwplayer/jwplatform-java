@@ -22,7 +22,7 @@ import com.jwplayer.jwplatform.rest.HttpCalls;
  * Example: ProtectionRulesClient client =
  * ProtectionRulesClient.getClient(secret);
  */
-public class ProtectionRulesClient extends JWplatformClientV2 {
+public class ProtectionRulesClient extends JWPlatformClientV2 {
 	private String path;
 	private final String secret;
 

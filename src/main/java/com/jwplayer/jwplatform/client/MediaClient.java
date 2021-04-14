@@ -21,7 +21,7 @@ import com.jwplayer.jwplatform.rest.HttpCalls;
  * <p>
  * Example: MediaClient client = MediaClient.getClient(secret);
  */
-public class MediaClient extends JWplatformClientV2 {
+public class MediaClient extends JWPlatformClientV2 {
 
 	private String path;
 	private final String secret;

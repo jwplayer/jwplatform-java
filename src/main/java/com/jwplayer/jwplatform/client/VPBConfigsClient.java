@@ -21,7 +21,7 @@ import com.jwplayer.jwplatform.rest.HttpCalls;
  * <p>
  * Example: VPBConfigsClient client = VPBConfigsClient.getClient(secret);
  */
-public class VPBConfigsClient extends JWplatformClientV2 {
+public class VPBConfigsClient extends JWPlatformClientV2 {
 
 	private String path;
 	private final String secret;

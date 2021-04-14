@@ -21,7 +21,7 @@ import com.jwplayer.jwplatform.rest.HttpCalls;
  * <p>
  * Example: WebhooksClient client = WebhooksClient.getClient(secret);
  */
-public class WebhooksClient extends JWplatformClientV2 {
+public class WebhooksClient extends JWPlatformClientV2 {
 
 	private String path;
 	private final String secret;

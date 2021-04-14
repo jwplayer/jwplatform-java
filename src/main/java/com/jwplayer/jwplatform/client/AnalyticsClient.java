@@ -21,7 +21,7 @@ import com.jwplayer.jwplatform.rest.HttpCalls;
  * <p>
  * Example: AnalyticsClient client = AnalyticsClient.getClient(secret);
  */
-public class AnalyticsClient extends JWplatformClientV2 {
+public class AnalyticsClient extends JWPlatformClientV2 {
 
 	private String path;
 	private final String secret;
@@ -63,10 +63,12 @@ public class AnalyticsClient extends JWplatformClientV2 {
 	 */
 	public JSONObject runQuery(String siteId, String source, String format, Map<String, String> params)
 			throws JWPlatformException {
-		if (source == null || source.equals(""))
+		if (source == null || source.equals("")) {
 			source = "default";
-		if (format == null || format.equals(""))
+		}
+		if (format == null || format.equals("")) {
 			format = "json";
+		}
 		this.path = String.format(path, siteId) + "?source=" + source + "&format=" + format;
 		return HttpCalls.request(this.path, params, false, "GET", headers);
 	}
