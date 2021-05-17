@@ -11,7 +11,7 @@ for more information about JW Platform API.
 
 Java 8 and later.
 
-## Install With Maven:
+# Install With Maven:
 
 Add this dependency to your project's POM:
 
@@ -19,17 +19,63 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>com.jwplayer</groupId>
   <artifactId>jwplatform</artifactId>
-  <version>0.4.0</version>
+  <version>1.0.0</version>
 </dependency>
 ```
 
+# V2 Client ##
+
 ## Usage
 
-The following is an example of how to use the client for a video of sourcetype `url`:
+The following is an example of how to use the V2 client, MediaClient, used to access all media v2 api routes:
 
 ```java
 
-import com.jwplayer.jwplatform.JWPlatformClient;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import com.jwplayer.jwplatform.client.MediaClient;
+import com.jwplayer.jwplatform.exception.JWPlatformException;
+
+public class Example {
+
+	public static void main(String[] args) {
+		String apiSecret = "secret";
+
+		try {
+			MediaClient client = MediaClient.getClient(apiSecret);
+
+			// Query params
+			Map<String, String> params = new HashMap<>();
+			params.put("page_length", "10");
+			JSONObject listMediaResponse = client.listAllMedia("yourSiteId", params);
+			System.out.println(listMediaResponse);
+
+			// Show the list of media for the site Id
+			JSONArray media = (JSONArray) listMediaResponse.getJSONArray("media");
+			System.out.println(media);
+		} catch (JWPlatformException e) {
+			e.printStackTrace();
+		}
+	}
+}
+
+```
+
+## V1 Client ##
+
+The V1 Client remains available for use, but is deprecated. **We strongly recommend using the V2 Client.**
+
+## Usage
+
+The following is an example of how to use the V1 client for a video of sourcetype `url`:
+
+```java
+
+import com.jwplayer.jwplatform.v1.JWPlatformClient;
 import com.jwplayer.jwplatform.exception.JWPlatformException;
 import java.util.HashMap;
 import java.util.Map;
@@ -111,12 +157,12 @@ public class JWPlatformClientExample {
 ```
 _**Note**_
 
-In the preceding snippets, all URL paths feature a leading slash. These must be included
+In the preceding **V1 example** snippets, all URL paths feature a leading slash. These must be included
 for the URL builder to work properly.
 
 ## Supported operations
 
-All API methods documentated on the API are available in this client. 
+All API methods documented in our api documentation are available in this client. 
 Please refer to our [api documentation](https://developer.jwplayer.com/jwplayer/reference).
 
 ## ChangeLog 

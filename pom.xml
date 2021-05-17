@@ -6,7 +6,7 @@
 
     <groupId>com.jwplayer</groupId>
     <artifactId>jwplatform</artifactId>
-    <version>0.4.0</version>
+    <version>1.0.0</version>
     <packaging>jar</packaging>
 
     <name>JWPlatform-Java</name>
