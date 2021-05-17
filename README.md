@@ -75,7 +75,7 @@ The following is an example of how to use the V1 client for a video of sourcetyp
 
 ```java
 
-import com.jwplayer.jwplatform.JWPlatformClient;
+import com.jwplayer.jwplatform.v1.JWPlatformClient;
 import com.jwplayer.jwplatform.exception.JWPlatformException;
 import java.util.HashMap;
 import java.util.Map;
