@@ -11,10 +11,7 @@ for more information about JW Platform API.
 
 Java 8 and later.
 
-
-# V2 Client ##
-
-## Install With Maven:
+# Install With Maven:
 
 Add this dependency to your project's POM:
 
@@ -25,6 +22,8 @@ Add this dependency to your project's POM:
   <version>1.0.0</version>
 </dependency>
 ```
+
+# V2 Client ##
 
 ## Usage
 
@@ -43,25 +42,25 @@ import com.jwplayer.jwplatform.exception.JWPlatformException;
 
 public class Example {
 
-    public static void main(String[] args) {
-        String apiSecret = "secret";
-        
-        try {            
-        	MediaClient client = MediaClient.getClient(apiSecret);
-            
-            //Query params
-        	Map<String, String> params = new HashMap<>();
-        	params.put("page_length", "10");
-            JSONObject listMediaResponse = client.listAllMedia("yourSiteId", params);
-            System.out.println(listMediaResponse);
-            
-            // Show the list of media for the site Id
-            JSONArray media = (JSONArray) listMediaResponse.getJSONArray("media");
-            System.out.println(media);
-        } catch (JWPlatformException e) {
-            e.printStackTrace();
-        }
-    }
+	public static void main(String[] args) {
+		String apiSecret = "secret";
+
+		try {
+			MediaClient client = MediaClient.getClient(apiSecret);
+
+			// Query params
+			Map<String, String> params = new HashMap<>();
+			params.put("page_length", "10");
+			JSONObject listMediaResponse = client.listAllMedia("yourSiteId", params);
+			System.out.println(listMediaResponse);
+
+			// Show the list of media for the site Id
+			JSONArray media = (JSONArray) listMediaResponse.getJSONArray("media");
+			System.out.println(media);
+		} catch (JWPlatformException e) {
+			e.printStackTrace();
+		}
+	}
 }
 
 ```
@@ -69,19 +68,6 @@ public class Example {
 ## V1 Client ##
 
 The V1 Client remains available for use, but is deprecated. **We strongly recommend using the V2 Client.**
-
-
-## Install With Maven:
-
-Add this dependency to your project's POM:
-
-```xml
-<dependency>
-  <groupId>com.jwplayer</groupId>
-  <artifactId>jwplatform</artifactId>
-  <version>0.4.0</version>
-</dependency>
-```
 
 ## Usage
 
