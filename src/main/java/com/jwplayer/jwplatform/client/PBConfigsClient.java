@@ -21,7 +21,7 @@ import com.jwplayer.jwplatform.rest.HttpCalls;
  * <p>
  * Example: VPBConfigsClient client = VPBConfigsClient.getClient(secret);
  */
-public class VPBConfigsClient extends JWPlatformClientV2 {
+public class PBConfigsClient extends JWPlatformClientV2 {
 
 	private String path;
 	private final String secret;
@@ -31,9 +31,9 @@ public class VPBConfigsClient extends JWPlatformClientV2 {
 	 *
 	 * @param secret - your api secret
 	 */
-	private VPBConfigsClient(String secret) {
+	private PBConfigsClient(String secret) {
 		this.secret = secret;
-		this.path = "https://api.jwplayer.com/v2/sites/%s/advertising/vpb_configs/";
+		this.path = "https://api.jwplayer.com/v2/sites/%s/advertising/player_bidding_configs/";
 		headers = new HashMap<>();
 		headers.put("Authorization", "Bearer " + this.secret);
 		headers.put("accept", "application/json");
@@ -43,9 +43,9 @@ public class VPBConfigsClient extends JWPlatformClientV2 {
 	/**
 	 * see {@link #VPBConfigsClient(String)}.
 	 */
-	public static VPBConfigsClient getClient(String secret) {
+	public static PBConfigsClient getClient(String secret) {
 		Preconditions.checkNotNull(secret, "API Secret must not be null!");
-		return new VPBConfigsClient(secret);
+		return new PBConfigsClient(secret);
 	}
 
 	/**
@@ -54,8 +54,7 @@ public class VPBConfigsClient extends JWPlatformClientV2 {
 	 * @param params - Parameters to be included in the request
 	 * @return JSON response from Media API
 	 * @throws JWPlatformException See <a href=
-	 *                             "https://developer.jwplayer.com/jwplayer/reference?showHidden=93052#get_v2-sites-site-id-advertising-vpb-configs">List
-	 *                             configs</a>
+	 *                             "https://developer.jwplayer.com/jwplayer/reference/get_v2-sites-site-id-advertising-player-bidding-configs"</a>
 	 */
 	public JSONObject listConfigs(String siteId, Map<String, String> params) throws JWPlatformException {
 		Preconditions.checkNotNull(siteId, "Site ID must not be null!");
@@ -69,8 +68,7 @@ public class VPBConfigsClient extends JWPlatformClientV2 {
 	 * @param bodyParams - Parameters to be included in the request body
 	 * @return JSON response from Media API
 	 * @throws JWPlatformException See <a href=
-	 *                             "https://developer.jwplayer.com/jwplayer/reference?showHidden=93052#post_v2-sites-site-id-advertising-vpb-configs">Create
-	 *                             config</a>
+	 *                             "https://developer.jwplayer.com/jwplayer/reference/post_v2-sites-site-id-advertising-player-bidding-configs"</a>
 	 */
 	public JSONObject createConfig(String siteId, Map<String, String> bodyParams) throws JWPlatformException {
 		Preconditions.checkNotNull(siteId, "Site ID must not be null!");
@@ -86,8 +84,7 @@ public class VPBConfigsClient extends JWPlatformClientV2 {
 	 * @param bodyParams - Parameters to be included in the request body
 	 * @return JSON response from Media API
 	 * @throws JWPlatformException See <a href=
-	 *                             "https://developer.jwplayer.com/jwplayer/reference?showHidden=93052#patch_v2-sites-site-id-advertising-vpb-configs-config-id-">Update
-	 *                             config</a>
+	 *                             "https://developer.jwplayer.com/jwplayer/reference/patch_v2-sites-site-id-advertising-player-bidding-configs-config-id-"</a>
 	 */
 	public JSONObject updateConfig(String siteId, String configId, Map<String, String> bodyParams)
 			throws JWPlatformException {
@@ -105,8 +102,7 @@ public class VPBConfigsClient extends JWPlatformClientV2 {
 	 * @param params   - Parameters to be included in the request
 	 * @return JSON response from Media API
 	 * @throws JWPlatformException See <a href=
-	 *                             "https://developer.jwplayer.com/jwplayer/reference?showHidden=93052#get_v2-sites-site-id-advertising-vpb-configs-config-id-">Get
-	 *                             config by ID</a>
+	 *                             "https://developer.jwplayer.com/jwplayer/reference/get_v2-sites-site-id-advertising-player-bidding-configs-config-id-"</a>
 	 */
 	public JSONObject getConfigById(String siteId, String configId, Map<String, String> params)
 			throws JWPlatformException {
@@ -122,8 +118,7 @@ public class VPBConfigsClient extends JWPlatformClientV2 {
 	 * @param configId - Unique identifier for a resource
 	 * @return JSON response from Media API
 	 * @throws JWPlatformException See <a href=
-	 *                             "https://developer.jwplayer.com/jwplayer/reference?showHidden=93052#delete_v2-sites-site-id-advertising-vpb-configs-config-id-">Delete
-	 *                             config</a>
+	 *                             "https://developer.jwplayer.com/jwplayer/reference/delete_v2-sites-site-id-advertising-player-bidding-configs-config-id-"</a>
 	 */
 	public JSONObject deleteConfig(String siteId, String configId) throws JWPlatformException {
 		Preconditions.checkNotNull(siteId, "Site ID must not be null!");
@@ -138,12 +133,11 @@ public class VPBConfigsClient extends JWPlatformClientV2 {
 	 * @param bodyParams - Parameters to be included in the request body
 	 * @return JSON response from Media API
 	 * @throws JWPlatformException See <a href=
-	 *                             "https://developer.jwplayer.com/jwplayer/reference?showHidden=93052#put_v2-sites-site-id-advertising-update-schedules-vpb-config">Update
-	 *                             schedules</a>
+	 *                             "https://developer.jwplayer.com/jwplayer/reference/put_v2-sites-site-id-advertising-update-schedules-player-bidding-configs"</a>
 	 */
 	public JSONObject updateSchedules(String siteId, Map<String, String> bodyParams) throws JWPlatformException {
 		Preconditions.checkNotNull(siteId, "Site ID must not be null!");
-		this.path = "https://api.jwplayer.com/v2/sites/" + siteId + "/advertising/update_schedules_vpb_config/";
+		this.path = "https://api.jwplayer.com/v2/sites/" + siteId + "/advertising/update_schedules_player_bidding_configs/";
 		return HttpCalls.request(this.path, bodyParams, false, "PUT", headers);
 	}
 
