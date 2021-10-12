@@ -44,7 +44,7 @@ public class UsageClientTest {
 	}
 
 	@Test(expected = JWPlatformException.class)
-	public void testTagsException() throws JSONException, JWPlatformException {
+	public void testUsageException() throws JSONException, JWPlatformException {
 		usageClient.addHeader("test", "testVal");
 		mockStatic(HttpCalls.class);
 		when(HttpCalls.request(anyString(), anyMap(), anyBoolean(), eq("PUT"), anyMap()))
