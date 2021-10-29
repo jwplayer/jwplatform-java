@@ -1,7 +1,6 @@
 ## 1.0.1
 
-* Add V2 Clients for Text tracks, Tags, Usage.
-* Update PBConfigsClient to reflect changes in host/path _This is a Breaking change_
+* Add V2 Clients for Text tracks, Tags, Usage, Player Bidding Configs.
 
 ## 1.0.0
 
