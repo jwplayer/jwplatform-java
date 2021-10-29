@@ -55,6 +55,7 @@ public class PlaylistsClientTest {
 		playlistsClient.createDynamicPlaylist("siteId", params);
 		playlistsClient.createManualPlaylist("siteId", params);
 		playlistsClient.createRecommendationsPlaylist("siteId", params);
+		playlistsClient.createWatchlistPlaylist("siteId", params);
 		playlistsClient.createSearchPlaylist("siteId", params);
 		JSONObject createResp = playlistsClient.createTrendingPlaylist("siteId", params);
 		assertEquals(createResp.get("code"), "Object creation successful");
@@ -63,6 +64,7 @@ public class PlaylistsClientTest {
 		playlistsClient.deleteDynamicPlaylist("siteId", "playListID");
 		playlistsClient.deleteManualPlaylist("siteId", "playListID");
 		playlistsClient.deleteRecommendationsPlaylist("siteId", "playListID");
+		playlistsClient.deleteWatchlistPlaylist("siteId", "playListID");
 		playlistsClient.deleteSearchPlaylist("siteId", "playListID");
 		playlistsClient.deleteTrendingPlaylist("siteId", "playListID");
 		JSONObject deleteResp = playlistsClient.deletePlaylistById("siteId", "playListID");
@@ -76,6 +78,7 @@ public class PlaylistsClientTest {
 		playlistsClient.updateManualPlaylist("siteId", "playListID", new HashMap<>());
 		playlistsClient.updateRecommendationsPlaylist("siteId", "playListID", params);
 		playlistsClient.updateRecommendationsPlaylist("siteId", "playListID", new HashMap<>());
+		playlistsClient.updateWatchlistPlaylist("siteId", "playListID", new HashMap<>());
 		playlistsClient.updateSearchPlaylist("siteId", "playListID", params);
 		playlistsClient.updateSearchPlaylist("siteId", "playListID", new HashMap<>());
 		playlistsClient.updateTrendingPlaylist("siteId", "playListID", params);
@@ -86,11 +89,12 @@ public class PlaylistsClientTest {
 		playlistsClient.retrieveDynamicPlaylistById("siteId", "playListID", new HashMap<>());
 		playlistsClient.retrieveManualPlaylistById("siteId", "playListID", new HashMap<>());
 		playlistsClient.retrieveRecommendationsPlaylistById("siteId", "playListID", new HashMap<>());
+		playlistsClient.retrieveWatchlistPlaylistById("siteId", "playListID", new HashMap<>());
 		playlistsClient.retrieveSearchPlaylistById("siteId", "playListID", new HashMap<>());
 		playlistsClient.retrieveTrendingPlaylistById("siteId", "playListID", new HashMap<>());
 		playlistsClient.retrievePlaylistById("siteId", "playListID", new HashMap<>());
 
-		PowerMockito.verifyStatic(HttpCalls.class, Mockito.times(39));
+		PowerMockito.verifyStatic(HttpCalls.class, Mockito.times(43));
 		HttpCalls.request(anyString(), anyMap(), anyBoolean(), anyString(), anyMap());
 		playlistsClient.removeHeader("test");
 	}

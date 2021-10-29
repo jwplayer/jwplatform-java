@@ -1,6 +1,7 @@
 ## 1.0.1
 
-* Add V2 Clients for Text tracks, Tags, Usage, Player Bidding Configs.
+* Add V2 Clients for Text tracks, Tags, Usage, Player Bidding Configs, Originals, Media Renditions, Thumbnails.
+* Update Playlists client to include watchlist.
 
 ## 1.0.0
 
