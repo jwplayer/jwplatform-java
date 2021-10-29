@@ -54,7 +54,7 @@ public class PlayerBiddingConfigClient extends JWPlatformClientV2 {
 	 * @param params - Parameters to be included in the request
 	 * @return JSON response from Media API
 	 * @throws JWPlatformException See <a href=
-	 *                             "https://developer.jwplayer.com/jwplayer/reference/get_v2-sites-site-id-advertising-player-bidding-configs"</a>
+	 *                             "https://developer.jwplayer.com/jwplayer/reference/get_v2-sites-site-id-advertising-player-bidding-configs">List Configs</a>
 	 */
 	public JSONObject listConfigs(String siteId, Map<String, String> params) throws JWPlatformException {
 		Preconditions.checkNotNull(siteId, "Site ID must not be null!");
@@ -68,7 +68,7 @@ public class PlayerBiddingConfigClient extends JWPlatformClientV2 {
 	 * @param bodyParams - Parameters to be included in the request body
 	 * @return JSON response from Media API
 	 * @throws JWPlatformException See <a href=
-	 *                             "https://developer.jwplayer.com/jwplayer/reference/post_v2-sites-site-id-advertising-player-bidding-configs"</a>
+	 *                             "https://developer.jwplayer.com/jwplayer/reference/post_v2-sites-site-id-advertising-player-bidding-configs">Create Configs</a>
 	 */
 	public JSONObject createConfig(String siteId, Map<String, String> bodyParams) throws JWPlatformException {
 		Preconditions.checkNotNull(siteId, "Site ID must not be null!");
@@ -84,7 +84,7 @@ public class PlayerBiddingConfigClient extends JWPlatformClientV2 {
 	 * @param bodyParams - Parameters to be included in the request body
 	 * @return JSON response from Media API
 	 * @throws JWPlatformException See <a href=
-	 *                             "https://developer.jwplayer.com/jwplayer/reference/patch_v2-sites-site-id-advertising-player-bidding-configs-config-id-"</a>
+	 *                             "https://developer.jwplayer.com/jwplayer/reference/patch_v2-sites-site-id-advertising-player-bidding-configs-config-id-">Update Config</a>
 	 */
 	public JSONObject updateConfig(String siteId, String configId, Map<String, String> bodyParams)
 			throws JWPlatformException {
@@ -102,7 +102,7 @@ public class PlayerBiddingConfigClient extends JWPlatformClientV2 {
 	 * @param params   - Parameters to be included in the request
 	 * @return JSON response from Media API
 	 * @throws JWPlatformException See <a href=
-	 *                             "https://developer.jwplayer.com/jwplayer/reference/get_v2-sites-site-id-advertising-player-bidding-configs-config-id-"</a>
+	 *                             "https://developer.jwplayer.com/jwplayer/reference/get_v2-sites-site-id-advertising-player-bidding-configs-config-id-">Get Config By ID</a>
 	 */
 	public JSONObject getConfigById(String siteId, String configId, Map<String, String> params)
 			throws JWPlatformException {
@@ -118,7 +118,7 @@ public class PlayerBiddingConfigClient extends JWPlatformClientV2 {
 	 * @param configId - Unique identifier for a resource
 	 * @return JSON response from Media API
 	 * @throws JWPlatformException See <a href=
-	 *                             "https://developer.jwplayer.com/jwplayer/reference/delete_v2-sites-site-id-advertising-player-bidding-configs-config-id-"</a>
+	 *                             "https://developer.jwplayer.com/jwplayer/reference/delete_v2-sites-site-id-advertising-player-bidding-configs-config-id-">Delete Config</a>
 	 */
 	public JSONObject deleteConfig(String siteId, String configId) throws JWPlatformException {
 		Preconditions.checkNotNull(siteId, "Site ID must not be null!");
@@ -133,7 +133,7 @@ public class PlayerBiddingConfigClient extends JWPlatformClientV2 {
 	 * @param bodyParams - Parameters to be included in the request body
 	 * @return JSON response from Media API
 	 * @throws JWPlatformException See <a href=
-	 *                             "https://developer.jwplayer.com/jwplayer/reference/put_v2-sites-site-id-advertising-update-schedules-player-bidding-configs"</a>
+	 *                             "https://developer.jwplayer.com/jwplayer/reference/put_v2-sites-site-id-advertising-update-schedules-player-bidding-configs">Update Schedules</a>
 	 */
 	public JSONObject updateSchedules(String siteId, Map<String, String> bodyParams) throws JWPlatformException {
 		Preconditions.checkNotNull(siteId, "Site ID must not be null!");

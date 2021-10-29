@@ -54,7 +54,7 @@ public class TextTracksClient extends JWPlatformClientV2 {
 	 * @param params - Parameters to be included in the request
 	 * @return JSON response from Text Tracks API
 	 * @throws JWPlatformException See <a href=
-	 *                             "https://developer.jwplayer.com/jwplayer/reference/get_v2-sites-site-id-media-media-id-text-tracks"</a>
+	 *                             "https://developer.jwplayer.com/jwplayer/reference/get_v2-sites-site-id-media-media-id-text-tracks">Text Tracks Client</a>
 	 */
 	public JSONObject listTextTracks(String siteId, String mediaId, Map<String, String> params) throws JWPlatformException {
 		Preconditions.checkNotNull(siteId, "Site ID must not be null!");
@@ -69,7 +69,7 @@ public class TextTracksClient extends JWPlatformClientV2 {
 	 * @param bodyParams - Parameters to be included in the request body
 	 * @return JSON response from Text Tracks API
 	 * @throws JWPlatformException See <a href=
-	 *                             "https://developer.jwplayer.com/jwplayer/reference/post_v2-sites-site-id-media-media-id-text-tracks"</a>
+	 *                             "https://developer.jwplayer.com/jwplayer/reference/post_v2-sites-site-id-media-media-id-text-tracks">Create Track</a>
 	 */
 	public JSONObject createTextTrack(String siteId,  String mediaId, Map<String, String> bodyParams) throws JWPlatformException {
 		Preconditions.checkNotNull(siteId, "Site ID must not be null!");
@@ -86,7 +86,7 @@ public class TextTracksClient extends JWPlatformClientV2 {
 	 * @param bodyParams - Parameters to be included in the request body
 	 * @return JSON response from Text Tracks API
 	 * @throws JWPlatformException See <a href=
-	 *                             "https://developer.jwplayer.com/jwplayer/reference/patch_v2-sites-site-id-media-media-id-text-tracks-track-id-"</a>
+	 *                             "https://developer.jwplayer.com/jwplayer/reference/patch_v2-sites-site-id-media-media-id-text-tracks-track-id-">Update Track</a>
 	 */
 	public JSONObject updateTextTrack(String siteId, String mediaId, String trackId, Map<String, String> bodyParams)
 			throws JWPlatformException {
@@ -105,7 +105,7 @@ public class TextTracksClient extends JWPlatformClientV2 {
 	 * @param params   - Parameters to be included in the request
 	 * @return JSON response from Text Tracks API
 	 * @throws JWPlatformException See <a href=
-	 *                             "https://developer.jwplayer.com/jwplayer/reference/get_v2-sites-site-id-media-media-id-text-tracks-track-id-"</a>
+	 *                             "https://developer.jwplayer.com/jwplayer/reference/get_v2-sites-site-id-media-media-id-text-tracks-track-id-">Get Track</a>
 	 */
 	public JSONObject getTextTrackById(String siteId, String mediaId, String trackId, Map<String, String> params)
 			throws JWPlatformException {
@@ -123,7 +123,7 @@ public class TextTracksClient extends JWPlatformClientV2 {
 	 * @param trackId - Unique identifier for a Track
 	 * @return JSON response from Text Tracks API
 	 * @throws JWPlatformException See <a href=
-	 *                             "https://developer.jwplayer.com/jwplayer/reference/delete_v2-sites-site-id-media-media-id-text-tracks-track-id-"</a>
+	 *                             "https://developer.jwplayer.com/jwplayer/reference/delete_v2-sites-site-id-media-media-id-text-tracks-track-id-">Delete Track</a>
 	 */
 	public JSONObject deleteTextTrack(String siteId, String mediaId, String trackId) throws JWPlatformException {
 		Preconditions.checkNotNull(siteId, "Site ID must not be null!");
@@ -138,10 +138,10 @@ public class TextTracksClient extends JWPlatformClientV2 {
 	 * @param siteId - PropertyID
 	 * @param mediaId - Unique identifier for a Media
 	 * @param trackId - Unique identifier for a Track
-	 * @param params - Parameters to be included in the request
+	 * @param bodyParams - Parameters to be included in the request
 	 * @return JSON response from Text Tracks API
 	 * @throws JWPlatformException See <a href=
-	 *                             "https://developer.jwplayer.com/jwplayer/reference/put_v2-sites-site-id-media-media-id-text-tracks-track-id-publish"</a>
+	 *                             "https://developer.jwplayer.com/jwplayer/reference/put_v2-sites-site-id-media-media-id-text-tracks-track-id-publish">Publish Text Track</a>
 	 */
 	public JSONObject publishTextTrack(String siteId, String mediaId, String trackId, Map<String, String> bodyParams) throws JWPlatformException {
 		Preconditions.checkNotNull(siteId, "Site ID must not be null!");
@@ -156,10 +156,10 @@ public class TextTracksClient extends JWPlatformClientV2 {
 	 * @param siteId - PropertyID
 	 * @param mediaId - Unique identifier for a Media
 	 * @param trackId - Unique identifier for a Track
-	 * @param params - Parameters to be included in the request
+	 * @param bodyParams - Parameters to be included in the request
 	 * @return JSON response from Text Tracks API
 	 * @throws JWPlatformException See <a href=
-	 *                             "https://developer.jwplayer.com/jwplayer/reference/put_v2-sites-site-id-media-media-id-text-tracks-track-id-publish"</a>
+	 *                             "https://developer.jwplayer.com/jwplayer/reference/put_v2-sites-site-id-media-media-id-text-tracks-track-id-publish">Unpublish Text Track</a>
 	 */
 	public JSONObject unpublishTextTrack(String siteId, String mediaId, String trackId, Map<String, String> bodyParams) throws JWPlatformException {
 		Preconditions.checkNotNull(siteId, "Site ID must not be null!");

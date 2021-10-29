@@ -51,10 +51,10 @@ public class TagsClient extends JWPlatformClientV2 {
 	/**
 	 * 
 	 * @param siteId - PropertyID
-	 * @param params - Parameters to be included in the request
+	 * @param bodyParams - Parameters to be included in the request
 	 * @return JSON response from Tags APIs
 	 * @throws JWPlatformException See <a href=
-	 *                             "https://developer.jwplayer.com/jwplayer/reference/put_v2-sites-site-id-remove-tag"</a>
+	 *                             "https://developer.jwplayer.com/jwplayer/reference/put_v2-sites-site-id-remove-tag">Bulk Remove Tag</a>
 	 */
 	public JSONObject bulkRemoveTag(String siteId, Map<String, String> bodyParams) throws JWPlatformException {
 		Preconditions.checkNotNull(siteId, "Site ID must not be null!");
@@ -65,10 +65,10 @@ public class TagsClient extends JWPlatformClientV2 {
 	/**
 	 * 
 	 * @param siteId - PropertyID
-	 * @param params - Parameters to be included in the request
+	 * @param bodyParams - Parameters to be included in the request
 	 * @return JSON response from Tags API
 	 * @throws JWPlatformException See <a href=
-	 *                             "https://developer.jwplayer.com/jwplayer/reference/put_v2-sites-site-id-rename-tag"</a>
+	 *                             "https://developer.jwplayer.com/jwplayer/reference/put_v2-sites-site-id-rename-tag">Bulk Rename Tag</a>
 	 */
 	public JSONObject bulkRenameTag(String siteId, Map<String, String> bodyParams) throws JWPlatformException {
 		Preconditions.checkNotNull(siteId, "Site ID must not be null!");

@@ -50,10 +50,10 @@ public class UsageClient extends JWPlatformClientV2 {
 	
 	/**
 	 * 
-	 * @param params - Parameters to be included in the request
+	 * @param bodyParams - Parameters to be included in the request
 	 * @return JSON response from Usage API
 	 * @throws JWPlatformException See <a href=
-	 *                             "https://developer.jwplayer.com/jwplayer/reference/put_v2-query-usage"</a>
+	 *                             "https://developer.jwplayer.com/jwplayer/reference/put_v2-query-usage">Query Account Usage</a>
 	 */
 	public JSONObject queryAccountUsage(Map<String, String> bodyParams) throws JWPlatformException {
 		this.path = this.path+ "query_usage/";
@@ -63,10 +63,10 @@ public class UsageClient extends JWPlatformClientV2 {
 	/**
 	 * 
 	 * @param siteId - PropertyID
-	 * @param params - Parameters to be included in the request
+	 * @param bodyParams - Parameters to be included in the request
 	 * @return JSON response from Usage API
 	 * @throws JWPlatformException See <a href=
-	 *                             "https://developer.jwplayer.com/jwplayer/reference/put_v2-sites-site-id-query-usage"</a>
+	 *                             "https://developer.jwplayer.com/jwplayer/reference/put_v2-sites-site-id-query-usage">Query Site Usage</a>
 	 */
 	public JSONObject querySiteUsage(String siteId, Map<String, String> bodyParams) throws JWPlatformException {
 		Preconditions.checkNotNull(siteId, "Site ID must not be null!");
