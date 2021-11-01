@@ -25,13 +25,13 @@ import com.jwplayer.jwplatform.rest.HttpCalls;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({ HttpCalls.class })
-public class VPBConfigsClientTest {
+public class MediaRenditionTest {
 
-	VPBConfigsClient vpbConfigsClient = VPBConfigsClient.getClient("fakeSecret");
+	MediaRenditionClient mediaRenditionClient = MediaRenditionClient.getClient("fakeSecret");
 
 	@Test
 	public void testAllMethods() throws JWPlatformException {
-		vpbConfigsClient.addHeader("test", "testVal");
+		mediaRenditionClient.addHeader("test", "testVal");
 		mockStatic(HttpCalls.class);
 		when(HttpCalls.request(anyString(), anyMap(), anyBoolean(), eq("GET"), anyMap()))
 				.thenReturn(new JSONObject("{\"code\":\"success\"}"));
@@ -43,31 +43,28 @@ public class VPBConfigsClientTest {
 				.thenReturn(new JSONObject("{\"code\":\"Update successful\"}"));
 		when(HttpCalls.request(anyString(), anyMap(), anyBoolean(), eq("PUT"), anyMap()))
 				.thenReturn(new JSONObject("{\"code\":\"Put successful\"}"));
-		JSONObject listResp = vpbConfigsClient.listConfigs("siteId", new HashMap<>());
+		JSONObject listResp = mediaRenditionClient.listMediaRenditions("siteId", "mediaId",new HashMap<>());
 		assertEquals(listResp.get("code"), "success");
-		JSONObject deleteResp = vpbConfigsClient.deleteConfig("siteId", "configId");
+		JSONObject deleteResp = mediaRenditionClient.deleteRendition("siteId", "mediaId", "renditionId");
 		assertEquals(deleteResp.get("code"), "Deletion success!");
 		Map<String, String> params = new HashMap<>();
 		params.put("title", "test");
-		vpbConfigsClient.createConfig("siteId", new HashMap<>());
-		vpbConfigsClient.createConfig("siteId", params);
-		vpbConfigsClient.updateConfig("siteId", "configId", params);
-		vpbConfigsClient.updateConfig("siteId", "configId", new HashMap<>());
-		vpbConfigsClient.getConfigById("siteId", "configId", new HashMap<>());
-		JSONObject updateAdResp = vpbConfigsClient.updateSchedules("siteId", params);
-		assertEquals(updateAdResp.get("code"), "Put successful");
-		vpbConfigsClient.updateSchedules("siteId", new HashMap<>());
-		PowerMockito.verifyStatic(HttpCalls.class, Mockito.times(9));
+		mediaRenditionClient.createRendition("siteId", "mediaId", new HashMap<>());
+		mediaRenditionClient.createRendition("siteId", "mediaId", params);
+		mediaRenditionClient.listMediaRenditions("siteId","mediaId", params);
+		mediaRenditionClient.deleteRendition("siteId","mediaId", "renditionId");
+		mediaRenditionClient.getRenditionById("siteId", "mediaId", "renditionId", new HashMap<>());
+		PowerMockito.verifyStatic(HttpCalls.class, Mockito.times(7));
 		HttpCalls.request(anyString(), anyMap(), anyBoolean(), anyString(), anyMap());
-		vpbConfigsClient.removeHeader("test");
+		mediaRenditionClient.removeHeader("test");
 	}
 
 	@Test(expected = JWPlatformException.class)
-	public void testGetVpbConfigsException() throws JSONException, JWPlatformException {
-		vpbConfigsClient.addHeader("test", "testVal");
+	public void testGetMediaRenditionException() throws JSONException, JWPlatformException {
+		mediaRenditionClient.addHeader("test", "testVal");
 		mockStatic(HttpCalls.class);
 		when(HttpCalls.request(anyString(), anyMap(), anyBoolean(), eq("GET"), anyMap()))
 				.thenThrow(new JWPlatformException("some exception occured"));
-		vpbConfigsClient.listConfigs("siteId", new HashMap<>());
+		mediaRenditionClient.listMediaRenditions("siteId", "mediaId", new HashMap<>());
 	}
 }

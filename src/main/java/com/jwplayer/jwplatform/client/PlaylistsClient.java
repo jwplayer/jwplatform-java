@@ -512,5 +512,75 @@ public class PlaylistsClient extends JWPlatformClientV2 {
 		this.path = String.format(this.path, siteId) + playlistId + "/recommendations_playlist/";
 		return HttpCalls.request(this.path, new HashMap<>(), false, "DELETE", headers);
 	}
+	
+	/**
+	 * 
+	 * @param siteId     - PropertyID
+	 * @param bodyParams - Parameters to be included in the request body
+	 * @return JSON response from Playlists API
+	 * @throws JWPlatformException See <a href=
+	 *                             "https://developer.jwplayer.com/jwplayer/reference/post_v2-sites-site-id-playlists-watchlist-playlist">Create
+	 *                             Watchlist playlist</a>
+	 */
+	public JSONObject createWatchlistPlaylist(String siteId, Map<String, String> bodyParams)
+			throws JWPlatformException {
+		Preconditions.checkNotNull(siteId, "Site ID must not be null!");
+		this.path = String.format(this.path, siteId) + "watchlist_playlist/";
+		final boolean isBodyParams = bodyParams.size() > 0;
+		return HttpCalls.request(this.path, bodyParams, isBodyParams, "POST", headers);
+	}
+
+	/**
+	 * 
+	 * @param siteId     - PropertyID
+	 * @param playlistId - Alphanumeric Playlist ID
+	 * @param params     - Parameters to be included in the request
+	 * @return JSON response from Playlists API
+	 * @throws JWPlatformException See <a href=
+	 *                             "https://developer.jwplayer.com/jwplayer/reference/get_v2-sites-site-id-playlists-playlist-id-watchlist-playlist">Retrieve
+	 *                             Watchlist playlist by ID</a>
+	 */
+	public JSONObject retrieveWatchlistPlaylistById(String siteId, String playlistId, Map<String, String> params)
+			throws JWPlatformException {
+		Preconditions.checkNotNull(siteId, "Site ID must not be null!");
+		Preconditions.checkNotNull(playlistId, "Playlist ID must not be null!");
+		this.path = String.format(this.path, siteId) + playlistId + "/watchlist_playlist/";
+		return HttpCalls.request(this.path, params, false, "GET", headers);
+	}
+
+	/**
+	 * 
+	 * @param siteId     - PropertyID
+	 * @param playlistId - Alphanumeric Playlist ID
+	 * @param bodyParams - Parameters to be included in the request body
+	 * @return JSON response from Playlists API
+	 * @throws JWPlatformException See <a href=
+	 *                             "https://developer.jwplayer.com/jwplayer/reference/patch_v2-sites-site-id-playlists-playlist-id-watchlist-playlist">Update
+	 *                             Watchlist playlist</a>
+	 */
+	public JSONObject updateWatchlistPlaylist(String siteId, String playlistId, Map<String, String> bodyParams)
+			throws JWPlatformException {
+		Preconditions.checkNotNull(siteId, "Site ID must not be null!");
+		Preconditions.checkNotNull(playlistId, "Playlist ID must not be null!");
+		this.path = String.format(this.path, siteId) + playlistId + "/watchlist_playlist/";
+		final boolean isBodyParams = bodyParams.size() > 0;
+		return HttpCalls.request(this.path, bodyParams, isBodyParams, "PATCH", headers);
+	}
+
+	/**
+	 * 
+	 * @param siteId     - PropertyID
+	 * @param playlistId - Alphanumeric Playlist ID
+	 * @return JSON response from Playlists API
+	 * @throws JWPlatformException See <a href=
+	 *                             "https://developer.jwplayer.com/jwplayer/reference/delete_v2-sites-site-id-playlists-playlist-id-watchlist-playlist">Delete
+	 *                             Watchlist Playlist</a>
+	 */
+	public JSONObject deleteWatchlistPlaylist(String siteId, String playlistId) throws JWPlatformException {
+		Preconditions.checkNotNull(siteId, "Site ID must not be null!");
+		Preconditions.checkNotNull(playlistId, "Playlist ID must not be null!");
+		this.path = String.format(this.path, siteId) + playlistId + "/watchlist_playlist/";
+		return HttpCalls.request(this.path, new HashMap<>(), false, "DELETE", headers);
+	}
 
 }

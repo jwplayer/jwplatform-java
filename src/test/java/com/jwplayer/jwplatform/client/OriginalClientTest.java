@@ -25,13 +25,13 @@ import com.jwplayer.jwplatform.rest.HttpCalls;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({ HttpCalls.class })
-public class VPBConfigsClientTest {
+public class OriginalClientTest {
 
-	VPBConfigsClient vpbConfigsClient = VPBConfigsClient.getClient("fakeSecret");
+	OriginalClient originalClient = OriginalClient.getClient("fakeSecret");
 
 	@Test
 	public void testAllMethods() throws JWPlatformException {
-		vpbConfigsClient.addHeader("test", "testVal");
+		originalClient.addHeader("test", "testVal");
 		mockStatic(HttpCalls.class);
 		when(HttpCalls.request(anyString(), anyMap(), anyBoolean(), eq("GET"), anyMap()))
 				.thenReturn(new JSONObject("{\"code\":\"success\"}"));
@@ -43,31 +43,29 @@ public class VPBConfigsClientTest {
 				.thenReturn(new JSONObject("{\"code\":\"Update successful\"}"));
 		when(HttpCalls.request(anyString(), anyMap(), anyBoolean(), eq("PUT"), anyMap()))
 				.thenReturn(new JSONObject("{\"code\":\"Put successful\"}"));
-		JSONObject listResp = vpbConfigsClient.listConfigs("siteId", new HashMap<>());
+		JSONObject listResp = originalClient.listOriginals("siteId", "mediaId", new HashMap<>());
 		assertEquals(listResp.get("code"), "success");
-		JSONObject deleteResp = vpbConfigsClient.deleteConfig("siteId", "configId");
+		JSONObject deleteResp = originalClient.deleteOriginal("siteId", "mediaId", "originalId");
 		assertEquals(deleteResp.get("code"), "Deletion success!");
 		Map<String, String> params = new HashMap<>();
 		params.put("title", "test");
-		vpbConfigsClient.createConfig("siteId", new HashMap<>());
-		vpbConfigsClient.createConfig("siteId", params);
-		vpbConfigsClient.updateConfig("siteId", "configId", params);
-		vpbConfigsClient.updateConfig("siteId", "configId", new HashMap<>());
-		vpbConfigsClient.getConfigById("siteId", "configId", new HashMap<>());
-		JSONObject updateAdResp = vpbConfigsClient.updateSchedules("siteId", params);
-		assertEquals(updateAdResp.get("code"), "Put successful");
-		vpbConfigsClient.updateSchedules("siteId", new HashMap<>());
-		PowerMockito.verifyStatic(HttpCalls.class, Mockito.times(9));
+		originalClient.createOriginals("siteId", "mediaId", new HashMap<>());
+		originalClient.createOriginals("siteId", "mediaId", params);
+		originalClient.updateOriginal("siteId", "mediaId", "originalId", params);
+		originalClient.updateOriginal("siteId", "mediaId", "originalId", new HashMap<>());
+		originalClient.getOriginalById("siteId", "mediaId", "originalId", new HashMap<>());
+		originalClient.deleteOriginal("siteId", "mediaId", "originalId");
+		PowerMockito.verifyStatic(HttpCalls.class, Mockito.times(8));
 		HttpCalls.request(anyString(), anyMap(), anyBoolean(), anyString(), anyMap());
-		vpbConfigsClient.removeHeader("test");
+		originalClient.removeHeader("test");
 	}
 
 	@Test(expected = JWPlatformException.class)
-	public void testGetVpbConfigsException() throws JSONException, JWPlatformException {
-		vpbConfigsClient.addHeader("test", "testVal");
+	public void testGetOriginalsException() throws JSONException, JWPlatformException {
+		originalClient.addHeader("test", "testVal");
 		mockStatic(HttpCalls.class);
 		when(HttpCalls.request(anyString(), anyMap(), anyBoolean(), eq("GET"), anyMap()))
 				.thenThrow(new JWPlatformException("some exception occured"));
-		vpbConfigsClient.listConfigs("siteId", new HashMap<>());
+		originalClient.listOriginals("siteId", "mediaId", new HashMap<>());
 	}
 }
