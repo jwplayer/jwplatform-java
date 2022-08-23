@@ -35,7 +35,7 @@ public class OriginalClient extends JWPlatformClientV2 {
 		this.secret = secret;
 		this.path = "https://api.jwplayer.com/v2/sites/%s/media/%s/originals/";
 		headers = new HashMap<>();
-		headers.put("Authorization", "Bearer " + this.secret);
+		headers.put("Authorization", this.secret);
 		headers.put("accept", "application/json");
 		headers.put("Content-Type", "application/json");
 	}
